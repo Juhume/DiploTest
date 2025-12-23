@@ -1,0 +1,197 @@
+[
+  {
+    "id": "real-2023-q1",
+    "stem": "Según el artículo 97 de la Constitución Española, el Gobierno dirige:",
+    "options": [
+      { "id": "A", "text": "La política interior y exterior" },
+      { "id": "B", "text": "La Administración civil y militar" },
+      { "id": "C", "text": "La defensa del Estado" },
+      { "id": "D", "text": "Todas las anteriores son correctas" }
+    ],
+    "correct": ["D"],
+    "tags": ["constitucion-espanola", "gobierno"],
+    "multi": false
+  },
+  {
+    "id": "real-2023-q2",
+    "stem": "¿En qué año España ingresó en la Comunidad Económica Europea?",
+    "options": [
+      { "id": "A", "text": "1982" },
+      { "id": "B", "text": "1986" },
+      { "id": "C", "text": "1990" },
+      { "id": "D", "text": "1992" }
+    ],
+    "correct": ["B"],
+    "tags": ["union-europea", "historia-espana"],
+    "multi": false
+  },
+  {
+    "id": "real-2023-q3",
+    "stem": "El Alto Representante de la Unión para Asuntos Exteriores y Política de Seguridad es nombrado por:",
+    "options": [
+      { "id": "A", "text": "El Parlamento Europeo" },
+      { "id": "B", "text": "La Comisión Europea" },
+      { "id": "C", "text": "El Consejo Europeo, con la aprobación del Presidente de la Comisión" },
+      { "id": "D", "text": "Los Estados miembros por unanimidad" }
+    ],
+    "correct": ["C"],
+    "tags": ["union-europea", "instituciones"],
+    "multi": false
+  },
+  {
+    "id": "real-2023-q4",
+    "stem": "¿Cuáles de los siguientes son órganos principales de las Naciones Unidas según la Carta? (Seleccione todas las correctas)",
+    "options": [
+      { "id": "A", "text": "El Consejo de Derechos Humanos" },
+      { "id": "B", "text": "El Consejo de Administración Fiduciaria" },
+      { "id": "C", "text": "La Secretaría" },
+      { "id": "D", "text": "El Consejo Económico y Social" }
+    ],
+    "correct": ["B", "C", "D"],
+    "tags": ["onu", "organizaciones-internacionales"],
+    "multi": true
+  },
+  {
+    "id": "real-2023-q5",
+    "stem": "La Convención de Viena sobre el Derecho de los Tratados fue adoptada en:",
+    "options": [
+      { "id": "A", "text": "1961" },
+      { "id": "B", "text": "1963" },
+      { "id": "C", "text": "1969" },
+      { "id": "D", "text": "1975" }
+    ],
+    "correct": ["C"],
+    "tags": ["derecho-internacional", "tratados"],
+    "multi": false
+  },
+  {
+    "id": "real-2022-q1",
+    "stem": "Según el artículo 63 de la Constitución Española, ¿quién acredita a los embajadores y otros representantes diplomáticos?",
+    "options": [
+      { "id": "A", "text": "El Presidente del Gobierno" },
+      { "id": "B", "text": "El Ministro de Asuntos Exteriores" },
+      { "id": "C", "text": "El Rey" },
+      { "id": "D", "text": "Las Cortes Generales" }
+    ],
+    "correct": ["C"],
+    "tags": ["constitucion-espanola", "jefatura-estado"],
+    "multi": false
+  },
+  {
+    "id": "real-2022-q2",
+    "stem": "El principio de no intervención en los asuntos internos de los Estados está recogido en:",
+    "options": [
+      { "id": "A", "text": "El artículo 2.7 de la Carta de las Naciones Unidas" },
+      { "id": "B", "text": "El artículo 51 de la Carta de las Naciones Unidas" },
+      { "id": "C", "text": "La Declaración Universal de Derechos Humanos" },
+      { "id": "D", "text": "El Estatuto de la Corte Internacional de Justicia" }
+    ],
+    "correct": ["A"],
+    "tags": ["onu", "derecho-internacional", "principios"],
+    "multi": false
+  },
+  {
+    "id": "real-2022-q3",
+    "stem": "¿Cuáles de las siguientes materias requieren mayoría cualificada en el Consejo de la UE? (Seleccione todas las correctas)",
+    "options": [
+      { "id": "A", "text": "Política comercial común" },
+      { "id": "B", "text": "Fiscalidad" },
+      { "id": "C", "text": "Medio ambiente" },
+      { "id": "D", "text": "Política exterior y de seguridad común" }
+    ],
+    "correct": ["A", "C"],
+    "tags": ["union-europea", "instituciones", "votacion"],
+    "multi": true
+  },
+  {
+    "id": "real-2022-q4",
+    "stem": "El Tribunal Europeo de Derechos Humanos tiene su sede en:",
+    "options": [
+      { "id": "A", "text": "Luxemburgo" },
+      { "id": "B", "text": "Bruselas" },
+      { "id": "C", "text": "Estrasburgo" },
+      { "id": "D", "text": "La Haya" }
+    ],
+    "correct": ["C"],
+    "tags": ["consejo-europa", "derechos-humanos"],
+    "multi": false
+  },
+  {
+    "id": "real-2022-q5",
+    "stem": "La OTAN fue creada mediante el Tratado de:",
+    "options": [
+      { "id": "A", "text": "Bruselas (1948)" },
+      { "id": "B", "text": "Washington (1949)" },
+      { "id": "C", "text": "París (1951)" },
+      { "id": "D", "text": "Roma (1957)" }
+    ],
+    "correct": ["B"],
+    "tags": ["organizaciones-internacionales", "seguridad"],
+    "multi": false
+  },
+  {
+    "id": "real-2021-q1",
+    "stem": "Según la Ley 2/2014, de la Acción y del Servicio Exterior del Estado, ¿cuál es el órgano colegiado interministerial para la coordinación de la Acción Exterior?",
+    "options": [
+      { "id": "A", "text": "El Consejo de Política Exterior" },
+      { "id": "B", "text": "La Comisión Interministerial de Asuntos Exteriores" },
+      { "id": "C", "text": "El Consejo Ejecutivo de Política Exterior" },
+      { "id": "D", "text": "La Junta de Coordinación Diplomática" }
+    ],
+    "correct": ["A"],
+    "tags": ["servicio-exterior", "espana"],
+    "multi": false
+  },
+  {
+    "id": "real-2021-q2",
+    "stem": "¿Cuántos Estados son actualmente miembros de la Unión Europea tras el Brexit?",
+    "options": [
+      { "id": "A", "text": "25" },
+      { "id": "B", "text": "27" },
+      { "id": "C", "text": "28" },
+      { "id": "D", "text": "30" }
+    ],
+    "correct": ["B"],
+    "tags": ["union-europea", "miembros"],
+    "multi": false
+  },
+  {
+    "id": "real-2021-q3",
+    "stem": "La cláusula de asistencia mutua de la UE está contenida en el artículo:",
+    "options": [
+      { "id": "A", "text": "42.7 del TUE" },
+      { "id": "B", "text": "222 del TFUE" },
+      { "id": "C", "text": "5 del Tratado de Washington" },
+      { "id": "D", "text": "51 de la Carta de la ONU" }
+    ],
+    "correct": ["A"],
+    "tags": ["union-europea", "seguridad", "tratados"],
+    "multi": false
+  },
+  {
+    "id": "real-2021-q4",
+    "stem": "¿Cuáles son las lenguas oficiales de trabajo de las Naciones Unidas? (Seleccione todas las correctas)",
+    "options": [
+      { "id": "A", "text": "Inglés y francés" },
+      { "id": "B", "text": "Español y árabe" },
+      { "id": "C", "text": "Chino y ruso" },
+      { "id": "D", "text": "Portugués y alemán" }
+    ],
+    "correct": ["A"],
+    "tags": ["onu", "organizaciones-internacionales"],
+    "multi": true
+  },
+  {
+    "id": "real-2021-q5",
+    "stem": "El Espacio Schengen permite:",
+    "options": [
+      { "id": "A", "text": "La libre circulación de mercancías exclusivamente" },
+      { "id": "B", "text": "La supresión de controles en las fronteras interiores" },
+      { "id": "C", "text": "La unificación de las políticas fiscales" },
+      { "id": "D", "text": "La creación de una moneda única" }
+    ],
+    "correct": ["B"],
+    "tags": ["union-europea", "schengen"],
+    "multi": false
+  }
+]

@@ -1,0 +1,197 @@
+[
+  {
+    "id": "demo-q1",
+    "stem": "¿Cuál es el órgano principal de las Naciones Unidas encargado del mantenimiento de la paz y la seguridad internacionales?",
+    "options": [
+      { "id": "A", "text": "La Asamblea General" },
+      { "id": "B", "text": "El Consejo de Seguridad" },
+      { "id": "C", "text": "La Corte Internacional de Justicia" },
+      { "id": "D", "text": "El Consejo Económico y Social" }
+    ],
+    "correct": ["B"],
+    "tags": ["onu", "organizaciones-internacionales"],
+    "multi": false
+  },
+  {
+    "id": "demo-q2",
+    "stem": "¿Cuáles de los siguientes países son miembros permanentes del Consejo de Seguridad de la ONU? (Seleccione todas las correctas)",
+    "options": [
+      { "id": "A", "text": "Estados Unidos" },
+      { "id": "B", "text": "Alemania" },
+      { "id": "C", "text": "Francia" },
+      { "id": "D", "text": "Japón" }
+    ],
+    "correct": ["A", "C"],
+    "tags": ["onu", "organizaciones-internacionales"],
+    "multi": true
+  },
+  {
+    "id": "demo-q3",
+    "stem": "El Tratado de Lisboa, que reformó la Unión Europea, entró en vigor en:",
+    "options": [
+      { "id": "A", "text": "2005" },
+      { "id": "B", "text": "2007" },
+      { "id": "C", "text": "2009" },
+      { "id": "D", "text": "2011" }
+    ],
+    "correct": ["C"],
+    "tags": ["union-europea", "tratados"],
+    "multi": false
+  },
+  {
+    "id": "demo-q4",
+    "stem": "¿Cuál de las siguientes NO es una institución de la Unión Europea?",
+    "options": [
+      { "id": "A", "text": "El Parlamento Europeo" },
+      { "id": "B", "text": "El Consejo de Europa" },
+      { "id": "C", "text": "La Comisión Europea" },
+      { "id": "D", "text": "El Tribunal de Justicia de la UE" }
+    ],
+    "correct": ["B"],
+    "tags": ["union-europea", "instituciones"],
+    "multi": false
+  },
+  {
+    "id": "demo-q5",
+    "stem": "La Convención de Viena sobre Relaciones Diplomáticas fue adoptada en:",
+    "options": [
+      { "id": "A", "text": "1945" },
+      { "id": "B", "text": "1961" },
+      { "id": "C", "text": "1969" },
+      { "id": "D", "text": "1975" }
+    ],
+    "correct": ["B"],
+    "tags": ["derecho-diplomatico", "tratados"],
+    "multi": false
+  },
+  {
+    "id": "demo-q6",
+    "stem": "¿Cuáles de los siguientes son principios fundamentales del Derecho Internacional Público? (Seleccione todas las correctas)",
+    "options": [
+      { "id": "A", "text": "Igualdad soberana de los Estados" },
+      { "id": "B", "text": "No intervención en asuntos internos" },
+      { "id": "C", "text": "Derecho de conquista" },
+      { "id": "D", "text": "Prohibición del uso de la fuerza" }
+    ],
+    "correct": ["A", "B", "D"],
+    "tags": ["derecho-internacional", "principios"],
+    "multi": true
+  },
+  {
+    "id": "demo-q7",
+    "stem": "La Organización Mundial del Comercio (OMC) tiene su sede en:",
+    "options": [
+      { "id": "A", "text": "Nueva York" },
+      { "id": "B", "text": "Bruselas" },
+      { "id": "C", "text": "Ginebra" },
+      { "id": "D", "text": "Washington D.C." }
+    ],
+    "correct": ["C"],
+    "tags": ["organizaciones-internacionales", "comercio"],
+    "multi": false
+  },
+  {
+    "id": "demo-q8",
+    "stem": "¿Qué artículo de la Constitución Española regula los tratados internacionales que atribuyen competencias a organizaciones internacionales?",
+    "options": [
+      { "id": "A", "text": "Artículo 93" },
+      { "id": "B", "text": "Artículo 94" },
+      { "id": "C", "text": "Artículo 95" },
+      { "id": "D", "text": "Artículo 96" }
+    ],
+    "correct": ["A"],
+    "tags": ["constitucion-espanola", "tratados"],
+    "multi": false
+  },
+  {
+    "id": "demo-q9",
+    "stem": "El Fondo Monetario Internacional (FMI) fue creado en:",
+    "options": [
+      { "id": "A", "text": "1944" },
+      { "id": "B", "text": "1945" },
+      { "id": "C", "text": "1947" },
+      { "id": "D", "text": "1950" }
+    ],
+    "correct": ["B"],
+    "tags": ["organizaciones-internacionales", "economia"],
+    "multi": false
+  },
+  {
+    "id": "demo-q10",
+    "stem": "¿Cuáles de las siguientes son funciones del Servicio Europeo de Acción Exterior (SEAE)? (Seleccione todas las correctas)",
+    "options": [
+      { "id": "A", "text": "Apoyar al Alto Representante de la UE" },
+      { "id": "B", "text": "Gestionar las delegaciones de la UE en terceros países" },
+      { "id": "C", "text": "Legislar en materia de política exterior" },
+      { "id": "D", "text": "Coordinar la acción exterior de los Estados miembros" }
+    ],
+    "correct": ["A", "B"],
+    "tags": ["union-europea", "politica-exterior"],
+    "multi": true
+  },
+  {
+    "id": "demo-q11",
+    "stem": "La Carta de las Naciones Unidas fue firmada en:",
+    "options": [
+      { "id": "A", "text": "Nueva York, 1945" },
+      { "id": "B", "text": "San Francisco, 1945" },
+      { "id": "C", "text": "Ginebra, 1945" },
+      { "id": "D", "text": "París, 1946" }
+    ],
+    "correct": ["B"],
+    "tags": ["onu", "historia"],
+    "multi": false
+  },
+  {
+    "id": "demo-q12",
+    "stem": "¿Cuál es el número de miembros permanentes del Consejo de Seguridad de la ONU?",
+    "options": [
+      { "id": "A", "text": "3" },
+      { "id": "B", "text": "5" },
+      { "id": "C", "text": "7" },
+      { "id": "D", "text": "10" }
+    ],
+    "correct": ["B"],
+    "tags": ["onu", "organizaciones-internacionales"],
+    "multi": false
+  },
+  {
+    "id": "demo-q13",
+    "stem": "La inmunidad diplomática incluye: (Seleccione todas las correctas)",
+    "options": [
+      { "id": "A", "text": "Inviolabilidad personal del agente diplomático" },
+      { "id": "B", "text": "Inviolabilidad de los locales de la misión" },
+      { "id": "C", "text": "Exención de impuestos directos" },
+      { "id": "D", "text": "Derecho a portar armas sin restricción" }
+    ],
+    "correct": ["A", "B", "C"],
+    "tags": ["derecho-diplomatico", "inmunidades"],
+    "multi": true
+  },
+  {
+    "id": "demo-q14",
+    "stem": "¿Qué tratado estableció la Comunidad Económica Europea?",
+    "options": [
+      { "id": "A", "text": "Tratado de París (1951)" },
+      { "id": "B", "text": "Tratado de Roma (1957)" },
+      { "id": "C", "text": "Acta Única Europea (1986)" },
+      { "id": "D", "text": "Tratado de Maastricht (1992)" }
+    ],
+    "correct": ["B"],
+    "tags": ["union-europea", "tratados", "historia"],
+    "multi": false
+  },
+  {
+    "id": "demo-q15",
+    "stem": "La Corte Internacional de Justicia tiene su sede en:",
+    "options": [
+      { "id": "A", "text": "Nueva York" },
+      { "id": "B", "text": "Ginebra" },
+      { "id": "C", "text": "La Haya" },
+      { "id": "D", "text": "Estrasburgo" }
+    ],
+    "correct": ["C"],
+    "tags": ["onu", "derecho-internacional"],
+    "multi": false
+  }
+]

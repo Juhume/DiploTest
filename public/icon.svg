@@ -1,0 +1,30 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    @media (prefers-color-scheme: light) {
+      .background { fill: #1e40af; }
+      .foreground { fill: white; }
+      .accent { fill: #10b981; }
+    }
+    @media (prefers-color-scheme: dark) {
+      .background { fill: #1e40af; }
+      .foreground { fill: white; }
+      .accent { fill: #10b981; }
+    }
+  </style>
+  
+  <!-- Background circle -->
+  <circle class="background" cx="90" cy="90" r="85"/>
+  
+  <!-- Document/Paper -->
+  <rect class="foreground" x="45" y="35" width="90" height="110" rx="8"/>
+  
+  <!-- Lines representing text on document -->
+  <rect class="background" x="60" y="55" width="60" height="4" rx="2"/>
+  <rect class="background" x="60" y="70" width="60" height="4" rx="2"/>
+  <rect class="background" x="60" y="85" width="45" height="4" rx="2"/>
+  
+  <!-- Large checkmark -->
+  <path class="accent" d="M 65 110 L 80 130 L 115 85" 
+        stroke="#10b981" stroke-width="10" stroke-linecap="round" 
+        stroke-linejoin="round" fill="none"/>
+</svg>
