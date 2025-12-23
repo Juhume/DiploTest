@@ -33,7 +33,7 @@ Respuesta: C
 5. **Ejecuta el script**:
 
 ```bash
-cd /Users/E056465/Documents/oposicion-test-app
+cd /Users/E056465/Documents/DiploTest
 python3 scripts/convert-questions.py scripts/preguntas-reales.txt data/questions.real.json
 ```
 

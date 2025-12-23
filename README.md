@@ -1,4 +1,4 @@
-# Test Oposición - Cuerpo Diplomático
+# DiploTest - Test Oposición Cuerpo Diplomático
 
 Aplicación web completa para realizar tests de oposición del Cuerpo Diplomático con dos modos: **Demo** (preguntas de práctica) y **Real** (preguntas oficiales de exámenes anteriores).
 
@@ -45,7 +45,8 @@ Aplicación web completa para realizar tests de oposición del Cuerpo Diplomáti
 ### 1. Clonar e Instalar Dependencias
 
 ```bash
-cd oposicion-test-app
+git clone https://github.com/Juhume/DiploTest.git
+cd DiploTest
 pnpm install
 ```
 
@@ -114,7 +115,7 @@ La aplicación estará disponible en [http://localhost:3000](http://localhost:30
 ## 📁 Estructura del Proyecto
 
 ```
-oposicion-test-app/
+DiploTest/
 ├── app/                        # Next.js App Router
 │   ├── api/                    # API Routes (backend)
 │   │   ├── attempts/           # CRUD de intentos
