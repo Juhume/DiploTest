@@ -40,11 +40,15 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
   const passed = isRealMode ? (score >= 5.8) : (attempt.percentage >= 60)
 
   const getQuestionStatus = (questionId: string): "correct" | "wrong" | "blank" => {
-    const userAnswer = answers[questionId] || []
+    const userAnswer = answers[questionId]
+    
+    // Si no hay respuesta en el objeto answers o es un array vacío, es blanco
+    if (!userAnswer || userAnswer.length === 0) {
+      return "blank"
+    }
+
     const question = questions.find((q) => q.id === questionId)
     if (!question) return "blank"
-
-    if (userAnswer.length === 0) return "blank"
 
     const correct = question.correct
     const isCorrect = userAnswer.length === correct.length && userAnswer.every((a) => correct.includes(a))
@@ -54,7 +58,8 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
 
   const filteredQuestions = questions.filter((q) => {
     if (reviewFilter === "all") return true
-    return getQuestionStatus(q.id) === reviewFilter
+    const status = getQuestionStatus(q.id)
+    return status === reviewFilter
   })
 
   const percentage = attempt.percentage

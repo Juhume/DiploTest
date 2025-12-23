@@ -97,106 +97,121 @@ export function TestSetup() {
   }
 
   return (
-    <div className="space-y-6">
-      <Card>
-        <CardHeader>
-          <CardTitle>Configurar Test</CardTitle>
-          <CardDescription>Elige el modo y configura las opciones del test</CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Question Mode Selection */}
-          <div className="space-y-3">
-            <Label className="text-base font-medium">Tipo de Preguntas</Label>
-            <Tabs value={questionMode} onValueChange={(v) => setQuestionMode(v as QuestionMode)}>
-              <TabsList className="grid w-full grid-cols-2">
-                <TabsTrigger value="demo" className="flex items-center gap-2">
-                  <BookOpen className="h-4 w-4" />
-                  Demo
-                </TabsTrigger>
-                <TabsTrigger value="real" className="flex items-center gap-2">
-                  <Trophy className="h-4 w-4" />
-                  Real
-                </TabsTrigger>
-              </TabsList>
-              <TabsContent value="demo" className="mt-3">
-                <p className="text-sm text-muted-foreground">
+    <Card className="shadow-lg border-muted">
+      <CardHeader>
+        <CardTitle className="text-2xl flex items-center gap-2">
+          <BookOpen className="h-6 w-6 text-primary" />
+          Configurar Test
+        </CardTitle>
+        <CardDescription className="text-base">Elige el modo y configura las opciones del test</CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-8">
+        {/* Question Mode Selection */}
+        <div className="space-y-4">
+          <Label className="text-lg font-semibold">Modo de Práctica</Label>
+          <RadioGroup
+            value={questionMode}
+            onValueChange={(v) => setQuestionMode(v as QuestionMode)}
+            className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          >
+            <div>
+              <RadioGroupItem value="demo" id="mode-demo" className="peer sr-only" />
+              <Label
+                htmlFor="mode-demo"
+                className="flex flex-col items-start justify-between rounded-xl border-2 border-muted bg-card p-6 hover:bg-accent/50 cursor-pointer transition-all peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5 h-full min-h-[140px]"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="p-2 bg-blue-100 dark:bg-blue-900/30 rounded-lg">
+                    <BookOpen className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <span className="font-semibold text-lg">Modo Demo</span>
+                </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
                   Preguntas de práctica para familiarizarte con el formato del examen.
                 </p>
-              </TabsContent>
-              <TabsContent value="real" className="mt-3">
-                <div className="space-y-2">
-                  <p className="text-sm text-muted-foreground">
-                    <strong>Examen oficial del Cuerpo Diplomático:</strong>
-                  </p>
-                  <ul className="text-sm text-muted-foreground space-y-1 list-disc list-inside">
-                    <li>100 preguntas + 5 de reserva</li>
-                    <li>0,10 puntos por acierto (sin penalización por fallo)</li>
-                    <li>Nota de corte: 5,8 sobre 10</li>
-                    <li>4 opciones por pregunta, solo 1 correcta</li>
-                  </ul>
-                </div>
-              </TabsContent>
-            </Tabs>
-          </div>
-
-          {loading ? (
-            <div className="flex items-center justify-center py-8">
-              <p className="text-muted-foreground">Cargando preguntas...</p>
+              </Label>
             </div>
-          ) : (
-            <>
-              {/* Selection Mode */}
-              {questionMode === "demo" ? (
-                <div className="space-y-3">
-                  <Label className="text-base font-medium">Modo de Selección</Label>
-                  <RadioGroup
-                    value={selectionMode}
-                    onValueChange={(v) => setSelectionMode(v as SelectionMode)}
-                    className="space-y-2"
-                  >
-                    <div className="flex items-center space-x-3">
-                      <RadioGroupItem value="all" id="mode-all" />
-                      <Label htmlFor="mode-all" className="cursor-pointer">
-                        Pool completo ({questions.length} preguntas)
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <RadioGroupItem value="random" id="mode-random" />
-                      <Label htmlFor="mode-random" className="cursor-pointer">
-                        Aleatorio (N preguntas)
-                      </Label>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <RadioGroupItem value="tag" id="mode-tag" />
-                      <Label htmlFor="mode-tag" className="cursor-pointer">
-                        Por tema/tag
-                      </Label>
-                    </div>
-                  </RadioGroup>
+            <div>
+              <RadioGroupItem value="real" id="mode-real" className="peer sr-only" />
+              <Label
+                htmlFor="mode-real"
+                className="flex flex-col items-start justify-between rounded-xl border-2 border-muted bg-card p-6 hover:bg-accent/50 cursor-pointer transition-all peer-data-[state=checked]:border-primary peer-data-[state=checked]:bg-primary/5 h-full min-h-[140px] relative"
+              >
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="p-2 bg-amber-100 dark:bg-amber-900/30 rounded-lg">
+                    <Trophy className="h-5 w-5 text-amber-600 dark:text-amber-400" />
+                  </div>
+                  <span className="font-semibold text-lg">Modo Real</span>
                 </div>
-              ) : (
-                <div className="space-y-3">
-                  <Label className="text-base font-medium">Modo de Examen</Label>
-                  <div className="rounded-lg border border-blue-200 bg-blue-50 dark:bg-blue-950 dark:border-blue-800 p-4">
-                    <div className="flex items-start gap-3">
-                      <AlertCircle className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
-                      <div className="space-y-1">
-                        <p className="text-sm font-medium text-blue-900 dark:text-blue-100">
-                          Examen oficial completo
-                        </p>
-                        <p className="text-sm text-blue-700 dark:text-blue-300">
-                          El test incluirá las 100 preguntas oficiales del examen del Cuerpo Diplomático.
-                          Las 5 preguntas de reserva se utilizan solo si alguna pregunta es impugnada.
-                        </p>
-                      </div>
+                <p className="text-sm text-muted-foreground leading-relaxed">
+                  100 preguntas oficiales del examen del Cuerpo Diplomático. Simulación completa.
+                </p>
+              </Label>
+            </div>
+          </RadioGroup>
+        </div>
+
+        {loading ? (
+          <div className="flex items-center justify-center py-12">
+            <p className="text-muted-foreground">Cargando preguntas...</p>
+          </div>
+        ) : (
+          <>
+            {/* Selection Mode */}
+            {questionMode === "demo" ? (
+              <div className="space-y-4">
+                <Label className="text-lg font-semibold">Opciones de Selección</Label>
+                <RadioGroup
+                  value={selectionMode}
+                  onValueChange={(v) => setSelectionMode(v as SelectionMode)}
+                  className="space-y-3"
+                >
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
+                    <RadioGroupItem value="all" id="mode-all" />
+                    <Label htmlFor="mode-all" className="cursor-pointer flex-1 font-medium">
+                      Pool completo <span className="text-muted-foreground">({questions.length} preguntas)</span>
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
+                    <RadioGroupItem value="random" id="mode-random" />
+                    <Label htmlFor="mode-random" className="cursor-pointer flex-1 font-medium">
+                      Aleatorio <span className="text-muted-foreground">(Selecciona cantidad)</span>
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
+                    <RadioGroupItem value="tag" id="mode-tag" />
+                    <Label htmlFor="mode-tag" className="cursor-pointer flex-1 font-medium">
+                      Por tema <span className="text-muted-foreground">(Filtra por categoría)</span>
+                    </Label>
+                  </div>
+                </RadioGroup>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                <Label className="text-lg font-semibold">Información del Examen</Label>
+                <div className="rounded-xl border-2 border-primary/20 bg-primary/5 p-5">
+                  <div className="flex items-start gap-3">
+                    <AlertCircle className="h-5 w-5 text-primary mt-0.5 flex-shrink-0" />
+                    <div className="space-y-2">
+                      <p className="font-semibold text-foreground">
+                        Examen oficial completo
+                      </p>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• 100 preguntas oficiales</li>
+                        <li>• 0,10 puntos por acierto (sin penalización)</li>
+                        <li>• Nota de corte: 5,8 sobre 10</li>
+                        <li>• 4 opciones, solo 1 correcta</li>
+                      </ul>
                     </div>
                   </div>
                 </div>
-              )}
+              </div>
+            )}
 
-              {questionMode === "demo" && selectionMode === "random" && (
-                <div className="space-y-2">
-                  <Label htmlFor="question-count">Número de preguntas</Label>
+            {questionMode === "demo" && selectionMode === "random" && (
+              <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
+                <Label htmlFor="question-count" className="text-base font-medium">Número de preguntas</Label>
+                <div className="flex items-center gap-4">
                   <Input
                     id="question-count"
                     type="number"
@@ -206,47 +221,47 @@ export function TestSetup() {
                     onChange={(e) => setQuestionCount(Number(e.target.value))}
                     className="max-w-32"
                   />
-                  <p className="text-sm text-muted-foreground">Máximo: {questions.length}</p>
+                  <span className="text-sm text-muted-foreground">Máximo: {questions.length}</span>
                 </div>
-              )}
-
-              {questionMode === "demo" && selectionMode === "tag" && (
-                <div className="space-y-2">
-                  <Label htmlFor="tag-select">Seleccionar tema</Label>
-                  <Select value={selectedTag} onValueChange={setSelectedTag}>
-                    <SelectTrigger id="tag-select" className="max-w-xs">
-                      <SelectValue placeholder="Elige un tema" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {availableTags.filter(tag => tag && typeof tag === 'string').map((tag) => (
-                        <SelectItem key={tag} value={tag}>
-                          {tag}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-              )}
-
-              <div className="pt-4 border-t">
-                <p className="text-sm text-muted-foreground mb-4">
-                  Preguntas a realizar:{" "}
-                  <span className="font-semibold text-foreground">{getQuestionCountForMode()}</span>
-                </p>
-                <Button
-                  onClick={handleStartTest}
-                  disabled={getQuestionCountForMode() === 0}
-                  size="lg"
-                  className="w-full sm:w-auto"
-                >
-                  <Play className="mr-2 h-4 w-4" />
-                  Comenzar Test
-                </Button>
               </div>
-            </>
-          )}
-        </CardContent>
-      </Card>
-    </div>
+            )}
+
+            {questionMode === "demo" && selectionMode === "tag" && (
+              <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
+                <Label htmlFor="tag-select" className="text-base font-medium">Seleccionar tema</Label>
+                <Select value={selectedTag} onValueChange={setSelectedTag}>
+                  <SelectTrigger id="tag-select">
+                    <SelectValue placeholder="Elige un tema" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {availableTags.filter(tag => tag && typeof tag === 'string').map((tag) => (
+                      <SelectItem key={tag} value={tag}>
+                        {tag}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+            )}
+
+            <div className="pt-6 border-t space-y-4">
+              <div className="flex items-center justify-between p-4 bg-primary/10 rounded-lg">
+                <span className="text-sm font-medium">Preguntas a realizar:</span>
+                <span className="text-2xl font-bold text-primary">{getQuestionCountForMode()}</span>
+              </div>
+              <Button
+                onClick={handleStartTest}
+                disabled={getQuestionCountForMode() === 0}
+                size="lg"
+                className="w-full text-lg h-12 shadow-lg"
+              >
+                <Play className="mr-2 h-5 w-5 fill-current" />
+                Comenzar Test
+              </Button>
+            </div>
+          </>
+        )}
+      </CardContent>
+    </Card>
   )
 }
