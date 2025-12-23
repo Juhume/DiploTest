@@ -39,12 +39,10 @@ export default function SignUpPage() {
     }
 
     try {
+      // ✅ ELIMINADO emailRedirectTo para evitar CORS
       const { error } = await supabase.auth.signUp({
         email,
         password,
-        options: {
-          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/app`,
-        },
       })
       if (error) throw error
       router.push("/auth/sign-up-success")
