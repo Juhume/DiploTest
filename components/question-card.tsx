@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
+import { CheckCircle2, XCircle } from "lucide-react"
 import type { Question } from "@/lib/types"
 
 interface QuestionCardProps {
@@ -23,6 +24,7 @@ export function QuestionCard({
   correctOptions,
 }: QuestionCardProps) {
   const isMulti = question.multi
+  const isBlank = selectedOptions.length === 0
 
   const handleSingleChange = (value: string) => {
     onAnswerChange([value])
@@ -42,10 +44,32 @@ export function QuestionCard({
     const isSelected = selectedOptions.includes(optionId)
     const isCorrect = correctOptions?.includes(optionId)
 
-    if (isCorrect && isSelected) return "border-green-500 bg-green-50 dark:bg-green-950"
-    if (isCorrect && !isSelected) return "border-green-500 bg-green-50 dark:bg-green-950"
-    if (!isCorrect && isSelected) return "border-red-500 bg-red-50 dark:bg-red-950"
-    return ""
+    // Si la pregunta está en blanco, solo resaltar las correctas
+    if (isBlank) {
+      if (isCorrect) return "border-green-500 bg-green-50 dark:bg-green-950 border-2"
+      return "opacity-60"
+    }
+
+    // Si hay respuesta, mostrar correctas e incorrectas
+    if (isCorrect && isSelected) return "border-green-500 bg-green-50 dark:bg-green-950 border-2"
+    if (isCorrect && !isSelected) return "border-green-500 bg-green-50 dark:bg-green-950 border-2"
+    if (!isCorrect && isSelected) return "border-red-500 bg-red-50 dark:bg-red-950 border-2"
+    return "opacity-60"
+  }
+
+  const getOptionIcon = (optionId: string) => {
+    if (!showCorrect) return null
+
+    const isSelected = selectedOptions.includes(optionId)
+    const isCorrect = correctOptions?.includes(optionId)
+
+    if (isCorrect) {
+      return <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0" />
+    }
+    if (!isCorrect && isSelected) {
+      return <XCircle className="h-5 w-5 text-red-600 shrink-0" />
+    }
+    return null
   }
 
   return (
@@ -53,11 +77,18 @@ export function QuestionCard({
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
           <p className="text-base leading-relaxed text-foreground text-pretty">{question.stem}</p>
-          {isMulti && (
-            <Badge variant="secondary" className="shrink-0">
-              Múltiple
-            </Badge>
-          )}
+          <div className="flex gap-2 shrink-0">
+            {isMulti && (
+              <Badge variant="secondary">
+                Múltiple
+              </Badge>
+            )}
+            {showCorrect && isBlank && (
+              <Badge variant="outline" className="text-amber-600 border-amber-600">
+                Sin responder
+              </Badge>
+            )}
+          </div>
         </div>
         {question.tags && question.tags.length > 0 && (
           <div className="flex flex-wrap gap-1 mt-2">
@@ -91,6 +122,7 @@ export function QuestionCard({
                   <span className="font-medium mr-2">{option.id}.</span>
                   {option.text}
                 </Label>
+                {getOptionIcon(option.id)}
               </div>
             ))}
           </div>
@@ -115,6 +147,7 @@ export function QuestionCard({
                     <span className="font-medium mr-2">{option.id}.</span>
                     {option.text}
                   </Label>
+                  {getOptionIcon(option.id)}
                 </div>
               ))}
             </div>

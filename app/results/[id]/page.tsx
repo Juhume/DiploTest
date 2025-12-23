@@ -37,10 +37,17 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
   const allQuestions: Question[] =
     attemptData.question_mode === "real" ? (realQuestions as Question[]) : (demoQuestions as Question[])
 
-  // Get the questions that were in this attempt based on the answers
-  const answeredQuestionIds = Object.keys(attemptData.answers || {})
-  const questions =
-    answeredQuestionIds.length > 0 ? allQuestions.filter((q) => answeredQuestionIds.includes(q.id)) : allQuestions
+  // Get the questions that were in this attempt from grading (includes blank answers)
+  const attemptQuestionIds = Object.keys(attemptData.grading || {})
+  
+  // If grading exists, use it; otherwise fall back to answers
+  const questionIds = attemptQuestionIds.length > 0 
+    ? attemptQuestionIds 
+    : Object.keys(attemptData.answers || {})
+  
+  const questions = questionIds.length > 0 
+    ? allQuestions.filter((q) => questionIds.includes(q.id)) 
+    : allQuestions
 
   return (
     <main className="min-h-screen bg-background">
