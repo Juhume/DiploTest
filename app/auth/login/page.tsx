@@ -2,41 +2,32 @@
 
 import type React from "react"
 
-import { createClient } from "@/lib/supabase/client"
+import { signIn } from "@/app/auth/actions"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { GraduationCap } from "lucide-react"
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
-  const handleLogin = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const supabase = createClient()
-    setIsLoading(true)
     setError(null)
-
-    try {
-      const { error } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      })
-      if (error) throw error
-      router.push("/app")
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "Error al iniciar sesión")
-    } finally {
-      setIsLoading(false)
-    }
+    
+    const formData = new FormData(e.currentTarget)
+    
+    startTransition(async () => {
+      const result = await signIn(formData)
+      
+      if (result?.error) {
+        setError(result.error)
+      }
+    })
   }
 
   return (
@@ -56,32 +47,32 @@ export default function LoginPage() {
               <CardDescription>Introduce tu email para acceder a tu cuenta</CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleLogin}>
+              <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="tu@email.com"
                       required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isPending}
                     />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="password">Contraseña</Label>
                     <Input
                       id="password"
+                      name="password"
                       type="password"
                       required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      disabled={isPending}
                     />
                   </div>
                   {error && <p className="text-sm text-destructive">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
+                  <Button type="submit" className="w-full" disabled={isPending}>
+                    {isPending ? "Iniciando sesión..." : "Iniciar Sesión"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">

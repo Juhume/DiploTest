@@ -2,55 +2,32 @@
 
 import type React from "react"
 
-import { createClient } from "@/lib/supabase/client"
+import { signUp } from "@/app/auth/actions"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import { useState } from "react"
+import { useState, useTransition } from "react"
 import { GraduationCap } from "lucide-react"
 
 export default function SignUpPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [repeatPassword, setRepeatPassword] = useState("")
   const [error, setError] = useState<string | null>(null)
-  const [isLoading, setIsLoading] = useState(false)
-  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
-  const handleSignUp = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    const supabase = createClient()
-    setIsLoading(true)
     setError(null)
-
-    if (password !== repeatPassword) {
-      setError("Las contraseñas no coinciden")
-      setIsLoading(false)
-      return
-    }
-
-    if (password.length < 6) {
-      setError("La contraseña debe tener al menos 6 caracteres")
-      setIsLoading(false)
-      return
-    }
-
-    try {
-      // ✅ ELIMINADO emailRedirectTo para evitar CORS
-      const { error } = await supabase.auth.signUp({
-        email,
-        password,
-      })
-      if (error) throw error
-      router.push("/auth/sign-up-success")
-    } catch (error: unknown) {
-      setError(error instanceof Error ? error.message : "Error al crear la cuenta")
-    } finally {
-      setIsLoading(false)
-    }
+    
+    const formData = new FormData(e.currentTarget)
+    
+    startTransition(async () => {
+      const result = await signUp(formData)
+      
+      if (result?.error) {
+        setError(result.error)
+      }
+    })
   }
 
   return (
@@ -70,42 +47,42 @@ export default function SignUpPage() {
               <CardDescription>Regístrate para comenzar a practicar</CardDescription>
             </CardHeader>
             <CardContent>
-              <form onSubmit={handleSignUp}>
+              <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
                     <Input
                       id="email"
+                      name="email"
                       type="email"
                       placeholder="tu@email.com"
                       required
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      disabled={isPending}
                     />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="password">Contraseña</Label>
                     <Input
                       id="password"
+                      name="password"
                       type="password"
                       required
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
+                      disabled={isPending}
                     />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="repeat-password">Repetir Contraseña</Label>
                     <Input
                       id="repeat-password"
+                      name="repeatPassword"
                       type="password"
                       required
-                      value={repeatPassword}
-                      onChange={(e) => setRepeatPassword(e.target.value)}
+                      disabled={isPending}
                     />
                   </div>
                   {error && <p className="text-sm text-destructive">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isLoading}>
-                    {isLoading ? "Creando cuenta..." : "Crear Cuenta"}
+                  <Button type="submit" className="w-full" disabled={isPending}>
+                    {isPending ? "Creando cuenta..." : "Crear Cuenta"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
