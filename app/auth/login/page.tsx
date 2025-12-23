@@ -2,32 +2,52 @@
 
 import type React from "react"
 
-import { signIn } from "@/app/auth/actions"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { GraduationCap } from "lucide-react"
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null)
-  const [isPending, startTransition] = useTransition()
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
+    setIsLoading(true)
     
     const formData = new FormData(e.currentTarget)
-    
-    startTransition(async () => {
-      const result = await signIn(formData)
-      
-      if (result?.error) {
-        setError(result.error)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error || 'Error al iniciar sesión')
+        return
       }
-    })
+
+      router.push('/app')
+      router.refresh()
+      
+    } catch (err: any) {
+      console.error('Error en login:', err)
+      setError('Error de conexión. Por favor intenta de nuevo.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -57,7 +77,7 @@ export default function LoginPage() {
                       type="email"
                       placeholder="tu@email.com"
                       required
-                      disabled={isPending}
+                      disabled={isLoading}
                     />
                   </div>
                   <div className="grid gap-2">
@@ -67,12 +87,12 @@ export default function LoginPage() {
                       name="password"
                       type="password"
                       required
-                      disabled={isPending}
+                      disabled={isLoading}
                     />
                   </div>
                   {error && <p className="text-sm text-destructive">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isPending}>
-                    {isPending ? "Iniciando sesión..." : "Iniciar Sesión"}
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">

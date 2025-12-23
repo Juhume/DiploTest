@@ -2,32 +2,59 @@
 
 import type React from "react"
 
-import { signUp } from "@/app/auth/actions"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
-import { useState, useTransition } from "react"
+import { useRouter } from "next/navigation"
+import { useState } from "react"
 import { GraduationCap } from "lucide-react"
 
 export default function SignUpPage() {
   const [error, setError] = useState<string | null>(null)
-  const [isPending, startTransition] = useTransition()
+  const [isLoading, setIsLoading] = useState(false)
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
+    setIsLoading(true)
     
     const formData = new FormData(e.currentTarget)
-    
-    startTransition(async () => {
-      const result = await signUp(formData)
-      
-      if (result?.error) {
-        setError(result.error)
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
+    const repeatPassword = formData.get('repeatPassword') as string
+
+    try {
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password, repeatPassword }),
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        setError(data.error || 'Error al crear la cuenta')
+        return
       }
-    })
+
+      // Si el usuario necesita confirmar email, redirigir a página de éxito
+      if (data.needsConfirmation) {
+        router.push('/auth/sign-up-success')
+      } else {
+        // Si no necesita confirmar, ir directo a la app
+        router.push('/app')
+      }
+      router.refresh()
+      
+    } catch (err: any) {
+      console.error('Error en signup:', err)
+      setError('Error de conexión. Por favor intenta de nuevo.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -57,7 +84,7 @@ export default function SignUpPage() {
                       type="email"
                       placeholder="tu@email.com"
                       required
-                      disabled={isPending}
+                      disabled={isLoading}
                     />
                   </div>
                   <div className="grid gap-2">
@@ -67,7 +94,7 @@ export default function SignUpPage() {
                       name="password"
                       type="password"
                       required
-                      disabled={isPending}
+                      disabled={isLoading}
                     />
                   </div>
                   <div className="grid gap-2">
@@ -77,12 +104,12 @@ export default function SignUpPage() {
                       name="repeatPassword"
                       type="password"
                       required
-                      disabled={isPending}
+                      disabled={isLoading}
                     />
                   </div>
                   {error && <p className="text-sm text-destructive">{error}</p>}
-                  <Button type="submit" className="w-full" disabled={isPending}>
-                    {isPending ? "Creando cuenta..." : "Crear Cuenta"}
+                  <Button type="submit" className="w-full" disabled={isLoading}>
+                    {isLoading ? "Creando cuenta..." : "Crear Cuenta"}
                   </Button>
                 </div>
                 <div className="mt-4 text-center text-sm">
