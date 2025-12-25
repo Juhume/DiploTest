@@ -5,6 +5,13 @@ export async function POST(request: NextRequest) {
   try {
     const { password, accessToken, refreshToken } = await request.json()
 
+    console.log('Reset password request:', {
+      hasPassword: !!password,
+      hasAccessToken: !!accessToken,
+      hasRefreshToken: !!refreshToken,
+      passwordLength: password?.length
+    })
+
     if (!password) {
       return NextResponse.json(
         { error: "Contraseña es requerida" },
@@ -20,6 +27,7 @@ export async function POST(request: NextRequest) {
     }
 
     if (!accessToken || !refreshToken) {
+      console.error('Tokens missing:', { accessToken: !!accessToken, refreshToken: !!refreshToken })
       return NextResponse.json(
         { error: "Token de recuperación no válido o expirado" },
         { status: 400 }
@@ -28,6 +36,7 @@ export async function POST(request: NextRequest) {
 
     const supabase = await createClient()
 
+    console.log('Attempting to set session...')
     // Establecer la sesión con los tokens de recuperación
     const { error: sessionError } = await supabase.auth.setSession({
       access_token: accessToken,
@@ -42,6 +51,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    console.log('Session established, updating password...')
     // Actualizar la contraseña del usuario autenticado
     const { error } = await supabase.auth.updateUser({
       password
@@ -55,6 +65,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    console.log('Password updated successfully')
     return NextResponse.json({
       success: true,
       message: "Contraseña actualizada correctamente"

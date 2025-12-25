@@ -20,6 +20,7 @@ export default function ResetPasswordPage() {
   const [success, setSuccess] = useState(false)
   const [accessToken, setAccessToken] = useState<string | null>(null)
   const [refreshToken, setRefreshToken] = useState<string | null>(null)
+  const [tokensChecked, setTokensChecked] = useState(false)
 
   useEffect(() => {
     // Verificar si hay un token de acceso en la URL
@@ -27,11 +28,15 @@ export default function ResetPasswordPage() {
     const access = hashParams.get('access_token')
     const refresh = hashParams.get('refresh_token')
     
-    if (!access || !refresh) {
-      setError("Enlace inválido o expirado. Solicita un nuevo enlace de recuperación.")
-    } else {
+    console.log('Tokens encontrados:', { access: !!access, refresh: !!refresh })
+    
+    if (access && refresh) {
       setAccessToken(access)
       setRefreshToken(refresh)
+      setTokensChecked(true)
+    } else {
+      setError("Enlace inválido o expirado. Solicita un nuevo enlace de recuperación.")
+      setTokensChecked(true)
     }
   }, [])
 
@@ -58,6 +63,7 @@ export default function ResetPasswordPage() {
     setLoading(true)
 
     try {
+      console.log('Enviando solicitud de reset...')
       const res = await fetch("/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -69,6 +75,7 @@ export default function ResetPasswordPage() {
       })
 
       const data = await res.json()
+      console.log('Respuesta del servidor:', data)
 
       if (!res.ok) {
         throw new Error(data.error || "Error al restablecer la contraseña")
