@@ -8,7 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { QuestionCard } from "@/components/question-card"
 import type { Question, Attempt } from "@/lib/types"
-import { CheckCircle, XCircle, MinusCircle, Clock, Home, History, RotateCcw } from "lucide-react"
+import { CheckCircle, XCircle, MinusCircle, Clock, History, RotateCcw } from "lucide-react"
 
 interface ResultsViewProps {
   attempt: Attempt
@@ -208,7 +208,7 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
         {/* Action buttons */}
         <div className="flex flex-col sm:flex-row gap-3 mt-6">
           <Button asChild className="flex-1">
-            <Link href="/">
+            <Link href="/app">
               <RotateCcw className="mr-2 h-4 w-4" />
               Nuevo Test
             </Link>
@@ -217,12 +217,6 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
             <Link href="/history">
               <History className="mr-2 h-4 w-4" />
               Ver Historial
-            </Link>
-          </Button>
-          <Button variant="outline" asChild className="flex-1 bg-transparent">
-            <Link href="/">
-              <Home className="mr-2 h-4 w-4" />
-              Inicio
             </Link>
           </Button>
         </div>
