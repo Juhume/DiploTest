@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Lock, GraduationCap, Eye, EyeOff } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
 
 export default function ResetPasswordPage() {
   const router = useRouter()
@@ -18,26 +19,38 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
-  const [accessToken, setAccessToken] = useState<string | null>(null)
-  const [refreshToken, setRefreshToken] = useState<string | null>(null)
-  const [tokensChecked, setTokensChecked] = useState(false)
+  const [isValidSession, setIsValidSession] = useState(false)
+  const [checkingSession, setCheckingSession] = useState(true)
 
   useEffect(() => {
-    // Verificar si hay un token de acceso en la URL
-    const hashParams = new URLSearchParams(window.location.hash.substring(1))
-    const access = hashParams.get('access_token')
-    const refresh = hashParams.get('refresh_token')
+    const supabase = createClient()
     
-    console.log('Tokens encontrados:', { access: !!access, refresh: !!refresh })
-    
-    if (access && refresh) {
-      setAccessToken(access)
-      setRefreshToken(refresh)
-      setTokensChecked(true)
-    } else {
-      setError("Enlace inválido o expirado. Solicita un nuevo enlace de recuperación.")
-      setTokensChecked(true)
+    // Verificar si hay una sesión válida de recuperación
+    const checkSession = async () => {
+      try {
+        const { data: { session }, error } = await supabase.auth.getSession()
+        
+        console.log('Session check:', { 
+          hasSession: !!session, 
+          error: error?.message 
+        })
+        
+        if (session) {
+          setIsValidSession(true)
+          console.log('Valid recovery session found')
+        } else {
+          setError("Enlace inválido o expirado. Solicita un nuevo enlace de recuperación.")
+          console.log('No valid session found')
+        }
+      } catch (err) {
+        console.error('Error checking session:', err)
+        setError("Error al verificar el enlace. Solicita un nuevo enlace.")
+      } finally {
+        setCheckingSession(false)
+      }
     }
+
+    checkSession()
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -55,32 +68,27 @@ export default function ResetPasswordPage() {
       return
     }
 
-    if (!accessToken || !refreshToken) {
-      setError("Token de recuperación no válido. Solicita un nuevo enlace.")
+    if (!isValidSession) {
+      setError("Sesión inválida. Solicita un nuevo enlace de recuperación.")
       return
     }
 
     setLoading(true)
 
     try {
-      console.log('Enviando solicitud de reset...')
-      const res = await fetch("/api/auth/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ 
-          password,
-          accessToken,
-          refreshToken
-        })
+      const supabase = createClient()
+      
+      console.log('Updating password...')
+      const { error } = await supabase.auth.updateUser({
+        password: password
       })
 
-      const data = await res.json()
-      console.log('Respuesta del servidor:', data)
-
-      if (!res.ok) {
-        throw new Error(data.error || "Error al restablecer la contraseña")
+      if (error) {
+        console.error('Password update error:', error)
+        throw error
       }
 
+      console.log('Password updated successfully')
       setSuccess(true)
       
       // Redirigir al login después de 2 segundos
@@ -88,10 +96,26 @@ export default function ResetPasswordPage() {
         router.push("/auth/login")
       }, 2000)
     } catch (err: any) {
-      setError(err.message || "Error al procesar la solicitud")
+      console.error('Error in handleSubmit:', err)
+      setError(err.message || "Error al actualizar la contraseña. Intenta de nuevo.")
     } finally {
       setLoading(false)
     }
+  }
+
+  if (checkingSession) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-background to-muted/20 p-4">
+        <Card className="w-full max-w-md">
+          <CardContent className="pt-6 text-center">
+            <div className="flex flex-col items-center gap-4">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+              <p className="text-muted-foreground">Verificando enlace...</p>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    )
   }
 
   return (
@@ -145,13 +169,14 @@ export default function ResetPasswordPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      disabled={loading}
+                      disabled={loading || !isValidSession}
                       className="pl-9 pr-10"
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
+                      disabled={loading || !isValidSession}
                     >
                       {showPassword ? (
                         <EyeOff className="h-4 w-4" />
@@ -176,13 +201,14 @@ export default function ResetPasswordPage() {
                       value={confirmPassword}
                       onChange={(e) => setConfirmPassword(e.target.value)}
                       required
-                      disabled={loading}
+                      disabled={loading || !isValidSession}
                       className="pl-9 pr-10"
                     />
                     <button
                       type="button"
                       onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                       className="absolute right-3 top-3 text-muted-foreground hover:text-foreground"
+                      disabled={loading || !isValidSession}
                     >
                       {showConfirmPassword ? (
                         <EyeOff className="h-4 w-4" />
@@ -193,7 +219,7 @@ export default function ResetPasswordPage() {
                   </div>
                 </div>
 
-                <Button type="submit" className="w-full" disabled={loading}>
+                <Button type="submit" className="w-full" disabled={loading || !isValidSession}>
                   {loading ? "Guardando..." : "Restablecer contraseña"}
                 </Button>
               </form>
