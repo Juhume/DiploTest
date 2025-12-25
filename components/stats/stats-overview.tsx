@@ -147,7 +147,7 @@ export function StatsOverview({ stats }: StatsOverviewProps) {
           </div>
           {stats.modeStats.real.attempts > 0 && (
             <p className="text-xs text-muted-foreground mt-2">
-              Tasa de aprobación: <span className="font-medium">{stats.modeStats.real.passRate.toFixed(1)}%</span>
+              Tasa de aprobado: <span className="font-medium">{stats.modeStats.real.passRate.toFixed(1)}%</span>
             </p>
           )}
         </CardContent>
