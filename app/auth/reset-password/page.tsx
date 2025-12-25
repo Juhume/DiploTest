@@ -18,14 +18,20 @@ export default function ResetPasswordPage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
   const [success, setSuccess] = useState(false)
+  const [accessToken, setAccessToken] = useState<string | null>(null)
+  const [refreshToken, setRefreshToken] = useState<string | null>(null)
 
   useEffect(() => {
     // Verificar si hay un token de acceso en la URL
     const hashParams = new URLSearchParams(window.location.hash.substring(1))
-    const accessToken = hashParams.get('access_token')
+    const access = hashParams.get('access_token')
+    const refresh = hashParams.get('refresh_token')
     
-    if (!accessToken) {
+    if (!access || !refresh) {
       setError("Enlace inválido o expirado. Solicita un nuevo enlace de recuperación.")
+    } else {
+      setAccessToken(access)
+      setRefreshToken(refresh)
     }
   }, [])
 
@@ -44,13 +50,22 @@ export default function ResetPasswordPage() {
       return
     }
 
+    if (!accessToken || !refreshToken) {
+      setError("Token de recuperación no válido. Solicita un nuevo enlace.")
+      return
+    }
+
     setLoading(true)
 
     try {
       const res = await fetch("/api/auth/reset-password", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password })
+        body: JSON.stringify({ 
+          password,
+          accessToken,
+          refreshToken
+        })
       })
 
       const data = await res.json()
