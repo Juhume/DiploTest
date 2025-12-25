@@ -22,6 +22,7 @@ export default function SignUpPage() {
     setIsLoading(true)
     
     const formData = new FormData(e.currentTarget)
+    const username = formData.get('username') as string
     const email = formData.get('email') as string
     const password = formData.get('password') as string
     const repeatPassword = formData.get('repeatPassword') as string
@@ -30,7 +31,7 @@ export default function SignUpPage() {
       const response = await fetch('/api/auth/signup', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, repeatPassword }),
+        body: JSON.stringify({ username, email, password, repeatPassword }),
       })
 
       const data = await response.json()
@@ -64,9 +65,9 @@ export default function SignUpPage() {
           <div className="flex flex-col items-center gap-2">
             <div className="flex items-center gap-2 text-primary">
               <GraduationCap className="h-8 w-8" />
-              <span className="text-2xl font-bold">Test Oposición</span>
+              <span className="text-2xl font-bold">DiploTest</span>
             </div>
-            <p className="text-sm text-muted-foreground">Cuerpo Diplomático</p>
+            <p className="text-sm text-muted-foreground">Preparación de oposiciones para el Cuerpo Diplomático</p>
           </div>
           <Card>
             <CardHeader>
@@ -76,6 +77,21 @@ export default function SignUpPage() {
             <CardContent>
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-6">
+                  <div className="grid gap-2">
+                    <Label htmlFor="username">Nombre de Usuario</Label>
+                    <Input
+                      id="username"
+                      name="username"
+                      type="text"
+                      placeholder="usuario123"
+                      required
+                      disabled={isLoading}
+                      minLength={3}
+                      maxLength={20}
+                      pattern="[a-zA-Z0-9_-]+"
+                      title="Solo letras, números, guiones y guiones bajos"
+                    />
+                  </div>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
                     <Input

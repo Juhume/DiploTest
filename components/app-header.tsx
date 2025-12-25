@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { GraduationCap, User, LogOut, History } from "lucide-react"
+import { GraduationCap, User, LogOut, History, BarChart3 } from "lucide-react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import type { User as SupabaseUser } from "@supabase/supabase-js"
@@ -41,6 +41,13 @@ export function AppHeader({ user }: AppHeaderProps) {
 
         <div className="flex items-center gap-3">
           <Button variant="ghost" size="sm" asChild className="hidden md:flex">
+            <Link href="/stats">
+              <BarChart3 className="h-4 w-4 mr-2" />
+              Estadísticas
+            </Link>
+          </Button>
+
+          <Button variant="ghost" size="sm" asChild className="hidden md:flex">
             <Link href="/history">
               <History className="h-4 w-4 mr-2" />
               Historial
@@ -57,6 +64,12 @@ export function AppHeader({ user }: AppHeaderProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
+              <DropdownMenuItem asChild>
+                <Link href="/stats">
+                  <BarChart3 className="h-4 w-4 mr-2" />
+                  Mis estadísticas
+                </Link>
+              </DropdownMenuItem>
               <DropdownMenuItem asChild>
                 <Link href="/history">
                   <History className="h-4 w-4 mr-2" />

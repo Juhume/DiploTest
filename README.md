@@ -1,6 +1,6 @@
-# DiploTest - Test Oposición Cuerpo Diplomático
+# DiploTest - Preparación de Oposiciones
 
-Aplicación web completa para realizar tests de oposición del Cuerpo Diplomático con dos modos: **Demo** (preguntas de práctica) y **Real** (preguntas oficiales de exámenes anteriores).
+Aplicación web completa para realizar tests de oposición con dos modos: **Demo** (preguntas de práctica) y **Real** (preguntas oficiales de exámenes anteriores).
 
 ## 🚀 Características Principales
 
@@ -490,7 +490,7 @@ Este proyecto es privado. Todos los derechos reservados.
 
 ## 👨‍💻 Autor
 
-Desarrollado por [Tu Nombre] para la preparación de oposiciones del Cuerpo Diplomático.
+Desarrollado para la preparación de oposiciones.
 
 ---
 

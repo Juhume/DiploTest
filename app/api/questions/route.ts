@@ -64,7 +64,13 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Filter by tag if specified
+    // For REAL mode, always shuffle and limit to 100 questions
+    if (mode === "real") {
+      questions = shuffleArray(questions).slice(0, 100)
+      return NextResponse.json(questions)
+    }
+
+    // Filter by tag if specified (only for DEMO mode)
     if (tag && tag.trim()) {
       questions = questions.filter((q) => q.tags?.includes(tag))
       

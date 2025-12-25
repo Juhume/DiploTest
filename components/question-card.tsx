@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle2, XCircle } from "lucide-react"
+import { CheckCircle2, XCircle, Info } from "lucide-react"
 import type { Question } from "@/lib/types"
 
 interface QuestionCardProps {
@@ -90,15 +90,6 @@ export function QuestionCard({
             )}
           </div>
         </div>
-        {question.tags && question.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1 mt-2">
-            {question.tags.map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
-                {tag}
-              </Badge>
-            ))}
-          </div>
-        )}
       </CardHeader>
       <CardContent>
         {isMulti ? (
@@ -152,6 +143,23 @@ export function QuestionCard({
               ))}
             </div>
           </RadioGroup>
+        )}
+
+        {/* Mostrar explicación cuando showCorrect = true */}
+        {showCorrect && question.explanation && (
+          <div className="mt-4 p-4 rounded-lg bg-blue-50 dark:bg-blue-950 border border-blue-200 dark:border-blue-800">
+            <div className="flex items-start gap-2">
+              <Info className="h-5 w-5 text-blue-600 dark:text-blue-400 shrink-0 mt-0.5" />
+              <div className="flex-1">
+                <p className="text-sm font-semibold text-blue-900 dark:text-blue-100 mb-1">
+                  Explicación
+                </p>
+                <p className="text-sm text-blue-800 dark:text-blue-200 leading-relaxed">
+                  {question.explanation}
+                </p>
+              </div>
+            </div>
+          </div>
         )}
       </CardContent>
     </Card>

@@ -8,16 +8,38 @@ export async function POST(request: Request) {
     // Validaciones
     if (!email || !password) {
       return NextResponse.json(
-        { error: 'Email y contraseña son obligatorios' },
+        { error: 'Email/Usuario y contraseña son obligatorios' },
         { status: 400 }
       )
     }
 
     const supabase = await createClient()
 
-    // Intentar iniciar sesión
+    // Determinar si el input es un email o un username
+    const isEmail = email.includes('@')
+    let loginEmail = email
+
+    // Si no es email, buscar el email asociado al username
+    if (!isEmail) {
+      const { data: profile, error: profileError } = await supabase
+        .from('profiles')
+        .select('email')
+        .eq('username', email.toLowerCase())
+        .single()
+
+      if (profileError || !profile) {
+        return NextResponse.json(
+          { error: 'Usuario o contraseña incorrectos' },
+          { status: 401 }
+        )
+      }
+
+      loginEmail = profile.email
+    }
+
+    // Intentar iniciar sesión con el email
     const { data, error } = await supabase.auth.signInWithPassword({
-      email,
+      email: loginEmail,
       password,
     })
 

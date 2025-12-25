@@ -10,8 +10,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 // export const metadata: Metadata = {
-//   title: "DiploTest - Oposiciones Cuerpo Diplomático",
-//   description: "Aplicación de preparación de exámenes tipo test para oposiciones al Cuerpo Diplomático",
+//   title: "DiploTest - Preparación de Oposiciones",
+//   description: "Aplicación de preparación de exámenes tipo test para oposiciones",
 //   generator: "v0.app",
 //   icons: {
 //     icon: [

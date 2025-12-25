@@ -3,12 +3,21 @@ import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
   try {
-    const { email, password, repeatPassword } = await request.json()
+    const { username, email, password, repeatPassword } = await request.json()
 
     // Validaciones
-    if (!email || !password || !repeatPassword) {
+    if (!username || !email || !password || !repeatPassword) {
       return NextResponse.json(
         { error: 'Todos los campos son obligatorios' },
+        { status: 400 }
+      )
+    }
+
+    // Validar formato del username
+    const usernameRegex = /^[a-zA-Z0-9_-]{3,20}$/
+    if (!usernameRegex.test(username)) {
+      return NextResponse.json(
+        { error: 'El nombre de usuario debe tener entre 3 y 20 caracteres y solo puede contener letras, números, guiones y guiones bajos' },
         { status: 400 }
       )
     }
@@ -29,10 +38,30 @@ export async function POST(request: Request) {
 
     const supabase = await createClient()
 
-    // Intentar crear usuario
+    // Verificar si el username ya existe
+    const { data: existingUsers } = await supabase
+      .from('profiles')
+      .select('username')
+      .eq('username', username.toLowerCase())
+      .single()
+
+    if (existingUsers) {
+      return NextResponse.json(
+        { error: 'Este nombre de usuario ya está en uso' },
+        { status: 400 }
+      )
+    }
+
+    // Intentar crear usuario con metadata
     const { data, error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        data: {
+          username: username.toLowerCase(),
+          display_name: username
+        }
+      }
     })
 
     if (error) {

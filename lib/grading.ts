@@ -8,7 +8,7 @@ const GRADING_CONFIG = {
     maxQuestions: null, // No limit
   },
   real: {
-    pointsPerCorrect: 0.10, // 0.10 points per correct answer (Cuerpo Diplomático rules)
+    pointsPerCorrect: 0.10, // 0.10 points per correct answer
     passingScore: 5.8, // Minimum score of 5.8 out of 10 to pass
     maxQuestions: 100, // 100 questions + 5 reserve
     totalQuestions: 100, // Only 100 questions count for scoring
@@ -84,7 +84,7 @@ export function gradeAttempt(
   let passed: boolean
 
   if (mode === "real") {
-    // Cuerpo Diplomático scoring: 0.10 points per correct answer
+    // Real mode scoring: 0.10 points per correct answer
     score = correctCount * config.pointsPerCorrect
     passingScore = config.passingScore
     passed = score >= passingScore

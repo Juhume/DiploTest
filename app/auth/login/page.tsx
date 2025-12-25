@@ -57,31 +57,39 @@ export default function LoginPage() {
           <div className="flex flex-col items-center gap-2">
             <div className="flex items-center gap-2 text-primary">
               <GraduationCap className="h-8 w-8" />
-              <span className="text-2xl font-bold">Test Oposición</span>
+              <span className="text-2xl font-bold">DiploTest</span>
             </div>
-            <p className="text-sm text-muted-foreground">Cuerpo Diplomático</p>
+            <p className="text-sm text-muted-foreground">Preparación de Oposiciones</p>
           </div>
           <Card>
             <CardHeader>
               <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
-              <CardDescription>Introduce tu email para acceder a tu cuenta</CardDescription>
+              <CardDescription>Introduce tu email o nombre de usuario para acceder</CardDescription>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit}>
                 <div className="flex flex-col gap-6">
                   <div className="grid gap-2">
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">Email o Nombre de Usuario</Label>
                     <Input
                       id="email"
                       name="email"
-                      type="email"
-                      placeholder="tu@email.com"
+                      type="text"
+                      placeholder="tu@email.com o usuario123"
                       required
                       disabled={isLoading}
                     />
                   </div>
                   <div className="grid gap-2">
-                    <Label htmlFor="password">Contraseña</Label>
+                    <div className="flex items-center justify-between">
+                      <Label htmlFor="password">Contraseña</Label>
+                      <Link 
+                        href="/auth/forgot-password" 
+                        className="text-xs text-muted-foreground hover:text-primary hover:underline"
+                      >
+                        ¿Olvidaste tu contraseña?
+                      </Link>
+                    </div>
                     <Input
                       id="password"
                       name="password"
