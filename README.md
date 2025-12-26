@@ -1,272 +1,256 @@
-# DiploTest - Preparación de Oposiciones
+# 🎓 DiploTest - Plataforma de Preparación para Oposiciones
 
-Aplicación web completa para realizar tests de oposición con dos modos: **Demo** (preguntas de práctica) y **Real** (preguntas oficiales de exámenes anteriores).
+<div align="center">
 
-## 🚀 Características Principales
+![Next.js](https://img.shields.io/badge/Next.js-16.0-black?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript)
+![Supabase](https://img.shields.io/badge/Supabase-Auth_+_DB-3ECF8E?style=for-the-badge&logo=supabase)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-4.0-38B2AC?style=for-the-badge&logo=tailwind-css)
 
-### Funcionalidades
-- ✅ **Autenticación completa** con Supabase (registro, login, logout, sesión persistente)
-- ✅ **Dos modos de preguntas**: Demo (práctica) y Real (exámenes oficiales)
-- ✅ **Tres modos de selección**: Pool completo, Aleatorio (N preguntas), Por tema/tag
-- ✅ **Test interactivo** con navegación, atajos de teclado, progreso visual
-- ✅ **Evaluación automática** con corrección detallada
-- ✅ **Historial completo** de intentos con filtros por modo y fechas
-- ✅ **Revisión detallada** pregunta por pregunta con respuestas correctas/incorrectas
-- ✅ **Responsive design** optimizado para móvil y escritorio
+**Una aplicación web moderna y completa para la preparación de exámenes tipo test de oposiciones.**
 
-### UX/UI
-- 📱 **Mobile-first** con diseño específico para dispositivos móviles
-- 💻 **Layout de 2 columnas en desktop** (pregunta + panel de navegación)
-- ⌨️ **Atajos de teclado**: 1-4/A-D para seleccionar, Enter/Shift+Enter para navegar
-- 🎨 **Tema claro/oscuro** con soporte automático del sistema
-- ♿ **Accesible** con labels, focus visible, y estructura semántica
+[🚀 Demo en Vivo](#) · [📚 Documentación](./RESUMEN_PROYECTO.md) · [🏗️ Arquitectura](./ARCHITECTURE.md)
 
-### Tecnologías
-- **Frontend**: Next.js 14 (App Router), React, TypeScript, TailwindCSS
-- **Backend**: Next.js API Routes + Supabase
-- **Base de datos**: PostgreSQL (Supabase)
-- **Autenticación**: Supabase Auth
-- **Validación**: Zod
-- **UI Components**: shadcn/ui + Radix UI
-- **Iconos**: Lucide React
+</div>
 
 ---
 
-## 📋 Requisitos Previos
+## 📋 Tabla de Contenidos
 
-- **Node.js** 18.x o superior
-- **pnpm** (recomendado) o npm
-- **Cuenta de Supabase** (gratuita en [supabase.com](https://supabase.com))
+- [Sobre el Proyecto](#-sobre-el-proyecto)
+- [Características Principales](#-características-principales)
+- [Stack Tecnológico](#️-stack-tecnológico)
+- [Arquitectura](#️-arquitectura)
+- [Instalación](#-instalación)
+- [Uso de la Aplicación](#-uso-de-la-aplicación)
+- [Seguridad](#-seguridad)
+- [Rendimiento](#-rendimiento)
+- [Roadmap](#️-roadmap)
 
 ---
 
-## 🛠️ Instalación y Configuración
+## 🎯 Sobre el Proyecto
 
-### 1. Clonar e Instalar Dependencias
+**DiploTest** es una aplicación web full-stack diseñada para ayudar a opositores en su preparación para las pruebas del Cuerpo Diplomático. La plataforma ofrece una experiencia de práctica realista con dos modos de estudio (Demo y Real), sistema de evaluación automática, historial completo de intentos y estadísticas de rendimiento.
 
-```bash
-git clone https://github.com/Juhume/DiploTest.git
-cd DiploTest
-pnpm install
+### 🌟 ¿Por qué DiploTest?
+
+- **💯 Experiencia realista**: Interfaz que simula el entorno de examen oficial
+- **📊 Seguimiento completo**: Historial detallado de todos tus intentos con análisis de resultados
+- **🎨 Diseño moderno**: UI/UX profesional con soporte para temas claro/oscuro
+- **📱 Responsive**: Funciona perfectamente en móvil, tablet y desktop
+- **⚡ Alto rendimiento**: Optimizado con Next.js 16 y Turbopack
+- **🔒 Seguro**: Autenticación robusta y protección de datos con Supabase
+
+---
+
+## ✨ Características Principales
+
+### 🔐 Sistema de Autenticación Completo
+- Registro e inicio de sesión con email/contraseña
+- Recuperación de contraseña
+- Persistencia de sesión con cookies HTTP-only seguras
+- Protección de rutas con middleware
+- Rate limiting para prevenir ataques de fuerza bruta
+
+### 📚 Banco de Preguntas Inteligente
+- **Modo DEMO**: Preguntas de práctica para familiarizarse con el sistema
+- **Modo REAL**: Preguntas basadas en exámenes oficiales
+- Soporte para preguntas de opción única y opción múltiple
+- Sistema de etiquetas para organizar por temáticas
+- Selección aleatoria o por categorías específicas
+
+### 📝 Realización de Tests Avanzada
+- Configuración flexible del test (modo, número de preguntas, filtros)
+- Navegación completa entre preguntas (siguiente, anterior, saltar)
+- Progreso visual con indicadores de estado
+- Atajos de teclado para mayor agilidad (1-4/A-D, Enter, Shift+Enter)
+- Timer de duración del intento
+- Vista previa antes de finalizar
+- Evaluación automática con resultados detallados
+
+### 📊 Historial y Estadísticas
+- Registro completo de todos los intentos realizados
+- Análisis detallado: aciertos, fallos, preguntas en blanco, porcentaje
+- Visualización de respuestas correctas e incorrectas
+- Filtrado por modo y fecha
+- Estadísticas globales de rendimiento
+
+### 🎨 Experiencia de Usuario
+- **Diseño Responsive**: Layout adaptativo según dispositivo
+  - **Móvil**: Vista de una columna con navegación inferior flotante
+  - **Desktop**: Vista de dos columnas con panel lateral de navegación
+- **Temas**: Soporte para modo claro y oscuro
+- **Accesibilidad**: Componentes accesibles con Radix UI
+- **Animaciones**: Transiciones suaves y feedback visual
+- **Feedback en tiempo real**: Estados de carga, errores y éxitos
+
+---
+
+## 🛠️ Stack Tecnológico
+
+### Frontend
+- **[Next.js 16](https://nextjs.org/)** - Framework React con App Router y Turbopack
+- **[React 19](https://react.dev/)** - Biblioteca UI con Server Components
+- **[TypeScript 5](https://www.typescriptlang.org/)** - Tipado estático para mayor robustez
+- **[Tailwind CSS 4](https://tailwindcss.com/)** - Framework CSS utility-first moderno
+- **[Radix UI](https://www.radix-ui.com/)** - Componentes accesibles sin estilo
+- **[Shadcn/ui](https://ui.shadcn.com/)** - Colección de componentes reutilizables
+
+### Backend & Base de Datos
+- **[Supabase](https://supabase.com/)** - Backend as a Service
+  - **Auth**: Sistema de autenticación completo
+  - **PostgreSQL**: Base de datos relacional con Row Level Security
+  - **Realtime**: Suscripciones en tiempo real (preparado para futuras features)
+
+### Validación & Formularios
+- **[Zod 3](https://zod.dev/)** - Validación de esquemas con TypeScript
+- **[React Hook Form](https://react-hook-form.com/)** - Gestión eficiente de formularios
+
+### Herramientas de Desarrollo
+- **[ESLint](https://eslint.org/)** - Linter para mantener código consistente
+- **[Vercel Analytics](https://vercel.com/analytics)** - Analíticas de uso y rendimiento
+- **[Speed Insights](https://vercel.com/docs/speed-insights)** - Métricas de rendimiento web
+
+### Seguridad
+- Sistema de logging personalizado - Registro seguro de eventos sin exponer datos sensibles
+- Rate limiting - Protección contra ataques de fuerza bruta
+- Validación robusta - Sanitización de inputs y validación de contraseñas
+- CORS personalizado - Control de orígenes permitidos
+- CSP Headers - Content Security Policy para prevenir XSS
+- HSTS - HTTP Strict Transport Security
+
+---
+
+## 🏗️ Arquitectura
+
+### Estructura del Proyecto
+
+```
+diplotest/
+├── app/                      # Next.js App Router
+│   ├── auth/                # Rutas de autenticación
+│   │   ├── login/           # Página de inicio de sesión
+│   │   ├── sign-up/         # Página de registro
+│   │   └── reset-password/  # Recuperación de contraseña
+│   ├── app/                 # Dashboard principal (protegido)
+│   ├── test/                # Interfaz de realización de tests
+│   ├── history/             # Historial de intentos
+│   ├── results/[id]/        # Vista detallada de resultados
+│   ├── api/                 # API Routes serverless
+│   │   ├── auth/            # Endpoints de autenticación
+│   │   ├── questions/       # Gestión de preguntas
+│   │   ├── attempts/        # Gestión de intentos
+│   │   └── stats/           # Estadísticas
+│   ├── layout.tsx           # Layout raíz con metadata
+│   └── globals.css          # Estilos globales
+├── components/              # Componentes React reutilizables
+│   ├── ui/                  # Componentes base de Shadcn
+│   ├── test-runner.tsx      # Componente principal del test
+│   ├── test-setup.tsx       # Configuración del test
+│   ├── results-view.tsx     # Vista de resultados
+│   └── ...                  # Otros componentes
+├── lib/                     # Utilidades y helpers
+│   ├── supabase/            # Cliente y configuración de Supabase
+│   ├── logger.ts            # Sistema de logging seguro
+│   ├── rate-limiter.ts      # Limitador de peticiones
+│   ├── validation.ts        # Validaciones personalizadas
+│   ├── grading.ts           # Lógica de evaluación
+│   └── utils.ts             # Utilidades generales
+├── data/                    # Archivos de datos
+│   ├── questions.demo.json  # Banco de preguntas demo
+│   └── questions.real.json  # Banco de preguntas reales
+├── public/                  # Recursos estáticos
+├── scripts/                 # Scripts SQL y utilidades
+└── proxy.ts                 # Middleware de autenticación
 ```
 
-### 2. Configurar Supabase
+### Base de Datos
 
-#### 2.1 Crear Proyecto en Supabase
-
-1. Ve a [supabase.com](https://supabase.com) y crea una cuenta
-2. Crea un nuevo proyecto
-3. Espera a que se complete la inicialización del proyecto
-4. Ve a **Settings > API** para obtener tus credenciales
-
-#### 2.2 Configurar Variables de Entorno
-
-Crea un archivo `.env.local` en la raíz del proyecto:
-
-```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=https://tu-proyecto.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=tu-anon-key-aqui
-
-# Opcional: para redirección después de sign-up
-NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL=http://localhost:3000/app
+#### Tabla: `attempts`
+```sql
+CREATE TABLE attempts (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  user_id UUID REFERENCES auth.users NOT NULL,
+  mode TEXT NOT NULL CHECK (mode IN ('demo', 'real')),
+  selection_type TEXT NOT NULL,
+  selected_tag TEXT,
+  questions JSONB NOT NULL,
+  user_answers JSONB NOT NULL,
+  grading JSONB NOT NULL,
+  duration_seconds INTEGER,
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);
 ```
 
-**⚠️ IMPORTANTE**: Reemplaza los valores con los de tu proyecto de Supabase.
-
-#### 2.3 Ejecutar Scripts SQL
-
-Ve a **SQL Editor** en tu proyecto de Supabase y ejecuta los siguientes scripts en orden:
-
-1. **scripts/001_create_attempts_table.sql** (si no se ejecutó automáticamente)
-2. **scripts/002_update_attempts_with_user_and_mode.sql** (si existe)
-3. **scripts/003_complete_schema.sql** ← **Script completo y actualizado**
-
-El script `003_complete_schema.sql` crea:
-- Tabla `attempts` con todos los campos necesarios
-- Tabla `profiles` para información adicional de usuarios
-- Índices para mejorar el rendimiento
-- Row Level Security (RLS) policies para seguridad
-- Trigger para crear perfil automáticamente al registrarse
-- Vista `attempt_stats` para estadísticas
+**Row Level Security (RLS)**:
+- Los usuarios solo pueden ver y crear sus propios intentos
+- No se permite editar ni eliminar intentos (registro inmutable)
 
 ---
 
-## 🚀 Ejecutar en Desarrollo
+## � Instalación
 
-```bash
-pnpm dev
-```
+### Prerrequisitos
 
-La aplicación estará disponible en [http://localhost:3000](http://localhost:3000)
+- **Node.js** 18.17 o superior
+- **pnpm** 8.0 o superior (recomendado) o npm
+- Cuenta en **[Supabase](https://supabase.com/)** (gratuita)
 
-### Rutas Principales
+### Pasos de Instalación
 
-- `/` - Landing page (redirige a `/app` si está autenticado)
-- `/auth/login` - Iniciar sesión
-- `/auth/sign-up` - Registro de usuario
-- `/app` - Configurar y comenzar test (protegida)
-- `/test` - Realizar test (protegida)
-- `/results/[id]` - Ver resultados detallados de un intento (protegida)
-- `/history` - Historial de intentos (protegida)
+1. **Clonar el repositorio**
+   ```bash
+   git clone https://github.com/Juhume/DiploTest.git
+   cd diplotest
+   ```
 
----
+2. **Instalar dependencias**
+   ```bash
+   pnpm install
+   ```
 
-## 📁 Estructura del Proyecto
+3. **Configurar variables de entorno**
+   
+   Crear un archivo `.env.local` en la raíz del proyecto:
+   ```env
+   # Supabase
+   NEXT_PUBLIC_SUPABASE_URL=tu_supabase_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_supabase_anon_key
+   
+   # Opcional: Base URL
+   NEXT_PUBLIC_BASE_URL=http://localhost:3000
+   ```
 
-```
-DiploTest/
-├── app/                        # Next.js App Router
-│   ├── api/                    # API Routes (backend)
-│   │   ├── attempts/           # CRUD de intentos
-│   │   │   ├── route.ts        # GET (lista) y POST (crear)
-│   │   │   └── [id]/route.ts   # GET (detalle) y DELETE
-│   │   └── questions/          # Endpoint de preguntas
-│   │       └── route.ts        # GET (con filtros) y OPTIONS (tags)
-│   ├── auth/                   # Páginas de autenticación
-│   │   ├── login/page.tsx
-│   │   ├── sign-up/page.tsx
-│   │   ├── sign-up-success/page.tsx
-│   │   └── error/page.tsx
-│   ├── app/page.tsx            # Configurar test
-│   ├── test/page.tsx           # Realizar test
-│   ├── results/[id]/page.tsx   # Resultados detallados
-│   ├── history/page.tsx        # Historial de intentos
-│   ├── layout.tsx              # Layout global
-│   └── globals.css             # Estilos globales
-├── components/                 # Componentes React
-│   ├── ui/                     # Componentes de shadcn/ui
-│   ├── app-header.tsx          # Header con usuario y logout
-│   ├── test-setup.tsx          # Configuración del test
-│   ├── test-runner.tsx         # Ejecutor del test (2 columnas desktop)
-│   ├── question-card.tsx       # Tarjeta de pregunta
-│   ├── navigation-panel.tsx    # Panel de navegación (desktop)
-│   ├── mobile-navigation.tsx   # Navegación inferior (móvil)
-│   ├── results-view.tsx        # Vista de resultados
-│   ├── attempts-history.tsx    # Historial con filtros
-│   └── theme-provider.tsx      # Proveedor de tema
-├── lib/                        # Librerías y utilidades
-│   ├── supabase/               # Clientes de Supabase
-│   │   ├── client.ts           # Cliente para componentes
-│   │   └── server.ts           # Cliente para Server Components
-│   ├── types.ts                # Tipos TypeScript
-│   ├── grading.ts              # Lógica de corrección
-│   └── utils.ts                # Utilidades generales
-├── data/                       # Datos de preguntas
-│   ├── questions.demo.json     # Preguntas DEMO (práctica)
-│   └── questions.real.json     # Preguntas REAL (exámenes oficiales)
-├── scripts/                    # Scripts SQL para Supabase
-│   └── 003_complete_schema.sql # Schema completo de la BD
-├── middleware.ts               # Middleware de Next.js (protección rutas)
-├── .env.local                  # Variables de entorno (crear manualmente)
-├── next.config.mjs             # Configuración de Next.js
-├── tailwind.config.ts          # Configuración de Tailwind
-├── tsconfig.json               # Configuración de TypeScript
-└── package.json                # Dependencias
-```
+4. **Configurar Supabase**
+   
+   Ejecutar los scripts SQL en tu proyecto Supabase (en orden):
+   ```
+   scripts/001_create_attempts_table.sql
+   scripts/002_update_attempts_with_user_and_mode.sql
+   scripts/003_complete_schema.sql
+   scripts/004_fix_schema.sql
+   ```
 
----
+5. **Ejecutar en desarrollo**
+   ```bash
+   pnpm dev
+   ```
 
-## 📊 Esquema de Base de Datos
+   La aplicación estará disponible en `http://localhost:3000`
 
-### Tabla: `attempts`
-
-Almacena cada intento de test realizado por un usuario.
-
-| Campo | Tipo | Descripción |
-|-------|------|-------------|
-| `id` | uuid | PK, auto-generado |
-| `user_id` | uuid | FK a `auth.users` |
-| `created_at` | timestamptz | Fecha/hora del intento (UTC) |
-| `question_mode` | text | "demo" o "real" |
-| `selection_mode` | text | "all", "random", o "tag" |
-| `selection_meta` | jsonb | `{ n?: number, tag?: string }` |
-| `total_questions` | int | Total de preguntas |
-| `correct_count` | int | Preguntas correctas |
-| `wrong_count` | int | Preguntas incorrectas |
-| `blank_count` | int | Preguntas en blanco |
-| `percentage` | numeric(5,2) | Porcentaje de acierto |
-| `duration_seconds` | int | Duración en segundos |
-| `answers` | jsonb | `{ [questionId]: string[] }` |
-| `grading` | jsonb | Detalles de corrección |
-| `snapshot_questions` | jsonb | Copia de preguntas (opcional) |
-
-### Row Level Security (RLS)
-
-- ✅ Los usuarios **solo pueden ver, crear y editar sus propios intentos**
-- ✅ Los intentos **no se pueden eliminar** (registro inmutable)
-- ✅ Supabase Auth gestiona automáticamente el `user_id`
-
----
-
-## 🔐 Autenticación
-
-### Flujo de Autenticación
-
-1. **Registro** (`/auth/sign-up`):
-   - Email + contraseña
-   - Supabase envía email de confirmación
-   - Se crea automáticamente un perfil en `profiles`
-
-2. **Login** (`/auth/login`):
-   - Email + contraseña
-   - Sesión persistente con cookies httpOnly
-
-3. **Protección de Rutas** (`middleware.ts`):
-   - Rutas protegidas: `/app`, `/test`, `/results`, `/history`
-   - Redirección automática a `/auth/login` si no autenticado
-   - Redirección a `/app` si ya autenticado e intenta acceder a `/auth/*`
-
-4. **Logout**:
-   - Botón en `AppHeader`
-   - Cierra sesión y redirige a `/`
-
----
-
-## 📝 Gestión de Preguntas
-
-### Formato de Preguntas (JSON)
-
-```json
-{
-  "id": "demo-q1",
-  "stem": "¿Cuál es la pregunta?",
-  "options": [
-    { "id": "A", "text": "Opción A" },
-    { "id": "B", "text": "Opción B" },
-    { "id": "C", "text": "Opción C" },
-    { "id": "D", "text": "Opción D" }
-  ],
-  "correct": ["B"],
-  "tags": ["tema1", "tema2"],
-  "multi": false
-}
-```
-
-### Archivos de Preguntas
-
-- **`data/questions.demo.json`**: Preguntas de práctica (inventadas/curadas)
-- **`data/questions.real.json`**: Preguntas oficiales de exámenes anteriores
-
-### Añadir/Actualizar Preguntas
-
-1. Edita el archivo JSON correspondiente
-2. Respeta el formato exacto
-3. Para preguntas multi-respuesta: `"multi": true` y `"correct": ["A", "C"]`
-4. Asigna tags para facilitar la selección por tema
-
-**⚠️ Importante**: 
-- Los IDs deben ser únicos dentro de cada modo
-- Usa prefijo `demo-` para Demo y `real-YYYY-` para Real
-- Mantén coherencia en los tags
+6. **Build para producción**
+   ```bash
+   pnpm build
+   pnpm start
+   ```
 
 ---
 
 ## 🎮 Uso de la Aplicación
 
-### 1. Configurar Test
-
-En `/app`:
+### 1. Configurar Test (`/app`)
 1. Selecciona **Modo**: Demo o Real
 2. Elige **Selección**:
    - **Pool completo**: Todas las preguntas disponibles
@@ -274,230 +258,95 @@ En `/app`:
    - **Por tema**: Filtrar por tag específico
 3. Haz clic en **Comenzar Test**
 
-### 2. Realizar Test
-
-En `/test`:
+### 2. Realizar Test (`/test`)
 - **Móvil**: Una columna con navegación inferior fija
 - **Desktop**: Dos columnas (pregunta izq. + panel navegación der.)
 
 **Atajos de Teclado** (desktop):
-- `1-4` o `A-D`: Seleccionar opción (preguntas simples)
+- `1-4` o `A-D`: Seleccionar opción
 - `Enter`: Siguiente pregunta
 - `Shift+Enter`: Pregunta anterior
 
-### 3. Finalizar y Ver Resultados
+### 3. Ver Resultados (`/results/[id]`)
+- Puntuación global y desglose
+- Revisión pregunta por pregunta
+- Identificación de respuestas correctas/incorrectas
 
-- Haz clic en **Finalizar Test**
-- Se guarda automáticamente en la BD
-- Redirige a `/results/[id]` con:
-  - Puntuación global
-  - Desglose de aciertos/fallos/blanco
-  - Revisión pregunta por pregunta
-  - Filtros para ver solo correctas/incorrectas/blanco
-
-### 4. Historial
-
-En `/history`:
-- Tabla/tarjetas con todos tus intentos
-- **Filtros**:
-  - Por modo (Demo/Real)
-  - Por rango de fechas
-- Haz clic en **Ver detalles** para revisar cualquier intento anterior
+### 4. Historial (`/history`)
+- Lista completa de todos tus intentos
+- Filtros por modo y fecha
+- Acceso a resultados de intentos anteriores
 
 ---
 
-## 🧪 Testing
+## ⚡ Rendimiento
 
-### Tests Unitarios (grading.ts)
+### Métricas Objetivo
 
-```bash
-# Instalar Vitest (opcional, si quieres añadir tests)
-pnpm add -D vitest @testing-library/react @testing-library/jest-dom
+- **Lighthouse Score**: 95+ en todas las categorías
+- **First Contentful Paint**: < 1.2s
+- **Time to Interactive**: < 2.5s
+- **Core Web Vitals**: Todos en verde
 
-# Ejecutar tests
-pnpm test
-```
+### Optimizaciones Aplicadas
 
-Ejemplo de test para `gradeAttempt`:
-
-```typescript
-// lib/__tests__/grading.test.ts
-import { describe, it, expect } from 'vitest'
-import { gradeAttempt } from '../grading'
-
-describe('gradeAttempt', () => {
-  it('should grade correctly', () => {
-    const questions = [
-      { id: 'q1', correct: ['A'] },
-      { id: 'q2', correct: ['B'] },
-    ]
-    const answers = { q1: ['A'], q2: ['C'] }
-    const result = gradeAttempt(questions, answers)
-    
-    expect(result.correctCount).toBe(1)
-    expect(result.wrongCount).toBe(1)
-    expect(result.percentage).toBe(50)
-  })
-})
-```
+- ✅ **Server Components** de React 19 para reducir JavaScript en cliente
+- ✅ **Turbopack** para builds ultra rápidos
+- ✅ **Code splitting** automático con Next.js
+- ✅ **Lazy loading** de componentes pesados
+- ✅ **Optimización de imágenes** con next/image
+- ✅ **Caching estratégico** de API calls
+- ✅ **Bundle size optimizado**
+- ✅ **CSS moderno** con Tailwind 4
+- ✅ **Compresión Gzip/Brotli** en producción
 
 ---
 
-## 🚢 Despliegue
+## �️ Roadmap
 
-### Desplegar en Vercel (Recomendado)
+### ✅ Fase 1 - MVP (Completado)
+- [x] Sistema de autenticación
+- [x] Banco de preguntas (Demo y Real)
+- [x] Realización de tests
+- [x] Evaluación y resultados
+- [x] Historial de intentos
+- [x] Diseño responsive
 
-1. **Conecta tu repositorio** en [vercel.com](https://vercel.com)
-2. **Configura las variables de entorno**:
-   - `NEXT_PUBLIC_SUPABASE_URL`
-   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-3. Vercel detectará automáticamente Next.js y desplegará
-4. **Configura el dominio** de producción en Supabase:
-   - Ve a **Authentication > URL Configuration**
-   - Añade tu dominio de Vercel a **Site URL** y **Redirect URLs**
+### 🔄 Fase 2 - Mejoras (En Progreso)
+- [ ] Comparador de intentos (evolución del rendimiento)
+- [ ] Gráficos de estadísticas con Chart.js
+- [ ] Sistema de logros y badges
+- [ ] Modo práctica por categorías débiles
 
-### Otras Plataformas
-
-- **Netlify**: Funciona con Next.js
-- **Railway/Render**: Soportan Node.js y Next.js
-- **Self-hosted**: Usa `pnpm build` y `pnpm start`
-
----
-
-## 🔧 Configuración Avanzada
-
-### Personalizar Tema
-
-Edita `app/globals.css` para cambiar colores, fuentes, etc.
-
-```css
-@layer base {
-  :root {
-    --primary: ...;
-    --secondary: ...;
-  }
-}
-```
-
-### Añadir Campos Personalizados
-
-1. Edita el schema SQL (`scripts/003_complete_schema.sql`)
-2. Ejecuta `ALTER TABLE` en Supabase SQL Editor
-3. Actualiza tipos en `lib/types.ts`
-4. Modifica componentes según necesidad
-
-### Integrar con Otros Servicios
-
-- **Analytics**: Añade Vercel Analytics, Google Analytics, etc.
-- **Emails personalizados**: Configura SMTP en Supabase Auth
-- **Backups**: Configura backups automáticos en Supabase
+### 🔮 Fase 3 - Avanzado (Planificado)
+- [ ] Modo examen cronometrado
+- [ ] Tests colaborativos (compartir con otros usuarios)
+- [ ] Sistema de comentarios en preguntas
+- [ ] Preguntas con imágenes/diagramas
+- [ ] API pública para integraciones
+- [ ] Aplicación móvil nativa (React Native)
+- [ ] Modo offline con Service Workers
+- [ ] Gamificación completa (ranking, competiciones)
 
 ---
 
-## 📚 API Reference
+## 🤝 Contribuciones
 
-### GET `/api/questions`
-
-Obtiene preguntas según filtros.
-
-**Query Params**:
-- `mode`: "demo" | "real" (default: "demo")
-- `tag`: string (opcional, filtra por tag)
-- `limit`: number (opcional, max 200)
-- `random`: "true" | "false" (opcional, aleatoriza)
-
-**Response**: `Question[]`
-
-### OPTIONS `/api/questions`
-
-Obtiene tags disponibles y conteo.
-
-**Response**: `{ tags: string[], count: number }`
-
-### GET `/api/attempts`
-
-Obtiene intentos del usuario autenticado.
-
-**Query Params**:
-- `mode`: "demo" | "real" (opcional)
-- `from`: ISO date (opcional)
-- `to`: ISO date (opcional)
-
-**Response**: `Attempt[]`
-
-### POST `/api/attempts`
-
-Crea un nuevo intento.
-
-**Body**: Ver esquema en `app/api/attempts/route.ts` (validación con Zod)
-
-**Response**: `Attempt` (201 Created)
-
-### GET `/api/attempts/[id]`
-
-Obtiene un intento específico (solo si pertenece al usuario).
-
-**Response**: `Attempt`
-
----
-
-## 🐛 Solución de Problemas
-
-### Error: "Unauthorized" en API
-
-- Verifica que estás autenticado (`/auth/login`)
-- Revisa que las cookies de Supabase se estén enviando
-- Comprueba RLS policies en Supabase
-
-### Error: "No questions found"
-
-- Verifica que los archivos JSON existan en `data/`
-- Comprueba que el formato JSON sea válido
-- Asegúrate de que haya preguntas para el modo/tag seleccionado
-
-### Error: Middleware no protege rutas
-
-- Verifica que `middleware.ts` esté en la raíz
-- Revisa el `config.matcher` en middleware
-- Asegúrate de que Next.js se reinició después de cambios
-
-### Build Errors
-
-```bash
-# Limpia caché y reinstala
-rm -rf .next node_modules pnpm-lock.yaml
-pnpm install
-pnpm build
-```
-
----
-
-## 🤝 Contribuir
-
-1. Fork el proyecto
-2. Crea una rama: `git checkout -b feature/nueva-funcionalidad`
-3. Commit: `git commit -m 'Add: nueva funcionalidad'`
-4. Push: `git push origin feature/nueva-funcionalidad`
-5. Abre un Pull Request
+Este proyecto no admite contribuciones.
 
 ---
 
 ## 📄 Licencia
 
-Este proyecto es privado. Todos los derechos reservados.
+Este proyecto es privado y está bajo desarrollo activo.
 
 ---
 
-## 👨‍💻 Autor
+## � Contacto
 
-Desarrollado para la preparación de oposiciones.
+**Desarrollado por**: Juhume
 
----
-
-## 📧 Soporte
-
-Para preguntas o problemas, abre un issue en el repositorio o contacta a [tu-email@ejemplo.com].
-
----
-
-**¡Buena suerte en tu preparación! 🎓🚀**
+- 🌐 Portfolio: En construcción
+- 💼 LinkedIn: En construcción
+- 🐙 GitHub: [@Juhume](https://github.com/Juhume)
+- 📧 Email: juhume.exe@gmail.com
