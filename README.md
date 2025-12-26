@@ -10,8 +10,6 @@
 
 **Una aplicación web moderna y completa para la preparación de exámenes tipo test de oposiciones.**
 
-[🚀 Demo en Vivo](#) · [📚 Documentación](./RESUMEN_PROYECTO.md) · [🏗️ Arquitectura](./ARCHITECTURE.md)
-
 </div>
 
 ---
