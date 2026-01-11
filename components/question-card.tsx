@@ -5,8 +5,9 @@ import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Badge } from "@/components/ui/badge"
-import { CheckCircle2, XCircle, Info } from "lucide-react"
-import type { Question } from "@/lib/types"
+import { CheckCircle2, XCircle, Info, Bookmark, BookmarkCheck } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import type { Question, QuestionMode } from "@/lib/types"
 
 interface QuestionCardProps {
   question: Question
@@ -14,6 +15,10 @@ interface QuestionCardProps {
   onAnswerChange: (selected: string[]) => void
   showCorrect?: boolean
   correctOptions?: string[]
+  showBookmarkButton?: boolean
+  isBookmarked?: boolean
+  onToggleBookmark?: (questionId: string, mode: string) => void
+  questionMode?: QuestionMode
 }
 
 export function QuestionCard({
@@ -22,6 +27,10 @@ export function QuestionCard({
   onAnswerChange,
   showCorrect = false,
   correctOptions,
+  showBookmarkButton = false,
+  isBookmarked = false,
+  onToggleBookmark,
+  questionMode = "demo",
 }: QuestionCardProps) {
   const isMulti = question.multi
   const isBlank = selectedOptions.length === 0
@@ -77,7 +86,7 @@ export function QuestionCard({
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
           <p className="text-base leading-relaxed text-foreground text-pretty">{question.stem}</p>
-          <div className="flex gap-2 shrink-0">
+          <div className="flex gap-2 shrink-0 items-center">
             {isMulti && (
               <Badge variant="secondary">
                 Múltiple
@@ -87,6 +96,21 @@ export function QuestionCard({
               <Badge variant="outline" className="text-amber-600 border-amber-600">
                 Sin responder
               </Badge>
+            )}
+            {showBookmarkButton && onToggleBookmark && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className={`h-8 w-8 ${isBookmarked ? "text-amber-500" : "text-muted-foreground"}`}
+                onClick={() => onToggleBookmark(question.id, questionMode)}
+                title={isBookmarked ? "Quitar de flashcards" : "Guardar para repasar"}
+              >
+                {isBookmarked ? (
+                  <BookmarkCheck className="h-5 w-5 fill-current" />
+                ) : (
+                  <Bookmark className="h-5 w-5" />
+                )}
+              </Button>
             )}
           </div>
         </div>

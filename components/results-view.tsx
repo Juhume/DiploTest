@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,7 +8,8 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { QuestionCard } from "@/components/question-card"
 import type { Question, Attempt } from "@/lib/types"
-import { CheckCircle, XCircle, MinusCircle, Clock, History, RotateCcw } from "lucide-react"
+import { CheckCircle, XCircle, MinusCircle, Clock, History, RotateCcw, Bookmark } from "lucide-react"
+import { toast } from "sonner"
 
 interface ResultsViewProps {
   attempt: Attempt
@@ -33,6 +34,65 @@ function formatDate(dateString: string): string {
 
 export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
   const [reviewFilter, setReviewFilter] = useState<"all" | "correct" | "wrong" | "blank">("all")
+  const [bookmarkedIds, setBookmarkedIds] = useState<Set<string>>(new Set())
+
+  // Fetch user's bookmarks on mount
+  useEffect(() => {
+    async function fetchBookmarks() {
+      try {
+        const res = await fetch("/api/bookmarks")
+        if (res.ok) {
+          const data = await res.json()
+          if (Array.isArray(data)) {
+            setBookmarkedIds(new Set(data.map((b: { question_id: string }) => b.question_id)))
+          }
+        }
+      } catch (error) {
+        console.error("Failed to fetch bookmarks:", error)
+      }
+    }
+    fetchBookmarks()
+  }, [])
+
+  async function handleToggleBookmark(questionId: string, mode: string) {
+    const isCurrentlyBookmarked = bookmarkedIds.has(questionId)
+
+    try {
+      if (isCurrentlyBookmarked) {
+        // Remove bookmark
+        const res = await fetch(`/api/bookmarks?question_id=${questionId}`, {
+          method: "DELETE",
+        })
+        if (res.ok) {
+          setBookmarkedIds((prev) => {
+            const next = new Set(prev)
+            next.delete(questionId)
+            return next
+          })
+          toast.success("Flashcard eliminada")
+        }
+      } else {
+        // Add bookmark
+        const res = await fetch("/api/bookmarks", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            question_id: questionId,
+            question_mode: mode,
+          }),
+        })
+        if (res.ok) {
+          setBookmarkedIds((prev) => new Set(prev).add(questionId))
+          toast.success("Guardada en flashcards")
+        } else if (res.status === 409) {
+          toast.info("Ya tienes esta pregunta guardada")
+        }
+      }
+    } catch (error) {
+      console.error("Failed to toggle bookmark:", error)
+      toast.error("Error al guardar flashcard")
+    }
+  }
   
   const isRealMode = attempt.question_mode === "real"
   const score = isRealMode ? (attempt.correct_count * 0.10) : (attempt.percentage / 10)
@@ -194,6 +254,10 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
                             onAnswerChange={() => {}}
                             showCorrect={true}
                             correctOptions={question.correct}
+                            showBookmarkButton={true}
+                            isBookmarked={bookmarkedIds.has(question.id)}
+                            onToggleBookmark={handleToggleBookmark}
+                            questionMode={attempt.question_mode}
                           />
                         </div>
                       </div>
@@ -211,6 +275,12 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
             <Link href="/app">
               <RotateCcw className="mr-2 h-4 w-4" />
               Nuevo Test
+            </Link>
+          </Button>
+          <Button variant="outline" asChild className="flex-1 bg-transparent">
+            <Link href="/flashcards">
+              <Bookmark className="mr-2 h-4 w-4" />
+              Mis Flashcards
             </Link>
           </Button>
           <Button variant="outline" asChild className="flex-1 bg-transparent">

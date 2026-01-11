@@ -13,6 +13,12 @@ const GRADING_CONFIG = {
     maxQuestions: 100, // 100 questions + 5 reserve
     totalQuestions: 100, // Only 100 questions count for scoring
   },
+  academy: {
+    pointsPerCorrect: 0.10, // Same as real mode
+    passingScore: 5.8, // Same passing criteria as real
+    maxQuestions: 100,
+    totalQuestions: 100,
+  },
 }
 
 /**

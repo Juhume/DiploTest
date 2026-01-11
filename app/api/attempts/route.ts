@@ -4,7 +4,7 @@ import { z } from "zod"
 
 const attemptSchema = z.object({
   question_mode: z.enum(["demo", "real"]),
-  selection_mode: z.enum(["all", "random", "tag"]),
+  selection_mode: z.enum(["all", "random", "tag", "review"]),
   selection_meta: z
     .object({
       n: z.number().int().positive().optional(),

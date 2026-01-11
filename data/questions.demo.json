@@ -10,7 +10,8 @@
     ],
     "correct": ["B"],
     "tags": ["onu", "organizaciones-internacionales"],
-    "multi": false
+    "multi": false,
+    "explanation": "Según el artículo 24 de la Carta de las Naciones Unidas, los Estados Miembros confieren al Consejo de Seguridad la responsabilidad primordial de mantener la paz y la seguridad internacionales. Es el único órgano de la ONU cuyas decisiones son vinculantes para todos los Estados Miembros."
   },
   {
     "id": "demo-q2",
@@ -23,7 +24,8 @@
     ],
     "correct": ["A", "C"],
     "tags": ["onu", "organizaciones-internacionales"],
-    "multi": true
+    "multi": true,
+    "explanation": "Los cinco miembros permanentes del Consejo de Seguridad (P5) son: Estados Unidos, Reino Unido, Francia, Rusia y China. Estos países tienen derecho de veto. Alemania y Japón, aunque son potencias económicas, no son miembros permanentes debido a su papel en la Segunda Guerra Mundial."
   },
   {
     "id": "demo-q3",
@@ -36,7 +38,8 @@
     ],
     "correct": ["C"],
     "tags": ["union-europea", "tratados"],
-    "multi": false
+    "multi": false,
+    "explanation": "El Tratado de Lisboa fue firmado el 13 de diciembre de 2007 y entró en vigor el 1 de diciembre de 2009, tras ser ratificado por todos los Estados miembros. Sustituyó al fallido Tratado Constitucional de 2004 y modificó el TUE y el TFUE."
   },
   {
     "id": "demo-q4",
@@ -49,7 +52,8 @@
     ],
     "correct": ["B"],
     "tags": ["union-europea", "instituciones"],
-    "multi": false
+    "multi": false,
+    "explanation": "El Consejo de Europa es una organización internacional independiente fundada en 1949 con sede en Estrasburgo, distinta de la UE. Tiene 46 Estados miembros y su principal logro es el Convenio Europeo de Derechos Humanos. No debe confundirse con el Consejo de la UE ni con el Consejo Europeo."
   },
   {
     "id": "demo-q5",
@@ -62,7 +66,8 @@
     ],
     "correct": ["B"],
     "tags": ["derecho-diplomatico", "tratados"],
-    "multi": false
+    "multi": false,
+    "explanation": "La Convención de Viena sobre Relaciones Diplomáticas fue adoptada el 18 de abril de 1961 y entró en vigor el 24 de abril de 1964. Codifica las normas del derecho diplomático consuetudinario y establece las inmunidades y privilegios diplomáticos. En 1969 se adoptó la Convención de Viena sobre el Derecho de los Tratados."
   },
   {
     "id": "demo-q6",
@@ -75,7 +80,8 @@
     ],
     "correct": ["A", "B", "D"],
     "tags": ["derecho-internacional", "principios"],
-    "multi": true
+    "multi": true,
+    "explanation": "Los principios fundamentales del DIP están recogidos en el Art. 2 de la Carta de la ONU y en la Resolución 2625 (XXV). El derecho de conquista fue abolido tras la Segunda Guerra Mundial; la adquisición de territorio por la fuerza es ilegal según el derecho internacional contemporáneo."
   },
   {
     "id": "demo-q7",
@@ -88,7 +94,8 @@
     ],
     "correct": ["C"],
     "tags": ["organizaciones-internacionales", "comercio"],
-    "multi": false
+    "multi": false,
+    "explanation": "La OMC tiene su sede en Ginebra, Suiza, donde también se encuentran otras importantes organizaciones internacionales como la OIT, la OMS y el ACNUR. La OMC fue creada en 1995 como sucesora del GATT (1947)."
   },
   {
     "id": "demo-q8",
@@ -101,7 +108,8 @@
     ],
     "correct": ["A"],
     "tags": ["constitucion-espanola", "tratados"],
-    "multi": false
+    "multi": false,
+    "explanation": "El Art. 93 CE permite la cesión de competencias derivadas de la Constitución a organizaciones internacionales mediante ley orgánica. El Art. 94 regula los tratados que requieren autorización de las Cortes. El Art. 95 establece el control previo de constitucionalidad. El Art. 96 trata la incorporación de los tratados al ordenamiento interno."
   },
   {
     "id": "demo-q9",
@@ -114,7 +122,8 @@
     ],
     "correct": ["B"],
     "tags": ["organizaciones-internacionales", "economia"],
-    "multi": false
+    "multi": false,
+    "explanation": "El FMI fue concebido en la Conferencia de Bretton Woods (julio 1944), pero fue formalmente establecido el 27 de diciembre de 1945, cuando 29 países firmaron su Convenio Constitutivo. Comenzó sus operaciones financieras el 1 de marzo de 1947."
   },
   {
     "id": "demo-q10",
@@ -127,7 +136,8 @@
     ],
     "correct": ["A", "B"],
     "tags": ["union-europea", "politica-exterior"],
-    "multi": true
+    "multi": true,
+    "explanation": "El SEAE fue creado por el Tratado de Lisboa (2009) y está operativo desde 2011. Asiste al Alto Representante y gestiona las 140+ delegaciones de la UE en el mundo. No tiene capacidad legislativa (corresponde al Consejo y PE) ni sustituye la política exterior de los Estados miembros."
   },
   {
     "id": "demo-q11",
@@ -140,7 +150,8 @@
     ],
     "correct": ["B"],
     "tags": ["onu", "historia"],
-    "multi": false
+    "multi": false,
+    "explanation": "La Carta de las Naciones Unidas fue firmada el 26 de junio de 1945 en San Francisco por 50 países (Polonia firmó después). Entró en vigor el 24 de octubre de 1945, fecha que se celebra como el Día de las Naciones Unidas. La sede de la ONU está en Nueva York desde 1952."
   },
   {
     "id": "demo-q12",
@@ -153,7 +164,8 @@
     ],
     "correct": ["B"],
     "tags": ["onu", "organizaciones-internacionales"],
-    "multi": false
+    "multi": false,
+    "explanation": "El Consejo de Seguridad tiene 15 miembros: 5 permanentes (P5) con derecho de veto (EEUU, Reino Unido, Francia, Rusia y China) y 10 no permanentes elegidos por la Asamblea General por períodos de 2 años, con distribución geográfica equitativa."
   },
   {
     "id": "demo-q13",
@@ -166,7 +178,8 @@
     ],
     "correct": ["A", "B", "C"],
     "tags": ["derecho-diplomatico", "inmunidades"],
-    "multi": true
+    "multi": true,
+    "explanation": "La Convención de Viena de 1961 establece: inviolabilidad personal (Art. 29), inviolabilidad de locales (Art. 22) y exenciones fiscales (Art. 34). Los diplomáticos deben respetar las leyes del Estado receptor, incluyendo las de armas. La inmunidad no es absoluta y puede ser renunciada por el Estado acreditante."
   },
   {
     "id": "demo-q14",
@@ -179,7 +192,8 @@
     ],
     "correct": ["B"],
     "tags": ["union-europea", "tratados", "historia"],
-    "multi": false
+    "multi": false,
+    "explanation": "El Tratado de Roma (25 de marzo de 1957) creó la CEE y la EURATOM. El Tratado de París (1951) creó la CECA. El Acta Única (1986) reformó las instituciones y creó el mercado único. Maastricht (1992) creó la UE y estableció los pilares de la unión política y monetaria."
   },
   {
     "id": "demo-q15",
@@ -192,6 +206,7 @@
     ],
     "correct": ["C"],
     "tags": ["onu", "derecho-internacional"],
-    "multi": false
+    "multi": false,
+    "explanation": "La CIJ tiene su sede en el Palacio de la Paz en La Haya (Países Bajos). Es el único órgano principal de la ONU fuera de Nueva York. No debe confundirse con la Corte Penal Internacional (también en La Haya, pero independiente de la ONU) ni con el TEDH (Estrasburgo)."
   }
 ]

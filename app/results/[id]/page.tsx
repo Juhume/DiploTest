@@ -3,7 +3,8 @@ import { redirect, notFound } from "next/navigation"
 import { AppHeader } from "@/components/app-header"
 import { ResultsView } from "@/components/results-view"
 import demoQuestions from "@/data/questions.demo.json"
-import realQuestions from "@/data/questions.real.json"
+import academyQuestions from "@/data/questions.academy.json"
+import realExamQuestions from "@/data/examenes_reales.json"
 import type { Question, Attempt } from "@/lib/types"
 
 interface ResultsPageProps {
@@ -34,8 +35,19 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
   const attemptData = attempt as Attempt
 
   // Load questions based on mode
-  const allQuestions: Question[] =
-    attemptData.question_mode === "real" ? (realQuestions as Question[]) : (demoQuestions as Question[])
+  let allQuestions: Question[]
+  switch (attemptData.question_mode) {
+    case "real":
+      allQuestions = realExamQuestions as Question[]
+      break
+    case "academy":
+      allQuestions = academyQuestions as Question[]
+      break
+    case "demo":
+    default:
+      allQuestions = demoQuestions as Question[]
+      break
+  }
 
   // Get the questions that were in this attempt from grading (includes blank answers)
   const attemptQuestionIds = Object.keys(attemptData.grading || {})

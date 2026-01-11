@@ -10,7 +10,6 @@ import type {
 } from "@/lib/types"
 import { parseISO, differenceInDays, format } from "date-fns"
 import demoQuestions from "@/data/questions.demo.json"
-import realQuestions from "@/data/questions.real.json"
 
 export async function GET() {
   try {

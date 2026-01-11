@@ -34,6 +34,7 @@ export function TestRunner() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [showNavPanel, setShowNavPanel] = useState(false)
 
   const questionMode = (searchParams.get("questionMode") as QuestionMode) || "demo"
   const selectionMode = (searchParams.get("selectionMode") as SelectionMode) || "all"
@@ -231,13 +232,18 @@ export function TestRunner() {
       {/* Mobile Navigation */}
       <div className="lg:hidden">
         <MobileNavigation
-          currentIndex={currentIndex}
-          totalQuestions={questions.length}
-          answeredCount={answeredCount}
-          onNavigate={setCurrentIndex}
-          onFinish={handleFinishTest}
-          answers={answers}
           questions={questions}
+          answers={answers}
+          currentIndex={currentIndex}
+          onPrevious={() => setCurrentIndex((i) => Math.max(0, i - 1))}
+          onNext={() => setCurrentIndex((i) => Math.min(questions.length - 1, i + 1))}
+          onQuestionSelect={(index) => {
+            setCurrentIndex(index)
+            setShowNavPanel(false)
+          }}
+          onFinish={handleFinishTest}
+          showNavPanel={showNavPanel}
+          setShowNavPanel={setShowNavPanel}
         />
       </div>
 
@@ -248,8 +254,6 @@ export function TestRunner() {
           <div className="max-w-3xl mx-auto">
             <QuestionCard
               question={currentQuestion}
-              questionNumber={currentIndex + 1}
-              totalQuestions={questions.length}
               selectedOptions={answers[currentQuestion.id] || []}
               onAnswerChange={(selected) => handleAnswerChange(currentQuestion.id, selected)}
             />
@@ -321,9 +325,8 @@ export function TestRunner() {
             questions={questions}
             currentIndex={currentIndex}
             answers={answers}
-            onNavigate={setCurrentIndex}
+            onQuestionSelect={setCurrentIndex}
             onFinish={handleFinishTest}
-            saving={saving}
           />
         </div>
       </div>
@@ -332,8 +335,6 @@ export function TestRunner() {
       <div className="lg:hidden px-4 py-6 pb-24">
         <QuestionCard
           question={currentQuestion}
-          questionNumber={currentIndex + 1}
-          totalQuestions={questions.length}
           selectedOptions={answers[currentQuestion.id] || []}
           onAnswerChange={(selected) => handleAnswerChange(currentQuestion.id, selected)}
         />

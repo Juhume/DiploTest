@@ -1,6 +1,7 @@
 "use client"
 
 import { useCallback } from "react"
+import type { QuestionMode } from "@/lib/types"
 
 export type AnalyticsEvent = 
   | "test_started"
@@ -55,7 +56,7 @@ export function useAnalytics() {
 export function useTestAnalytics() {
   const { trackEvent } = useAnalytics()
 
-  const trackTestStart = useCallback((mode: "demo" | "real", questionCount: number) => {
+  const trackTestStart = useCallback((mode: QuestionMode, questionCount: number) => {
     trackEvent("test_started", {
       mode,
       question_count: questionCount,
@@ -64,7 +65,7 @@ export function useTestAnalytics() {
   }, [trackEvent])
 
   const trackTestComplete = useCallback((
-    mode: "demo" | "real",
+    mode: QuestionMode,
     score: number,
     duration: number,
     passed: boolean
@@ -79,7 +80,7 @@ export function useTestAnalytics() {
   }, [trackEvent])
 
   const trackTestAbandoned = useCallback((
-    mode: "demo" | "real",
+    mode: QuestionMode,
     questionsAnswered: number,
     totalQuestions: number
   ) => {

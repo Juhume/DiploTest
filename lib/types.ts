@@ -13,9 +13,16 @@ export interface Question {
   tags?: string[]
   multi?: boolean // If true, multiple answers allowed (only for DEMO mode)
   reserve?: boolean // If true, this is a reserve question (for REAL mode)
+  real_exam?: boolean // If true, this is from an official exam
+  exam_year?: number // Year of the official exam (if real_exam is true)
+  source?: string // Source of the question (e.g., "academia-x", "examen-2023")
 }
 
-export type QuestionMode = "demo" | "real"
+// Question modes:
+// - demo: Practice questions for learning
+// - real: Official exam questions (100% real from past exams)
+// - academy: Academy questions (good approximation to real exam format)
+export type QuestionMode = "demo" | "real" | "academy"
 
 // Attempt types
 export interface Attempt {
@@ -47,7 +54,7 @@ export interface SelectionMeta {
 }
 
 // Test state types
-export type SelectionMode = "all" | "random" | "tag"
+export type SelectionMode = "all" | "random" | "tag" | "review"
 
 export interface TestConfig {
   questionMode: QuestionMode

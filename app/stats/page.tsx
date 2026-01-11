@@ -4,6 +4,7 @@ import { useEffect, useState } from "react"
 import { StatsOverview } from "@/components/stats/stats-overview"
 import { ProgressChart } from "@/components/stats/progress-chart"
 import { TopicPerformance } from "@/components/stats/topic-performance"
+import { WeaknessAnalysis } from "@/components/stats/weakness-analysis"
 import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { UserStats } from "@/lib/types"
@@ -156,6 +157,11 @@ export default function StatsPage() {
         {/* Cards de métricas principales */}
         <StatsOverview stats={stats} />
 
+        {/* Análisis de debilidades - destacado cuando hay temas a mejorar */}
+        {stats.topicPerformance.length > 0 && (
+          <WeaknessAnalysis topics={stats.topicPerformance} showMax={3} />
+        )}
+
         {/* Gráfico de progreso temporal */}
         {stats.progressOverTime.length > 0 && (
           <ProgressChart data={stats.progressOverTime} />
@@ -163,7 +169,9 @@ export default function StatsPage() {
 
         {/* Rendimiento por tema */}
         {stats.topicPerformance.length > 0 && (
-          <TopicPerformance data={stats.topicPerformance} limit={10} />
+          <div id="topic-performance">
+            <TopicPerformance data={stats.topicPerformance} limit={10} />
+          </div>
         )}
 
         {/* Sección de recomendaciones */}
