@@ -27,7 +27,7 @@ export default function HomePage() {
             Diplo<span className="text-primary">Test</span>
           </h1>
           <p className="text-xl md:text-2xl text-muted-foreground mb-3 max-w-2xl mx-auto">
-            Preparación para el Cuerpo Diplomático
+            Preparación para la Carrera Diplomática
           </p>
           <p className="text-base text-muted-foreground/80 max-w-xl mx-auto mb-8">
             Simula exámenes reales, repasa errores, guarda flashcards y mide tu progreso con estadísticas.

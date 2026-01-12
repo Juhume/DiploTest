@@ -31,7 +31,7 @@
 
 ## 🎯 Sobre el Proyecto
 
-**DiploTest** es una aplicación web full-stack diseñada para ayudar a opositores en su preparación para las pruebas del Cuerpo Diplomático. La plataforma ofrece una experiencia de práctica realista con tres modos de estudio (Demo, Real y Academia), evaluación automática, historial completo de intentos, flashcards y estadísticas de rendimiento.
+**DiploTest** es una aplicación web full-stack diseñada para ayudar a opositores en su preparación para las pruebas a la Carrera Diplomática. La plataforma ofrece una experiencia de práctica realista con tres modos de estudio (Demo, Real y Academia), evaluación automática, historial completo de intentos, flashcards y estadísticas de rendimiento.
 
 ### 🌟 ¿Por qué DiploTest?
 

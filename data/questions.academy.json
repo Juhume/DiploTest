@@ -39473,13 +39473,13 @@
       },
       {
         "id": "D",
-        "text": "y c) son correctas."
+        "text": "B) y C) son correctas."
       }
     ],
     "correct": [
       "D"
     ],
-    "explanation": "Son correctas: Un funcionario diplomático francés destinado en España es miembro del cuerpo diplomático acreditado en España.",
+    "explanation": "La D es correcta porque el diplomático español pertenece al cuerpo funcionarial de la Carrera Diplomática y el diplomático extranjero acreditado en España pertenece al cuerpo diplomático acreditado, mientras que el español destinado en España no forma parte de este último.",
     "tags": [
       "diplomacia",
       "españa"

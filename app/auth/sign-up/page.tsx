@@ -67,7 +67,7 @@ export default function SignUpPage() {
               <GraduationCap className="h-8 w-8" />
               <span className="text-2xl font-bold">DiploTest</span>
             </div>
-            <p className="text-sm text-muted-foreground">Preparación de oposiciones para el Cuerpo Diplomático</p>
+            <p className="text-sm text-muted-foreground">Preparación de oposiciones para la Carrera Diplomática</p>
           </div>
           <Card>
             <CardHeader>
