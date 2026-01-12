@@ -208,5 +208,1056 @@
     "tags": ["onu", "derecho-internacional"],
     "multi": false,
     "explanation": "La CIJ tiene su sede en el Palacio de la Paz en La Haya (Países Bajos). Es el único órgano principal de la ONU fuera de Nueva York. No debe confundirse con la Corte Penal Internacional (también en La Haya, pero independiente de la ONU) ni con el TEDH (Estrasburgo)."
-  }
+  },
+{
+"id": "demo-q16",
+"stem": "En el procedimiento ordinario de revisión de los Tratados de la Unión Europea, ¿qué órgano decide, en su caso, la convocatoria de una Convención para examinar los proyectos de modificación?",
+"options": [
+{ "id": "A", "text": "La Comisión Europea" },
+{ "id": "B", "text": "El Consejo de la Unión Europea" },
+{ "id": "C", "text": "El Consejo Europeo" },
+{ "id": "D", "text": "El Parlamento Europeo" }
+],
+"correct": ["C"],
+"explanation": "El artículo 48 del Tratado de la Unión Europea establece que las propuestas de revisión pueden ser presentadas por un Estado miembro, el Parlamento Europeo o la Comisión, y se notifican al Consejo Europeo. Corresponde al Consejo Europeo decidir por mayoría simple si procede examinar las enmiendas y, en su caso, convocar una Convención, salvo que, por la entidad de las modificaciones, decida no convocarla.",
+"tags": ["union-europea", "tratados", "instituciones"],
+"multi": false
+},
+{
+"id": "demo-q17",
+"stem": "El procedimiento prejudicial ante el Tribunal de Justicia de la Unión Europea (artículo 267 TFUE) puede ser planteado por:",
+"options": [
+{ "id": "A", "text": "Órganos jurisdiccionales de los Estados miembros" },
+{ "id": "B", "text": "La Comisión Europea, mediante dictamen motivado" },
+{ "id": "C", "text": "El Parlamento Europeo, mediante resolución" },
+{ "id": "D", "text": "El Consejo Europeo, mediante conclusión" }
+],
+"correct": ["A"],
+"explanation": "El artículo 267 TFUE atribuye la iniciativa del reenvío prejudicial a los órganos jurisdiccionales nacionales que conozcan de un litigio y alberguen dudas sobre la interpretación o la validez del Derecho de la Unión. La Comisión o las instituciones pueden intervenir en el procedimiento, pero no están legitimadas para plantear la cuestión prejudicial por sí mismas.",
+"tags": ["derecho-ue", "tjue", "procedimiento"],
+"multi": false
+},
+{
+"id": "demo-q18",
+"stem": "La regla general de mayoría cualificada en el Consejo de la Unión Europea (doble mayoría) exige, para la adopción de un acto a propuesta de la Comisión o del Alto Representante, al menos:",
+"options": [
+{ "id": "A", "text": "La unanimidad de los Estados miembros y el 65% de la población de la Unión" },
+{ "id": "B", "text": "El 55% de los Estados miembros que representen al menos el 65% de la población de la Unión" },
+{ "id": "C", "text": "El 50% de los Estados miembros que representen al menos el 50% de la población de la Unión" },
+{ "id": "D", "text": "Dos tercios de los Estados miembros y el 55% de la población de la Unión" }
+],
+"correct": ["B"],
+"explanation": "La mayoría cualificada se calcula, como regla general, conforme al artículo 16 TUE y al artículo 238 TFUE: al menos el 55% de los Estados miembros (incluyendo un mínimo de 15) y que representen al menos el 65% de la población de la Unión. Este sistema busca equilibrar el peso de los Estados y el criterio demográfico.",
+"tags": ["derecho-ue", "consejo-ue", "votacion"],
+"multi": false
+},
+{
+"id": "demo-q19",
+"stem": "¿Cuáles de las siguientes materias pertenecen a la competencia exclusiva de la Unión Europea? (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "Política comercial común" },
+{ "id": "B", "text": "Medio ambiente" },
+{ "id": "C", "text": "Unión aduanera" },
+{ "id": "D", "text": "Educación" }
+],
+"correct": ["A", "C"],
+"explanation": "El artículo 3 TFUE enumera las competencias exclusivas de la Unión, entre las que se incluyen la unión aduanera y la política comercial común. El medio ambiente es, con carácter general, una competencia compartida (artículo 4 TFUE) y la educación es una competencia de apoyo, coordinación o complemento (artículo 6 TFUE), sin armonización plena.",
+"tags": ["derecho-ue", "competencias", "tfue"],
+"multi": true
+},
+{
+"id": "demo-q20",
+"stem": "Una iniciativa ciudadana europea (ICE) válida, en su configuración básica, requiere al menos:",
+"options": [
+{ "id": "A", "text": "100.000 firmantes de al menos 3 Estados miembros" },
+{ "id": "B", "text": "500.000 firmantes de al menos 5 Estados miembros" },
+{ "id": "C", "text": "1.000.000 firmantes de al menos 5 Estados miembros" },
+{ "id": "D", "text": "1.000.000 firmantes de al menos 7 Estados miembros" }
+],
+"correct": ["D"],
+"explanation": "La iniciativa ciudadana europea exige, como umbral mínimo, un millón de declaraciones de apoyo de ciudadanos de la Unión procedentes de al menos siete Estados miembros, además de umbrales mínimos por Estado. La ICE obliga a la Comisión a examinar la iniciativa y motivar su respuesta, pero no la obliga automáticamente a presentar una propuesta normativa.",
+"tags": ["union-europea", "democracia-participativa", "comision-europea"],
+"multi": false
+},
+{
+"id": "demo-q21",
+"stem": "En el nombramiento del Presidente de la Comisión Europea, ¿qué afirmación es correcta con carácter general?",
+"options": [
+{ "id": "A", "text": "Es designado por el Consejo de la Unión Europea por unanimidad" },
+{ "id": "B", "text": "Es propuesto por el Consejo Europeo y elegido por el Parlamento Europeo" },
+{ "id": "C", "text": "Es elegido directamente por sufragio universal en toda la Unión" },
+{ "id": "D", "text": "Es nombrado por el Tribunal de Justicia de la UE tras audiencia pública" }
+],
+"correct": ["B"],
+"explanation": "El Tratado de la Unión Europea prevé que el Consejo Europeo proponga un candidato a Presidente de la Comisión, teniendo en cuenta los resultados de las elecciones al Parlamento Europeo, y que el Parlamento Europeo lo elija. Si no obtiene la mayoría exigida, el Consejo Europeo debe proponer un nuevo candidato.",
+"tags": ["union-europea", "instituciones", "comision-europea"],
+"multi": false
+},
+{
+"id": "demo-q22",
+"stem": "En el Derecho de los Tratados, una reserva se define, en términos generales, como:",
+"options": [
+{ "id": "A", "text": "Una declaración interpretativa conjunta de todas las partes para aclarar el sentido de una cláusula" },
+{ "id": "B", "text": "Una declaración unilateral por la que un Estado pretende excluir o modificar los efectos jurídicos de ciertas disposiciones del tratado en su aplicación a ese Estado" },
+{ "id": "C", "text": "Una cláusula obligatoria que impone la primacía del tratado sobre el derecho interno del Estado" },
+{ "id": "D", "text": "Una suspensión automática del tratado cuando se produce un cambio de gobierno en un Estado parte" }
+],
+"correct": ["B"],
+"explanation": "La Convención de Viena sobre el Derecho de los Tratados define la reserva como una declaración unilateral formulada al manifestar el consentimiento en obligarse por un tratado, con el fin de excluir o modificar el efecto jurídico de ciertas disposiciones del tratado en su aplicación a ese Estado. Su admisibilidad se valora, entre otros criterios, por su compatibilidad con el objeto y fin del tratado.",
+"tags": ["derecho-internacional", "tratados", "convencion-de-viena"],
+"multi": false
+},
+{
+"id": "demo-q23",
+"stem": "Respecto de las resoluciones de la Asamblea General de las Naciones Unidas, ¿cuál de las siguientes afirmaciones es, en términos generales, correcta?",
+"options": [
+{ "id": "A", "text": "Son siempre jurídicamente vinculantes para todos los Estados miembros" },
+{ "id": "B", "text": "Tienen carácter vinculante únicamente cuando se adoptan por unanimidad" },
+{ "id": "C", "text": "Tienen, por regla general, naturaleza recomendatoria, sin perjuicio de efectos en materias internas de la organización" },
+{ "id": "D", "text": "Equivalen a tratados internacionales una vez publicadas en la Secretaría" }
+],
+"correct": ["C"],
+"explanation": "La Asamblea General es un órgano de deliberación y recomendación; sus resoluciones, por regla general, no tienen fuerza jurídica vinculante para los Estados. Pueden, sin embargo, producir efectos en el funcionamiento interno de la organización y contribuir a la formación o evidencia de normas consuetudinarias cuando expresan una práctica y una convicción jurídica suficientemente generalizadas.",
+"tags": ["onu", "organizaciones-internacionales", "fuentes"],
+"multi": false
+},
+{
+"id": "demo-q24",
+"stem": "Un tratado que, en el momento de su celebración, entra en conflicto con una norma imperativa de Derecho internacional general (ius cogens) es:",
+"options": [
+{ "id": "A", "text": "Nulo de pleno derecho" },
+{ "id": "B", "text": "Válido, pero anulable a instancia de cualquier Estado no parte" },
+{ "id": "C", "text": "Válido, salvo que la Asamblea General de la ONU declare lo contrario" },
+{ "id": "D", "text": "Válido mientras no se denuncie formalmente por una de las partes" }
+],
+"correct": ["A"],
+"explanation": "La Convención de Viena sobre el Derecho de los Tratados establece que un tratado es nulo si, en el momento de su celebración, está en oposición con una norma imperativa de Derecho internacional general. El ius cogens opera como límite material a la autonomía de la voluntad de los Estados y afecta a la validez del tratado.",
+"tags": ["derecho-internacional", "ius-cogens", "tratados"],
+"multi": false
+},
+{
+"id": "demo-q25",
+"stem": "En relación con la Corte Internacional de Justicia (CIJ) y la Corte Penal Internacional (CPI), señale la afirmación correcta:",
+"options": [
+{ "id": "A", "text": "La CIJ y la CPI son órganos principales de las Naciones Unidas con competencia penal sobre individuos" },
+{ "id": "B", "text": "La CPI resuelve controversias entre Estados sobre interpretación de tratados de la ONU" },
+{ "id": "C", "text": "La CIJ ejerce jurisdicción penal sobre crímenes internacionales cuando el Consejo de Seguridad lo solicita" },
+{ "id": "D", "text": "La CIJ conoce de litigios entre Estados y la CPI persigue responsabilidad penal individual por crímenes internacionales conforme a su Estatuto" }
+],
+"correct": ["D"],
+"explanation": "La CIJ es el órgano judicial principal de la ONU y resuelve controversias jurídicas entre Estados, además de emitir opiniones consultivas. La CPI es una organización internacional independiente creada por el Estatuto de Roma y ejerce jurisdicción penal sobre individuos por crímenes internacionales, con reglas propias de admisibilidad y competencia.",
+"tags": ["derecho-internacional", "onu", "corte-penal-internacional"],
+"multi": false
+},
+{
+"id": "demo-q26",
+"stem": "En el marco general del Derecho internacional, el llamado asilo diplomático (concesión de protección en la sede de una misión diplomática) se caracteriza, con carácter general, por:",
+"options": [
+{ "id": "A", "text": "Constituir un derecho reconocido universalmente por la Convención de Viena de 1961" },
+{ "id": "B", "text": "No estar reconocido como derecho general universal, siendo su admisibilidad dependiente de acuerdos regionales o circunstancias específicas" },
+{ "id": "C", "text": "Ser obligatorio para el Estado territorial, que debe conceder siempre el salvoconducto" },
+{ "id": "D", "text": "Autorizar automáticamente la concesión de nacionalidad al asilado" }
+],
+"correct": ["B"],
+"explanation": "La Convención de Viena sobre Relaciones Diplomáticas regula la inviolabilidad de los locales y las funciones de la misión, pero no consagra un derecho general al asilo diplomático. Su admisibilidad depende de bases convencionales aplicables, prácticas regionales o circunstancias específicas, y no impone un deber general del Estado territorial de otorgar salvoconducto.",
+"tags": ["derecho-diplomatico", "derecho-internacional", "inmunidades"],
+"multi": false
+},
+{
+"id": "demo-q27",
+"stem": "En el sistema de solución de diferencias de la OMC, los informes de los grupos especiales (paneles) se adoptan en el Órgano de Solución de Diferencias, con carácter general, mediante:",
+"options": [
+{ "id": "A", "text": "Unanimidad positiva de todos los Miembros de la OMC" },
+{ "id": "B", "text": "Mayoría simple de los Miembros presentes y votantes" },
+{ "id": "C", "text": "Consenso negativo (se adoptan salvo que exista consenso en contra)" },
+{ "id": "D", "text": "Decisión unilateral del Director General" }
+],
+"correct": ["C"],
+"explanation": "El sistema de la OMC se caracteriza por la regla del consenso negativo: los informes se adoptan salvo que exista consenso de todos los Miembros para no adoptarlos. Esta técnica reduce la capacidad de bloqueo del Estado vencido y refuerza la efectividad del mecanismo respecto del sistema tradicional del GATT.",
+"tags": ["omc", "comercio", "solucion-de-diferencias"],
+"multi": false
+},
+{
+"id": "demo-q28",
+"stem": "¿Quiénes están legitimados para interponer recurso de inconstitucionalidad ante el Tribunal Constitucional? (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "El Presidente del Gobierno" },
+{ "id": "B", "text": "El Defensor del Pueblo" },
+{ "id": "C", "text": "Diez diputados del Congreso" },
+{ "id": "D", "text": "Cincuenta senadores" }
+],
+"correct": ["A", "B", "D"],
+"explanation": "La legitimación para el recurso de inconstitucionalidad corresponde, entre otros, al Presidente del Gobierno, al Defensor del Pueblo y a cincuenta diputados o cincuenta senadores. La exigencia de un número mínimo de parlamentarios pretende asegurar un control abstracto con relevancia institucional suficiente.",
+"tags": ["constitucion-espanola", "tribunal-constitucional", "control-de-constitucionalidad"],
+"multi": true
+},
+{
+"id": "demo-q29",
+"stem": "Conforme al artículo 86 de la Constitución Española, los decretos-leyes no podrán afectar a:",
+"options": [
+{ "id": "A", "text": "La regulación de los tributos del Estado, en ningún caso" },
+{ "id": "B", "text": "La organización interna de la Administración General del Estado" },
+{ "id": "C", "text": "Los derechos, deberes y libertades de los ciudadanos regulados en el Título I" },
+{ "id": "D", "text": "La determinación de la política exterior del Gobierno" }
+],
+"correct": ["C"],
+"explanation": "El artículo 86 CE permite el decreto-ley en casos de extraordinaria y urgente necesidad, pero fija límites materiales: no puede afectar a los derechos, deberes y libertades del Título I, al ordenamiento de las instituciones básicas del Estado, al régimen de las Comunidades Autónomas ni al Derecho electoral general. Estos límites pretenden evitar que una norma excepcional sustituya a la ley en materias estructurales o especialmente garantizadas.",
+"tags": ["constitucion-espanola", "fuentes-del-derecho", "decreto-ley"],
+"multi": false
+},
+{
+"id": "demo-q30",
+"stem": "En el procedimiento administrativo común, el silencio administrativo negativo, como regla general, implica que:",
+"options": [
+{ "id": "A", "text": "Se entiende estimada la solicitud y nace un acto administrativo favorable" },
+{ "id": "B", "text": "Se entiende desestimada la solicitud a efectos de interponer los recursos procedentes, sin que ello equivalga a una resolución expresa sobre el fondo" },
+{ "id": "C", "text": "La Administración queda exonerada definitivamente de resolver" },
+{ "id": "D", "text": "La desestimación presunta produce automáticamente cosa juzgada administrativa" }
+],
+"correct": ["B"],
+"explanation": "El silencio negativo funciona principalmente como una ficción legal para habilitar al interesado a recurrir o acudir a la jurisdicción frente a la inactividad administrativa. No sustituye la obligación de resolver expresamente ni equivale, por sí mismo, a una decisión motivada sobre el fondo, y no produce por sí solo efectos de cosa juzgada.",
+"tags": ["derecho-administrativo", "procedimiento-administrativo", "silencio-administrativo"],
+"multi": false
+},
+{
+"id": "demo-q31",
+"stem": "Conforme a la Ley 39/2015, deberán ser motivados, al menos, los actos administrativos que: (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "Limiten derechos subjetivos o intereses legítimos" },
+{ "id": "B", "text": "Resuelvan recursos administrativos" },
+{ "id": "C", "text": "Se separen del criterio seguido en actuaciones precedentes o del dictamen de órganos consultivos, cuando proceda" },
+{ "id": "D", "text": "Concedan cualquier solicitud sin excepción" }
+],
+"correct": ["A", "B", "C"],
+"explanation": "La Ley 39/2015 exige motivación en supuestos cualificados, entre ellos los actos que limiten derechos o intereses legítimos, las resoluciones de recursos y los actos que se aparten del criterio seguido en actuaciones precedentes o de dictámenes consultivos cuando resulte aplicable. La concesión de solicitudes favorables no exige necesariamente motivación en los mismos términos reforzados.",
+"tags": ["derecho-administrativo", "acto-administrativo", "motivacion"],
+"multi": true
+},
+{
+"id": "demo-q32",
+"stem": "La Conferencia de Berlín (1884-1885) se asocia principalmente con:",
+"options": [
+{ "id": "A", "text": "El establecimiento del sistema de mandatos de la Sociedad de Naciones tras la Primera Guerra Mundial" },
+{ "id": "B", "text": "La regulación internacional de la expansión colonial en África, incluyendo criterios de ocupación efectiva y principios sobre cuencas fluviales" },
+{ "id": "C", "text": "La creación de la Unión Africana y su marco constitutivo" },
+{ "id": "D", "text": "La firma del Tratado de Versalles y la delimitación de reparaciones" }
+],
+"correct": ["B"],
+"explanation": "La Conferencia de Berlín fue un hito de la expansión colonial europea en África al fijar reglas para el reconocimiento de ocupaciones, incluyendo el criterio de ocupación efectiva, y al establecer principios relacionados con la libertad de comercio y navegación en determinadas zonas y ríos. No guarda relación con el sistema de mandatos ni con los acuerdos de paz de 1919.",
+"tags": ["historia-universal", "colonialismo", "relaciones-internacionales"],
+"multi": false
+},
+{
+"id": "demo-q33",
+"stem": "El Tratado de Utrecht (1713) puso fin, en lo esencial, a la Guerra de Sucesión española y supuso, entre otras consecuencias, que:",
+"options": [
+{ "id": "A", "text": "Felipe V fue reconocido como rey de España con renuncia a la unión con la Corona francesa, y España cedió territorios europeos a otras potencias" },
+{ "id": "B", "text": "Se restauró la Casa de Austria en el trono español y se recuperó la hegemonía en Italia" },
+{ "id": "C", "text": "Se creó la Confederación Germánica bajo liderazgo español" },
+{ "id": "D", "text": "España incorporó definitivamente los Países Bajos españoles a la Corona" }
+],
+"correct": ["A"],
+"explanation": "Utrecht reconoció a Felipe V como monarca español, imponiendo la renuncia a la unión dinástica con Francia para preservar el equilibrio europeo, y supuso la pérdida de diversos territorios europeos de la Monarquía Hispánica en favor de otras potencias. No implicó la restauración austriaca ni una expansión territorial española en Europa.",
+"tags": ["historia-de-espana", "historia-europa", "siglo-xviii"],
+"multi": false
+},
+{
+"id": "demo-q34",
+"stem": "La Paz de Westfalia (1648) es habitualmente citada en la teoría de las relaciones internacionales por:",
+"options": [
+{ "id": "A", "text": "Crear la Organización de las Naciones Unidas y el sistema de seguridad colectiva" },
+{ "id": "B", "text": "Establecer el principio de autodeterminación de los pueblos como norma jurídica universal" },
+{ "id": "C", "text": "Consolidar un orden basado en Estados soberanos y la no injerencia como idea estructurante del sistema europeo" },
+{ "id": "D", "text": "Implantar la unión monetaria europea y el mercado interior" }
+],
+"correct": ["C"],
+"explanation": "Westfalia puso fin a la Guerra de los Treinta Años y suele emplearse como referencia para describir la consolidación de un sistema de Estados soberanos con autoridad territorial y limitación de interferencias externas. No se vincula con instituciones del siglo XX ni con la integración europea contemporánea.",
+"tags": ["relaciones-internacionales", "historia-europa", "soberania"],
+"multi": false
+},
+{
+"id": "demo-q35",
+"stem": "En el contexto de la Guerra Fría, la doctrina de la contención (containment) se asocia de forma clásica con:",
+"options": [
+{ "id": "A", "text": "La Doctrina Monroe y la política de aislamiento estadounidense del siglo XIX" },
+{ "id": "B", "text": "George F. Kennan y la estrategia estadounidense de limitar la expansión soviética" },
+{ "id": "C", "text": "La política de apaciguamiento frente a la Alemania nazi" },
+{ "id": "D", "text": "La Conferencia de Bandung y el liderazgo del Movimiento de Países No Alineados" }
+],
+"correct": ["B"],
+"explanation": "La contención se vincula con los planteamientos estratégicos de George F. Kennan y una orientación de política exterior destinada a frenar la expansión de la influencia soviética mediante instrumentos políticos, económicos y, en su caso, militares. No debe confundirse con el aislacionismo decimonónico ni con el apaciguamiento anterior a la Segunda Guerra Mundial.",
+"tags": ["guerra-fria", "relaciones-internacionales", "historia-contemporanea"],
+"multi": false
+},
+{
+"id": "demo-q36",
+"stem": "En relación con la Constitución de Cádiz de 1812, señale las afirmaciones correctas: (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "Proclamó la soberanía nacional como fundamento del poder" },
+{ "id": "B", "text": "Estableció una monarquía constitucional con separación de poderes" },
+{ "id": "C", "text": "Configuró un sistema parlamentario bicameral con Senado hereditario" },
+{ "id": "D", "text": "Reforzó la idea de representación en Cortes como eje del sistema constitucional" }
+],
+"correct": ["A", "B", "D"],
+"explanation": "La Constitución de 1812 afirmó la soberanía nacional, articuló una monarquía constitucional y situó a las Cortes como institución central del nuevo orden, limitando el absolutismo. No estableció un bicameralismo con Senado hereditario, sino un modelo unicameral propio de su contexto liberal.",
+"tags": ["historia-de-espana", "constitucionalismo", "siglo-xix"],
+"multi": true
+},
+{
+"id": "demo-q37",
+"stem": "El Movimiento de Países No Alineados se caracteriza, en términos generales, por:",
+"options": [
+{ "id": "A", "text": "Ser una alianza militar formal destinada a equilibrar la OTAN" },
+{ "id": "B", "text": "Ser un órgano subsidiario de la Asamblea General de la ONU con competencias reglamentarias" },
+{ "id": "C", "text": "Ser un mecanismo de integración económica supranacional con mercado interior" },
+{ "id": "D", "text": "Agrupar Estados que, durante la Guerra Fría, promovieron la independencia respecto de los bloques y apoyaron la descolonización y la soberanía" }
+],
+"correct": ["D"],
+"explanation": "El no alineamiento se configuró como una posición política de Estados, especialmente en el contexto de la descolonización, orientada a preservar autonomía frente a la lógica bipolar de la Guerra Fría. Se vinculó a la defensa de la soberanía, la no intervención y el impulso a la descolonización, sin constituirse como alianza militar ni como estructura supranacional.",
+"tags": ["guerra-fria", "descolonizacion", "relaciones-internacionales"],
+"multi": false
+},
+{
+"id": "demo-q38",
+"stem": "En la balanza de pagos, la cuenta corriente incluye, entre otros, los siguientes conceptos. ¿Cuál de los siguientes se integra típicamente en la cuenta corriente?",
+"options": [
+{ "id": "A", "text": "Saldo de bienes y servicios, junto con rentas primarias y transferencias corrientes" },
+{ "id": "B", "text": "Inversión directa y en cartera" },
+{ "id": "C", "text": "Variación de reservas oficiales del banco central" },
+{ "id": "D", "text": "Préstamos interbancarios a corto plazo registrados exclusivamente en la cuenta de capital" }
+],
+"correct": ["A"],
+"explanation": "La cuenta corriente recoge transacciones reales con el exterior: bienes, servicios, rentas primarias y transferencias corrientes. La inversión directa y en cartera se registra en la cuenta financiera, y la variación de reservas oficiales también se encuadra en esa cuenta. La cuenta de capital tiene un contenido distinto y, por regla general, menor volumen.",
+"tags": ["economia", "macroeconomia", "sector-exterior"],
+"multi": false
+},
+{
+"id": "demo-q39",
+"stem": "Según la teoría clásica de la ventaja comparativa, un país puede beneficiarse del comercio internacional incluso si:",
+"options": [
+{ "id": "A", "text": "Tiene ventajas absolutas en todos los bienes y servicios" },
+{ "id": "B", "text": "No dispone de recursos naturales en absoluto" },
+{ "id": "C", "text": "Es menos eficiente en términos absolutos en todos los bienes, pero presenta menor coste de oportunidad relativo en alguno de ellos" },
+{ "id": "D", "text": "Impone aranceles prohibitivos a todas las importaciones" }
+],
+"correct": ["C"],
+"explanation": "La ventaja comparativa se fundamenta en los costes de oportunidad relativos. Un país puede especializarse en los bienes en los que su desventaja absoluta sea menor y, mediante el intercambio, aumentar el bienestar potencial de ambas partes respecto de la autarquía.",
+"tags": ["economia", "comercio-internacional", "teoria-economica"],
+"multi": false
+},
+{
+"id": "demo-q40",
+"stem": "Conforme al Reglamento (CE) Roma I sobre ley aplicable a las obligaciones contractuales, en un contrato de consumo con elemento internacional, la elección de ley por las partes:",
+"options": [
+{ "id": "A", "text": "Es siempre nula, porque el consumidor no puede elegir ley aplicable" },
+{ "id": "B", "text": "Es válida, pero no puede privar al consumidor de la protección de las disposiciones imperativas del país de su residencia habitual en las condiciones previstas por el Reglamento" },
+{ "id": "C", "text": "Obliga necesariamente a aplicar la ley del domicilio del empresario, sin excepciones" },
+{ "id": "D", "text": "Implica automáticamente la competencia exclusiva de los tribunales del Estado cuya ley se elige" }
+],
+"correct": ["B"],
+"explanation": "Roma I admite la autonomía de la voluntad, pero establece un régimen protector en contratos de consumo: la elección de ley no puede privar al consumidor de la protección que le otorguen disposiciones imperativas del ordenamiento de su residencia habitual cuando se cumplen los presupuestos de vinculación previstos. La ley aplicable y la competencia judicial internacional son cuestiones distintas.",
+"tags": ["derecho-internacional-privado", "roma-i", "consumo"],
+"multi": false
+},
+{
+"id": "demo-q41",
+"stem": "Para que exista un hecho internacionalmente ilícito imputable a un Estado, se requiere, con carácter general:",
+"options": [
+{ "id": "A", "text": "Que el comportamiento sea atribuible al Estado y constituya violación de una obligación internacional vigente para ese Estado" },
+{ "id": "B", "text": "Que exista siempre intención dolosa del órgano estatal" },
+{ "id": "C", "text": "Que la conducta haya sido declarada ilícita previamente por la Asamblea General de la ONU" },
+{ "id": "D", "text": "Que el daño sea necesariamente material y cuantificable en términos económicos" }
+],
+"correct": ["A"],
+"explanation": "El régimen general de responsabilidad internacional del Estado se estructura en torno a dos elementos: atribución de la conducta al Estado y violación de una obligación internacional vigente para ese Estado. No es requisito general la intención dolosa ni una declaración política previa, y la existencia de daño no condiciona siempre la ilicitud, aunque incide en la reparación.",
+"tags": ["derecho-internacional", "responsabilidad-internacional", "estado"],
+"multi": false
+},
+{
+"id": "demo-q42",
+"stem": "El principio de subsidiariedad en la Unión Europea se aplica, en términos generales, a las materias:",
+"options": [
+{ "id": "A", "text": "De competencia exclusiva de la Unión, en las que los Estados miembros solo ejecutan actos de la UE" },
+{ "id": "B", "text": "De competencia de apoyo, en las que la Unión armoniza plenamente el derecho nacional" },
+{ "id": "C", "text": "De competencia exclusiva de los Estados miembros, en las que la Unión no puede intervenir" },
+{ "id": "D", "text": "Que no son de competencia exclusiva de la Unión, para valorar si los objetivos pueden lograrse mejor a nivel de la Unión que a nivel estatal" }
+],
+"correct": ["D"],
+"explanation": "La subsidiariedad rige en ámbitos que no son de competencia exclusiva de la Unión. Exige justificar que los objetivos de la acción no pueden alcanzarse de manera suficiente por los Estados miembros y que, por razón de la dimensión o efectos, pueden lograrse mejor a escala de la Unión.",
+"tags": ["derecho-ue", "principios", "subsidiariedad"],
+"multi": false
+},
+{
+"id": "demo-q43",
+"stem": "En el marco de la Unión Europea, la cooperación reforzada requiere, como mínimo, la participación de:",
+"options": [
+{ "id": "A", "text": "Un tercio de los Estados miembros" },
+{ "id": "B", "text": "La mitad de los Estados miembros" },
+{ "id": "C", "text": "Nueve Estados miembros" },
+{ "id": "D", "text": "Todos los Estados miembros salvo uno" }
+],
+"correct": ["C"],
+"explanation": "La cooperación reforzada permite que un grupo de Estados miembros avance en un ámbito dentro del marco institucional de la Unión, como último recurso y respetando el Derecho de la Unión. Entre sus requisitos formales se encuentra un mínimo de nueve Estados miembros, además de la autorización del Consejo y el respeto a la cohesión del mercado interior y de la Unión.",
+"tags": ["derecho-ue", "cooperacion-reforzada", "instituciones"],
+"multi": false
+},
+{
+"id": "demo-q44",
+"stem": "En relación con las operaciones de mantenimiento de la paz de las Naciones Unidas (peacekeeping), es correcto afirmar que:",
+"options": [
+{ "id": "A", "text": "Están reguladas de forma exhaustiva y detallada en un capítulo específico de la Carta de la ONU" },
+{ "id": "B", "text": "No están expresamente previstas en la Carta, pero se han desarrollado como práctica institucional, típicamente basadas en el consentimiento y en mandatos del Consejo de Seguridad" },
+{ "id": "C", "text": "Se organizan exclusivamente por la Asamblea General y nunca interviene el Consejo de Seguridad" },
+{ "id": "D", "text": "Implican necesariamente el uso de la fuerza ofensiva sin limitación jurídica" }
+],
+"correct": ["B"],
+"explanation": "El mantenimiento de la paz se ha desarrollado como práctica de la ONU sin una regulación específica y exhaustiva en la Carta. Tradicionalmente se asocia al consentimiento de las partes, la imparcialidad y el uso de la fuerza limitado a la legítima defensa y la defensa del mandato, sin perjuicio de mandatos más robustos cuando así se establezca.",
+"tags": ["onu", "seguridad-internacional", "peacekeeping"],
+"multi": false
+},
+{
+"id": "demo-q45",
+"stem": "Conforme al artículo 149.1 de la Constitución Española, corresponde al Estado la competencia exclusiva sobre:",
+"options": [
+{ "id": "A", "text": "Relaciones internacionales" },
+{ "id": "B", "text": "Asistencia social, en todo caso" },
+{ "id": "C", "text": "Ordenación del territorio y urbanismo, en todo caso" },
+{ "id": "D", "text": "Promoción del turismo interior, en todo caso" }
+],
+"correct": ["A"],
+"explanation": "El artículo 149.1 CE atribuye al Estado competencias exclusivas, entre ellas las relaciones internacionales. Las restantes materias propuestas se encuadran, con carácter general, en ámbitos autonómicos o compartidos según la distribución constitucional y estatutaria, sin una atribución general de exclusividad estatal en los términos planteados.",
+"tags": ["constitucion-espanola", "estado-autonomico", "competencias"],
+"multi": false
+},
+{
+"id": "demo-q46",
+"stem": "En el procedimiento legislativo ordinario de la Unión Europea, si el Parlamento Europeo rechaza en primera lectura la posición del Consejo, el resultado es:",
+"options": [
+{ "id": "A", "text": "La apertura automática del Comité de Conciliación" },
+{ "id": "B", "text": "La adopción del acto con las enmiendas del Parlamento" },
+{ "id": "C", "text": "La no adopción del acto" },
+{ "id": "D", "text": "La devolución del expediente a la Comisión para que lo apruebe por decisión delegada" }
+],
+"correct": ["C"],
+"explanation": "En el procedimiento legislativo ordinario, la adopción requiere la convergencia de Parlamento y Consejo. Si el Parlamento Europeo rechaza en primera lectura la posición del Consejo, el acto propuesto no se adopta, al quedar bloqueada la formación de una voluntad legislativa común.",
+"tags": ["derecho-ue", "procedimiento-legislativo", "parlamento-europeo"],
+"multi": false
+},
+{
+"id": "demo-q47",
+"stem": "Conforme al artículo 50 del Tratado de la Unión Europea, la intención de un Estado miembro de retirarse de la Unión se comunica formalmente a:",
+"options": [
+{ "id": "A", "text": "La Comisión Europea" },
+{ "id": "B", "text": "El Parlamento Europeo" },
+{ "id": "C", "text": "El Consejo Europeo" },
+{ "id": "D", "text": "El Tribunal de Justicia de la Unión Europea" }
+],
+"correct": ["C"],
+"explanation": "El artículo 50 TUE establece que el Estado miembro que decida retirarse notificará su intención al Consejo Europeo. A partir de esa notificación se articula la negociación del acuerdo de retirada y el cómputo del plazo previsto por el Tratado.",
+"tags": ["union-europea", "tratados", "articulo-50"],
+"multi": false
+},
+{
+"id": "demo-q48",
+"stem": "El objetivo principal del Sistema Europeo de Bancos Centrales, en términos generales, es:",
+"options": [
+{ "id": "A", "text": "Maximizar el crecimiento económico mediante el gasto público" },
+{ "id": "B", "text": "Mantener la estabilidad de precios" },
+{ "id": "C", "text": "Garantizar el equilibrio presupuestario de los Estados miembros" },
+{ "id": "D", "text": "Fijar tipos de cambio bilaterales entre Estados miembros" }
+],
+"correct": ["B"],
+"explanation": "Los Tratados atribuyen al sistema monetario europeo como objetivo primordial la estabilidad de precios. Sin perjuicio de ese objetivo, puede apoyar las políticas económicas generales de la Unión, pero sin comprometer la estabilidad de precios ni asumir funciones de política fiscal.",
+"tags": ["union-europea", "politica-monetaria", "bce"],
+"multi": false
+},
+{
+"id": "demo-q49",
+"stem": "Según la Convención de Viena sobre Relaciones Diplomáticas, la declaración de persona non grata de un agente diplomático implica que:",
+"options": [
+{ "id": "A", "text": "El Estado acreditante puede mantener al agente en el territorio sin límite temporal" },
+{ "id": "B", "text": "El Estado receptor debe justificar su decisión y motivarla por escrito" },
+{ "id": "C", "text": "El Estado receptor puede exigir la retirada del agente o el fin de sus funciones, sin obligación de motivar la decisión" },
+{ "id": "D", "text": "La inmunidad diplomática se transforma automáticamente en inmunidad consular" }
+],
+"correct": ["C"],
+"explanation": "La Convención de Viena reconoce al Estado receptor la facultad de declarar persona non grata a un agente diplomático en cualquier momento y sin necesidad de explicar su decisión. El Estado acreditante debe entonces retirar al agente o poner término a sus funciones en la misión dentro de un plazo razonable.",
+"tags": ["derecho-diplomatico", "tratados", "inmunidades"],
+"multi": false
+},
+{
+"id": "demo-q50",
+"stem": "En el Derecho del Mar, el paso inocente por el mar territorial se caracteriza, en términos generales, por: (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "Ser un tránsito continuo y rápido que no sea perjudicial para la paz, el buen orden o la seguridad del Estado ribereño" },
+{ "id": "B", "text": "Otorgar al buque extranjero libertad para realizar ejercicios con armas durante el paso" },
+{ "id": "C", "text": "Permitir al Estado ribereño adoptar leyes y reglamentos aplicables al paso inocente conforme al Derecho del Mar" },
+{ "id": "D", "text": "Excluir toda posibilidad de suspensión temporal del paso inocente por razones de seguridad" }
+],
+"correct": ["A", "C"],
+"explanation": "El paso inocente por el mar territorial exige que el tránsito sea continuo y expeditivo y que no sea perjudicial para la paz, el buen orden o la seguridad del Estado ribereño. Este Estado puede dictar normas relativas al paso inocente en ámbitos previstos por el régimen jurídico aplicable y, en condiciones determinadas, puede suspender temporalmente el paso inocente en áreas específicas por razones esenciales de seguridad.",
+"tags": ["derecho-internacional", "derecho-del-mar", "unclos"],
+"multi": true
+},
+{
+"id": "demo-q51",
+"stem": "Para la existencia del crimen de genocidio, el elemento distintivo respecto de otros crímenes internacionales es, en términos generales:",
+"options": [
+{ "id": "A", "text": "La comisión de actos violentos durante un conflicto armado internacional" },
+{ "id": "B", "text": "La intención específica de destruir, total o parcialmente, a un grupo protegido como tal" },
+{ "id": "C", "text": "La exigencia de que los actos se cometan exclusivamente por agentes estatales" },
+{ "id": "D", "text": "La necesidad de una condena previa del Consejo de Seguridad para su persecución" }
+],
+"correct": ["B"],
+"explanation": "El genocidio se caracteriza por el elemento subjetivo específico de intención de destruir, total o parcialmente, a un grupo nacional, étnico, racial o religioso como tal. Esa intención lo diferencia, por su estructura, de otras categorías de crímenes internacionales, que pueden no requerir un propósito de destrucción del grupo en sí mismo.",
+"tags": ["derecho-internacional", "derechos-humanos", "genocidio"],
+"multi": false
+},
+{
+"id": "demo-q52",
+"stem": "El artículo 5 del Tratado del Atlántico Norte se refiere, en términos generales, a:",
+"options": [
+{ "id": "A", "text": "La cláusula de asistencia mutua automática con obligación de uso de la fuerza en todo caso" },
+{ "id": "B", "text": "La obligación de neutralidad permanente de los Estados miembros" },
+{ "id": "C", "text": "La consideración de un ataque armado contra uno o varios como un ataque contra todos y el compromiso de asistencia mediante las medidas que cada uno considere necesarias" },
+{ "id": "D", "text": "La prohibición de celebrar acuerdos defensivos regionales" }
+],
+"correct": ["C"],
+"explanation": "La cláusula de defensa colectiva prevé que un ataque armado contra uno o varios aliados se considere un ataque contra todos, y que cada Estado asista tomando las medidas que estime necesarias, incluida la fuerza armada. La formulación preserva un margen de apreciación sobre el tipo de asistencia, dentro de la lógica de seguridad colectiva regional.",
+"tags": ["organizaciones-internacionales", "seguridad-internacional", "otan"],
+"multi": false
+},
+{
+"id": "demo-q53",
+"stem": "En el Consejo de Seguridad de la ONU, la adopción de decisiones sobre cuestiones de fondo requiere, en términos generales:",
+"options": [
+{ "id": "A", "text": "La mayoría simple de los miembros presentes y votantes" },
+{ "id": "B", "text": "Nueve votos afirmativos, incluidos los votos afirmativos de todos los miembros permanentes" },
+{ "id": "C", "text": "Unanimidad de los quince miembros" },
+{ "id": "D", "text": "Nueve votos afirmativos y ausencia de voto negativo de cualquiera de los miembros permanentes" }
+],
+"correct": ["D"],
+"explanation": "Las decisiones sobre cuestiones de fondo requieren nueve votos afirmativos y que ninguno de los miembros permanentes emita un voto negativo. La práctica ha consolidado que la abstención de un miembro permanente no equivale a veto, permitiendo la adopción cuando se alcanza la mayoría requerida sin voto negativo de un permanente.",
+"tags": ["onu", "consejo-de-seguridad", "veto"],
+"multi": false
+},
+{
+"id": "demo-q54",
+"stem": "El derecho de legítima defensa en la Carta de las Naciones Unidas se configura, en términos generales, como:",
+"options": [
+{ "id": "A", "text": "Un derecho ilimitado que permite el uso preventivo de la fuerza en cualquier circunstancia" },
+{ "id": "B", "text": "Un derecho individual o colectivo en caso de ataque armado, hasta que el Consejo de Seguridad haya tomado las medidas necesarias, con deber de comunicación al Consejo" },
+{ "id": "C", "text": "Una excepción aplicable únicamente a Estados miembros permanentes del Consejo de Seguridad" },
+{ "id": "D", "text": "Una potestad atribuida exclusivamente a organizaciones regionales" }
+],
+"correct": ["B"],
+"explanation": "La Carta reconoce el derecho inherente de legítima defensa individual o colectiva en caso de ataque armado, con la exigencia de comunicar inmediatamente al Consejo de Seguridad las medidas adoptadas. Su ejercicio se vincula a la temporalidad hasta que el Consejo adopte medidas necesarias y se integra en el marco general de prohibición del uso de la fuerza.",
+"tags": ["derecho-internacional", "onu", "uso-de-la-fuerza"],
+"multi": false
+},
+{
+"id": "demo-q55",
+"stem": "El procedimiento de reforma constitucional agravado en España se aplica cuando la reforma afecta a: (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "El Título Preliminar" },
+{ "id": "B", "text": "La Sección 1.ª del Capítulo II del Título I" },
+{ "id": "C", "text": "El Título II" },
+{ "id": "D", "text": "Cualquier ley orgánica, por su naturaleza" }
+],
+"correct": ["A", "B", "C"],
+"explanation": "La Constitución prevé un procedimiento agravado cuando la reforma es total o afecta a ámbitos especialmente protegidos: el Título Preliminar, la Sección 1.ª del Capítulo II del Título I y el Título II, entre otros supuestos de máxima relevancia. Ese procedimiento exige mayorías cualificadas y disolución de las Cortes, seguidas de nueva aprobación y referéndum.",
+"tags": ["constitucion-espanola", "reforma-constitucional", "derecho-constitucional"],
+"multi": true
+},
+{
+"id": "demo-q56",
+"stem": "En el sistema constitucional español, la declaración del estado de excepción y la del estado de sitio requieren:",
+"options": [
+{ "id": "A", "text": "Decreto del Gobierno sin intervención del Congreso en ningún caso" },
+{ "id": "B", "text": "Autorización o decisión del Congreso de los Diputados en los términos previstos constitucionalmente" },
+{ "id": "C", "text": "Aprobación del Senado por mayoría absoluta" },
+{ "id": "D", "text": "Informe vinculante del Tribunal Constitucional" }
+],
+"correct": ["B"],
+"explanation": "La Constitución distingue entre los estados de alarma, excepción y sitio. El estado de excepción requiere autorización del Congreso, y el estado de sitio es declarado por el Congreso a propuesta del Gobierno. La intervención parlamentaria responde al carácter especialmente intenso de las medidas que pueden adoptarse en estos estados.",
+"tags": ["constitucion-espanola", "derechos-fundamentales", "estados-excepcionales"],
+"multi": false
+},
+{
+"id": "demo-q57",
+"stem": "En el ejercicio de la potestad sancionadora de la Administración, son principios generalmente exigibles: (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "Legalidad y tipicidad" },
+{ "id": "B", "text": "Proporcionalidad" },
+{ "id": "C", "text": "Non bis in idem" },
+{ "id": "D", "text": "Irretroactividad de las normas sancionadoras favorables" }
+],
+"correct": ["A", "B", "C"],
+"explanation": "La potestad sancionadora se somete a garantías materiales y procedimentales, entre ellas legalidad y tipicidad, proporcionalidad y non bis in idem. La irretroactividad se predica, como regla, de las disposiciones sancionadoras no favorables, mientras que las favorables pueden desplegar efectos retroactivos en los términos previstos por el ordenamiento.",
+"tags": ["derecho-administrativo", "potestad-sancionadora", "principios"],
+"multi": true
+},
+{
+"id": "demo-q58",
+"stem": "La responsabilidad patrimonial de la Administración, en términos generales, exige:",
+"options": [
+{ "id": "A", "text": "Daño efectivo, evaluable económicamente e individualizado, que el ciudadano no tenga el deber jurídico de soportar, y relación de causalidad con el funcionamiento del servicio público" },
+{ "id": "B", "text": "Sentencia penal condenatoria previa del funcionario actuante en todo caso" },
+{ "id": "C", "text": "Culpa o negligencia del perjudicado como requisito necesario" },
+{ "id": "D", "text": "Que el daño provenga exclusivamente de fuerza mayor" }
+],
+"correct": ["A"],
+"explanation": "El régimen general de responsabilidad patrimonial de la Administración se articula en torno a la existencia de un daño antijurídico, efectivo, individualizado y evaluable, imputable al funcionamiento normal o anormal de los servicios públicos y con relación de causalidad. No exige necesariamente culpa del agente ni una condena penal previa, y la fuerza mayor opera típicamente como causa excluyente de responsabilidad.",
+"tags": ["derecho-administrativo", "responsabilidad-patrimonial", "administracion-publica"],
+"multi": false
+},
+{
+"id": "demo-q59",
+"stem": "En teoría de las relaciones internacionales, el concepto de equilibrio de poder se asocia principalmente con:",
+"options": [
+{ "id": "A", "text": "La idea de que las instituciones internacionales eliminan el dilema de seguridad" },
+{ "id": "B", "text": "Un mecanismo por el que los Estados buscan evitar la hegemonía de uno mediante alianzas y ajustes de capacidades" },
+{ "id": "C", "text": "La sustitución de los Estados por actores transnacionales como unidades decisorias" },
+{ "id": "D", "text": "Un principio jurídico vinculante codificado en la Carta de la ONU" }
+],
+"correct": ["B"],
+"explanation": "El equilibrio de poder es un concepto clásico asociado a enfoques realistas: los Estados, en un sistema internacional anárquico, tienden a evitar la hegemonía de uno mediante alianzas, incrementos de capacidades o estrategias de contención. Se trata de una lógica analítica, no de una norma jurídica codificada en un tratado universal.",
+"tags": ["relaciones-internacionales", "teoria-politica", "realismo"],
+"multi": false
+},
+{
+"id": "demo-q60",
+"stem": "El Congreso de Viena (1814-1815) se asocia, entre otros aspectos, con:",
+"options": [
+{ "id": "A", "text": "La creación de la Sociedad de Naciones y el régimen de mandatos" },
+{ "id": "B", "text": "El diseño del equilibrio europeo posnapoleónico y la afirmación de un orden restaurador y concertado entre potencias" },
+{ "id": "C", "text": "La fundación de la Comunidad Económica Europea" },
+{ "id": "D", "text": "La adopción de la Carta del Atlántico" }
+],
+"correct": ["B"],
+"explanation": "El Congreso de Viena reordenó Europa tras las guerras napoleónicas y promovió un equilibrio entre potencias, con elementos restauradores y mecanismos de concertación que se suelen agrupar bajo la idea de un sistema de congresos. No se vincula con instituciones del siglo XX como la Sociedad de Naciones o la integración europea.",
+"tags": ["historia-europa", "relaciones-internacionales", "siglo-xix"],
+"multi": false
+},
+{
+"id": "demo-q61",
+"stem": "En el régimen constitucional español, el referéndum es obligatorio en el procedimiento de reforma:",
+"options": [
+{ "id": "A", "text": "Ordinario, en todos los casos" },
+{ "id": "B", "text": "Ordinario, solo si lo solicita una mayoría absoluta del Congreso" },
+{ "id": "C", "text": "Agravado, tras la aprobación por las nuevas Cortes" },
+{ "id": "D", "text": "De cualquier ley orgánica que desarrolle derechos fundamentales" }
+],
+"correct": ["C"],
+"explanation": "El procedimiento agravado culmina necesariamente con referéndum tras la aprobación por las nuevas Cortes. En el procedimiento ordinario el referéndum no es automático, pudiendo celebrarse si se solicita en los términos constitucionalmente previstos, mientras que la aprobación de leyes orgánicas no lleva, por sí misma, a referéndum obligatorio.",
+"tags": ["constitucion-espanola", "reforma-constitucional", "referendum"],
+"multi": false
+},
+{
+"id": "demo-q62",
+"stem": "Las operaciones de mercado abierto de un banco central consisten, en términos generales, en:",
+"options": [
+{ "id": "A", "text": "La fijación directa de salarios en el sector público" },
+{ "id": "B", "text": "La compra y venta de activos financieros para influir en la liquidez y en las condiciones monetarias" },
+{ "id": "C", "text": "La imposición de aranceles a la importación para corregir el déficit exterior" },
+{ "id": "D", "text": "La sustitución del presupuesto del Estado por un programa de emisión monetaria" }
+],
+"correct": ["B"],
+"explanation": "Las operaciones de mercado abierto son instrumentos de política monetaria mediante los cuales el banco central compra o vende activos para ajustar la liquidez del sistema y orientar los tipos de interés a corto plazo, influyendo así en las condiciones monetarias y financieras de la economía.",
+"tags": ["economia", "politica-monetaria", "banca-central"],
+"multi": false
+},
+{
+"id": "demo-q63",
+"stem": "El principio de la nación más favorecida (NMF) en el comercio internacional, en su formulación clásica del GATT, implica que:",
+"options": [
+{ "id": "A", "text": "Un Estado puede discriminar libremente entre socios comerciales sin limitación" },
+{ "id": "B", "text": "Las concesiones arancelarias otorgadas a un socio deben extenderse, en principio, a los demás miembros en condiciones equivalentes" },
+{ "id": "C", "text": "Se prohíbe toda forma de integración económica regional" },
+{ "id": "D", "text": "Las subvenciones internas quedan automáticamente autorizadas" }
+],
+"correct": ["B"],
+"explanation": "La cláusula de nación más favorecida busca evitar discriminaciones entre socios comerciales: si se otorga una ventaja comercial a un miembro, debe extenderse a los demás en los términos previstos. El sistema admite excepciones, como ciertas preferencias regionales o regímenes específicos, pero la regla general es la no discriminación horizontal.",
+"tags": ["comercio-internacional", "gatt", "omc"],
+"multi": false
+},
+{
+"id": "demo-q64",
+"stem": "El principio de non-refoulement en materia de protección internacional se refiere, en términos generales, a:",
+"options": [
+{ "id": "A", "text": "La prohibición de extraditar a nacionales propios en todo caso" },
+{ "id": "B", "text": "La obligación de conceder asilo diplomático en embajadas" },
+{ "id": "C", "text": "La prohibición de devolver o expulsar a una persona a un territorio donde su vida o libertad estén amenazadas por motivos protegidos, con excepciones estrictas en supuestos determinados" },
+{ "id": "D", "text": "La obligación de conceder automáticamente la nacionalidad al refugiado" }
+],
+"correct": ["C"],
+"explanation": "El non-refoulement es una garantía central de la protección de refugiados: impide, en términos generales, la devolución a territorios donde la persona afrontaría riesgos graves vinculados a motivos protegidos, admitiendo excepciones estrictas en supuestos tasados relacionados con seguridad o criminalidad especialmente grave, conforme al régimen aplicable.",
+"tags": ["derecho-internacional", "derechos-humanos", "refugiados"],
+"multi": false
+},
+{
+"id": "demo-q65",
+"stem": "En la Política Exterior y de Seguridad Común (PESC) de la Unión Europea, la regla general de adopción de decisiones en el Consejo es:",
+"options": [
+{ "id": "A", "text": "Mayoría simple" },
+{ "id": "B", "text": "Mayoría cualificada" },
+{ "id": "C", "text": "Unanimidad, con excepciones previstas" },
+{ "id": "D", "text": "Decisión exclusiva de la Comisión Europea" }
+],
+"correct": ["C"],
+"explanation": "La PESC se rige, como regla general, por la unanimidad en el Consejo, dada su sensibilidad soberana. Los Tratados prevén supuestos específicos en los que puede emplearse votación por mayoría cualificada, pero no constituyen la regla general del ámbito.",
+"tags": ["union-europea", "politica-exterior", "pesc"],
+"multi": false
+},
+{
+"id": "demo-q66",
+"stem": "El Tribunal de Cuentas Europeo tiene como función principal:",
+"options": [
+{ "id": "A", "text": "Resolver recursos de casación en materia administrativa europea" },
+{ "id": "B", "text": "Fiscalizar las cuentas de la Unión y controlar la legalidad y regularidad de la gestión financiera" },
+{ "id": "C", "text": "Negociar tratados internacionales en nombre de la Unión" },
+{ "id": "D", "text": "Anular actos del Parlamento y del Consejo por infracción de Tratados" }
+],
+"correct": ["B"],
+"explanation": "El Tribunal de Cuentas ejerce la fiscalización externa de las finanzas de la Unión, verificando la legalidad y regularidad de ingresos y gastos y evaluando la buena gestión financiera. No es un órgano jurisdiccional de anulación ni un actor negociador de la acción exterior.",
+"tags": ["union-europea", "instituciones", "presupuesto-ue"],
+"multi": false
+},
+{
+"id": "demo-q67",
+"stem": "La protección diplomática, en términos generales, se define como:",
+"options": [
+{ "id": "A", "text": "La concesión de refugio en una embajada con obligación del Estado territorial de reconocerlo" },
+{ "id": "B", "text": "La acción de un Estado para reclamar frente a otro Estado por un perjuicio causado a uno de sus nacionales, conforme a requisitos como nacionalidad y agotamiento de recursos internos" },
+{ "id": "C", "text": "Una medida coercitiva armada para imponer reparaciones por vía unilateral" },
+{ "id": "D", "text": "La mediación obligatoria del Secretario General de la ONU en cualquier disputa consular" }
+],
+"correct": ["B"],
+"explanation": "La protección diplomática es el ejercicio por un Estado de una reclamación frente a otro por un daño causado a uno de sus nacionales, sujeta a requisitos clásicos como la nacionalidad del reclamante y, por regla general, el agotamiento de los recursos internos del Estado presuntamente responsable. No equivale al asilo en misión diplomática ni legitima por sí misma el uso de la fuerza.",
+"tags": ["derecho-internacional", "estado", "proteccion-diplomatica"],
+"multi": false
+},
+{
+"id": "demo-q68",
+"stem": "El artículo común 3 a los Convenios de Ginebra se aplica, en términos generales, a:",
+"options": [
+{ "id": "A", "text": "Conflictos armados internacionales entre Estados, exclusivamente" },
+{ "id": "B", "text": "Conflictos armados no internacionales, estableciendo garantías mínimas de trato humanitario" },
+{ "id": "C", "text": "Operaciones de policía interna sin violencia organizada" },
+{ "id": "D", "text": "Cualquier situación de tensión política, sin necesidad de violencia" }
+],
+"correct": ["B"],
+"explanation": "El artículo común 3 establece un núcleo mínimo de garantías aplicable a conflictos armados no internacionales, imponiendo obligaciones básicas de trato humanitario y prohibiciones fundamentales. Su relevancia radica en asegurar un estándar mínimo de protección incluso fuera del esquema clásico de los conflictos armados internacionales.",
+"tags": ["derecho-internacional", "derecho-humanitario", "conflictos-armados"],
+"multi": false
+},
+{
+"id": "demo-q69",
+"stem": "El Defensor del Pueblo Europeo es competente, en términos generales, para conocer de reclamaciones por mala administración relativas a:",
+"options": [
+{ "id": "A", "text": "Actuaciones de administraciones nacionales, autonómicas y locales de los Estados miembros" },
+{ "id": "B", "text": "Actuaciones de instituciones, órganos y organismos de la Unión Europea, con las exclusiones previstas" },
+{ "id": "C", "text": "Decisiones judiciales del Tribunal de Justicia de la Unión Europea" },
+{ "id": "D", "text": "Actos de los tribunales constitucionales nacionales en cualquier materia" }
+],
+"correct": ["B"],
+"explanation": "El Defensor del Pueblo Europeo examina reclamaciones por mala administración en la actuación de instituciones, órganos y organismos de la Unión, con límites específicos, y no sustituye los sistemas nacionales ni revisa decisiones judiciales. Su función es de control administrativo y de mejora de la buena administración en el ámbito institucional de la Unión.",
+"tags": ["union-europea", "instituciones", "buena-administracion"],
+"multi": false
+},
+{
+"id": "demo-q70",
+"stem": "En la responsabilidad patrimonial de la Administración, el carácter antijurídico del daño se entiende, en términos generales, como:",
+"options": [
+{ "id": "A", "text": "La existencia de cualquier perjuicio, aunque sea meramente hipotético" },
+{ "id": "B", "text": "La infracción de una norma penal por un empleado público" },
+{ "id": "C", "text": "La inexistencia de un deber jurídico del perjudicado de soportar el daño, atendidas las circunstancias y el ordenamiento" },
+{ "id": "D", "text": "La exigencia de que todo daño sea siempre indemnizable sin excepción" }
+],
+"correct": ["C"],
+"explanation": "El daño es antijurídico cuando el perjudicado no tiene el deber jurídico de soportarlo. Esta idea delimita el ámbito indemnizable frente a cargas generales o riesgos que el ordenamiento impone legítimamente, y se integra con los demás requisitos del sistema, como la efectividad del daño y la relación de causalidad.",
+"tags": ["derecho-administrativo", "responsabilidad-patrimonial", "antijuridicidad"],
+"multi": false
+},
+{
+"id": "demo-q71",
+"stem": "En el Derecho de la Unión Europea, un acto delegado conforme al artículo 290 TFUE se caracteriza, en términos generales, por:",
+"options": [
+{ "id": "A", "text": "Atribuir a la Comisión la competencia para modificar elementos esenciales del acto legislativo" },
+{ "id": "B", "text": "Permitir a la Comisión completar o modificar determinados elementos no esenciales del acto legislativo, bajo control del Parlamento Europeo y del Consejo" },
+{ "id": "C", "text": "Ser adoptado exclusivamente por el Consejo sin intervención de la Comisión" },
+{ "id": "D", "text": "Ser un instrumento reservado a la PESC y ajeno al TFUE" }
+],
+"correct": ["B"],
+"explanation": "El artículo 290 TFUE permite que un acto legislativo delegue en la Comisión la facultad de adoptar actos no legislativos de alcance general que completen o modifiquen determinados elementos no esenciales del acto legislativo. La delegación está sujeta a condiciones y mecanismos de control por el Parlamento Europeo y el Consejo, como la revocación o la posibilidad de formular objeciones.",
+"tags": ["derecho-ue", "tfue", "comision-europea"],
+"multi": false
+},
+{
+"id": "demo-q72",
+"stem": "Conforme al artículo 291 TFUE, los actos de ejecución se justifican, en términos generales, cuando:",
+"options": [
+{ "id": "A", "text": "Es necesario armonizar elementos esenciales de una política común" },
+{ "id": "B", "text": "Se requiere una aplicación uniforme de actos jurídicamente vinculantes de la Unión, atribuyéndose competencias de ejecución a la Comisión o, en casos específicos, al Consejo" },
+{ "id": "C", "text": "Se pretende revisar los Tratados sin convocar una Conferencia Intergubernamental" },
+{ "id": "D", "text": "Se busca sustituir a los parlamentos nacionales en el control de subsidiariedad" }
+],
+"correct": ["B"],
+"explanation": "El artículo 291 TFUE parte de que los Estados miembros adoptan todas las medidas necesarias para ejecutar el Derecho de la Unión, pero cuando se requieren condiciones uniformes de ejecución de los actos jurídicamente vinculantes, pueden conferirse competencias de ejecución a la Comisión o, en casos debidamente justificados, al Consejo, bajo reglas comunes de control.",
+"tags": ["derecho-ue", "tfue", "actos-de-ejecucion"],
+"multi": false
+},
+{
+"id": "demo-q73",
+"stem": "El Marco Financiero Plurianual (MFP) de la Unión Europea se establece, con carácter general, mediante:",
+"options": [
+{ "id": "A", "text": "Reglamento adoptado por el Parlamento Europeo por mayoría absoluta" },
+{ "id": "B", "text": "Decisión del Consejo Europeo sin intervención del Parlamento Europeo" },
+{ "id": "C", "text": "Reglamento del Consejo adoptado por unanimidad, previa aprobación del Parlamento Europeo" },
+{ "id": "D", "text": "Directiva de la Comisión adoptada en el marco de comitología" }
+],
+"correct": ["C"],
+"explanation": "El artículo 312 TFUE dispone que el MFP se establece mediante un reglamento del Consejo, adoptado por unanimidad, previa aprobación del Parlamento Europeo. El MFP fija límites máximos de gasto por rúbricas y da previsibilidad presupuestaria, sin sustituir el procedimiento anual de presupuestos.",
+"tags": ["derecho-ue", "presupuesto-ue", "tfue"],
+"multi": false
+},
+{
+"id": "demo-q74",
+"stem": "¿Cuál de las siguientes afirmaciones describe correctamente el papel de los parlamentos nacionales en el control del principio de subsidiariedad en la UE? (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "Pueden emitir dictámenes motivados cuando consideren que un proyecto de acto legislativo no respeta la subsidiariedad" },
+{ "id": "B", "text": "Pueden activar mecanismos de revisión política del proyecto al alcanzarse umbrales de dictámenes previstos en los Protocolos" },
+{ "id": "C", "text": "Pueden anular directamente un acto legislativo de la UE mediante votación nacional" },
+{ "id": "D", "text": "No tienen ninguna función en este ámbito, que corresponde exclusivamente al Tribunal de Justicia" }
+],
+"correct": ["A", "B"],
+"explanation": "Los Protocolos sobre subsidiariedad y proporcionalidad prevén que los parlamentos nacionales puedan emitir dictámenes motivados sobre proyectos de actos legislativos si aprecian infracción de la subsidiariedad. Al alcanzarse determinados umbrales, se activan mecanismos de reconsideración política del proyecto, sin que ello equivalga a una anulación directa, que corresponde al control jurisdiccional en los cauces previstos.",
+"tags": ["derecho-ue", "subsidiariedad", "parlamentos-nacionales"],
+"multi": true
+},
+{
+"id": "demo-q75",
+"stem": "En el Derecho de la Unión, el principio de primacía implica, en términos generales, que:",
+"options": [
+{ "id": "A", "text": "El Derecho nacional prevalece siempre sobre el Derecho de la Unión por ser expresión de soberanía" },
+{ "id": "B", "text": "El Derecho de la Unión prevalece en caso de conflicto sobre el Derecho nacional, debiendo el órgano nacional inaplicar la norma interna incompatible" },
+{ "id": "C", "text": "Los tratados internacionales de los Estados miembros prevalecen siempre sobre el Derecho de la Unión" },
+{ "id": "D", "text": "La primacía solo opera respecto de reglamentos, pero no respecto de directivas" }
+],
+"correct": ["B"],
+"explanation": "La primacía supone que, ante un conflicto entre una norma nacional y una norma de la Unión aplicable, el órgano nacional debe garantizar la eficacia del Derecho de la Unión mediante la inaplicación de la norma interna incompatible. Este efecto se proyecta sobre el ordenamiento interno sin requerir, por sí mismo, la derogación formal previa de la norma nacional.",
+"tags": ["derecho-ue", "principios", "primacia"],
+"multi": false
+},
+{
+"id": "demo-q76",
+"stem": "Conforme a la Convención de Viena sobre el Derecho de los Tratados, la regla general de interpretación de un tratado exige atender:",
+"options": [
+{ "id": "A", "text": "Exclusivamente al sentido literal de las palabras, sin considerar contexto ni finalidad" },
+{ "id": "B", "text": "Al sentido corriente de los términos en su contexto y a la luz de su objeto y fin, actuando de buena fe" },
+{ "id": "C", "text": "A la voluntad subjetiva de cada negociador, aunque no conste en el texto" },
+{ "id": "D", "text": "Solo a los trabajos preparatorios, como fuente primaria" }
+],
+"correct": ["B"],
+"explanation": "La Convención de Viena establece como regla general que los tratados deben interpretarse de buena fe conforme al sentido corriente de sus términos en el contexto y a la luz de su objeto y fin. Los trabajos preparatorios cumplen, en su caso, una función complementaria, especialmente para confirmar el sentido o resolver ambigüedades persistentes.",
+"tags": ["derecho-internacional", "tratados", "interpretacion"],
+"multi": false
+},
+{
+"id": "demo-q77",
+"stem": "En el Derecho internacional consuetudinario, la inmunidad de jurisdicción del Estado extranjero en materia civil se entiende, en términos generales, como:",
+"options": [
+{ "id": "A", "text": "Absoluta, abarcando toda actuación sin excepción" },
+{ "id": "B", "text": "Restrictiva, distinguiendo entre actos soberanos (iure imperii) y actos de gestión o comerciales (iure gestionis)" },
+{ "id": "C", "text": "Inexistente, porque los Estados siempre pueden ser demandados ante tribunales extranjeros" },
+{ "id": "D", "text": "Aplicable únicamente a los actos de empresas públicas, pero no al Estado" }
+],
+"correct": ["B"],
+"explanation": "La tendencia dominante en el Derecho internacional contemporáneo es la inmunidad restrictiva: el Estado extranjero goza de inmunidad respecto de actos soberanos, mientras que puede no invocarla frente a actos de naturaleza privada o comercial. La delimitación se realiza atendiendo a la naturaleza del acto y, en determinados supuestos, a su finalidad, conforme al marco aplicable.",
+"tags": ["derecho-internacional", "inmunidades", "estado"],
+"multi": false
+},
+{
+"id": "demo-q78",
+"stem": "En materia de responsabilidad internacional del Estado, las contramedidas se caracterizan, en términos generales, por:",
+"options": [
+{ "id": "A", "text": "Ser medidas punitivas destinadas a castigar al Estado infractor sin limitaciones jurídicas" },
+{ "id": "B", "text": "Ser medidas ilícitas en todo caso, por implicar siempre el uso de la fuerza" },
+{ "id": "C", "text": "Ser medidas temporales y reversibles, adoptadas para inducir el cumplimiento de obligaciones de cesación y reparación, sin afectar obligaciones fundamentales como la prohibición del uso de la fuerza" },
+{ "id": "D", "text": "Requerir siempre autorización previa del Consejo de Seguridad" }
+],
+"correct": ["C"],
+"explanation": "Las contramedidas son reacciones frente a un hecho ilícito internacional que, bajo condiciones estrictas, permiten suspender el cumplimiento de ciertas obligaciones frente al Estado responsable para inducir su retorno a la legalidad. Deben ser proporcionales, dirigidas a lograr cesación y reparación, temporales y reversibles, y no pueden vulnerar obligaciones esenciales, como la prohibición del uso de la fuerza o garantías fundamentales de derechos humanos.",
+"tags": ["derecho-internacional", "responsabilidad-internacional", "contramedidas"],
+"multi": false
+},
+{
+"id": "demo-q79",
+"stem": "En el Derecho del Mar, en la zona económica exclusiva (ZEE) el Estado ribereño tiene, en términos generales: (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "Derechos soberanos para la exploración, explotación, conservación y administración de los recursos naturales" },
+{ "id": "B", "text": "Plena soberanía territorial equivalente a la del mar territorial" },
+{ "id": "C", "text": "Jurisdicción respecto de determinadas actividades como la investigación científica marina y la protección del medio marino, en los términos previstos" },
+{ "id": "D", "text": "Derecho a prohibir en todo caso el sobrevuelo de aeronaves extranjeras" }
+],
+"correct": ["A", "C"],
+"explanation": "La ZEE no es un espacio de soberanía plena como el mar territorial, sino un régimen funcional. El Estado ribereño posee derechos soberanos sobre recursos y ciertas competencias jurisdiccionales respecto de actividades específicas, dentro del marco aplicable. Los demás Estados mantienen libertades como navegación y sobrevuelo, con los límites previstos por el Derecho del Mar.",
+"tags": ["derecho-internacional", "derecho-del-mar", "unclos"],
+"multi": true
+},
+{
+"id": "demo-q80",
+"stem": "La Convención de Viena sobre Relaciones Consulares fue adoptada en:",
+"options": [
+{ "id": "A", "text": "1948" },
+{ "id": "B", "text": "1951" },
+{ "id": "C", "text": "1963" },
+{ "id": "D", "text": "1977" }
+],
+"correct": ["C"],
+"explanation": "La codificación central del derecho consular se recoge en la Convención de Viena sobre Relaciones Consulares, adoptada en 1963. Este instrumento sistematiza funciones consulares, privilegios e inmunidades de oficinas consulares y garantías como la comunicación consular, diferenciándolas del régimen diplomático de 1961.",
+"tags": ["derecho-consular", "tratados", "convencion-de-viena"],
+"multi": false
+},
+{
+"id": "demo-q81",
+"stem": "En el sistema español de justicia constitucional, el recurso de amparo procede, en términos generales, para la tutela de:",
+"options": [
+{ "id": "A", "text": "Cualquier derecho reconocido en la Constitución, sin distinción" },
+{ "id": "B", "text": "Los derechos y libertades susceptibles de amparo, tras el agotamiento de la vía judicial procedente cuando corresponda" },
+{ "id": "C", "text": "Derechos sociales del Capítulo III del Título I en todo caso, sin más requisitos" },
+{ "id": "D", "text": "Intereses económicos generales, sin necesidad de lesión de un derecho fundamental" }
+],
+"correct": ["B"],
+"explanation": "El amparo constitucional es un cauce extraordinario para proteger determinados derechos fundamentales y libertades públicas, con requisitos de subsidiariedad y agotamiento de la vía judicial previa cuando proceda. No opera como una tercera instancia general ni se extiende automáticamente a cualquier derecho constitucional sin el encaje material y procesal correspondiente.",
+"tags": ["constitucion-espanola", "tribunal-constitucional", "amparo"],
+"multi": false
+},
+{
+"id": "demo-q82",
+"stem": "La nulidad de pleno derecho del acto administrativo, conforme a la Ley 39/2015, se aprecia, entre otros supuestos, cuando: (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "Se dicta por órgano manifiestamente incompetente por razón de la materia o del territorio" },
+{ "id": "B", "text": "Tiene un defecto de forma no invalidante que no causa indefensión" },
+{ "id": "C", "text": "Lesiona derechos y libertades susceptibles de amparo constitucional" },
+{ "id": "D", "text": "Se dicta prescindiendo total y absolutamente del procedimiento legalmente establecido" }
+],
+"correct": ["A", "C", "D"],
+"explanation": "La Ley 39/2015 contempla supuestos tasados de nulidad de pleno derecho, como la incompetencia manifiesta en materia o territorio, la lesión de derechos fundamentales susceptibles de amparo y la omisión total y absoluta del procedimiento. Los defectos de forma no esenciales que no generan indefensión se encuadran, en su caso, en irregularidades no invalidantes o anulabilidad, según el caso.",
+"tags": ["derecho-administrativo", "acto-administrativo", "nulidad"],
+"multi": true
+},
+{
+"id": "demo-q83",
+"stem": "La iniciativa legislativa en España corresponde, con carácter general, a: (Seleccione todas las correctas)",
+"options": [
+{ "id": "A", "text": "El Gobierno" },
+{ "id": "B", "text": "El Congreso y el Senado, en los términos previstos" },
+{ "id": "C", "text": "Las Asambleas de las Comunidades Autónomas, conforme al procedimiento constitucional" },
+{ "id": "D", "text": "El Tribunal Constitucional, mediante sentencia" }
+],
+"correct": ["A", "B", "C"],
+"explanation": "La Constitución reconoce iniciativa legislativa al Gobierno y a las Cámaras, y prevé la iniciativa de las Asambleas autonómicas en los términos establecidos. El Tribunal Constitucional ejerce control de constitucionalidad y otras funciones, pero no ostenta iniciativa legislativa como tal.",
+"tags": ["constitucion-espanola", "cortes-generales", "procedimiento-legislativo"],
+"multi": true
+},
+{
+"id": "demo-q84",
+"stem": "Conforme al artículo 155 de la Constitución Española, para adoptar medidas que obliguen a una Comunidad Autónoma al cumplimiento forzoso de sus obligaciones constitucionales o legales se requiere, entre otros elementos:",
+"options": [
+{ "id": "A", "text": "Aprobación por mayoría simple del Congreso a propuesta del Presidente del Tribunal Constitucional" },
+{ "id": "B", "text": "Requerimiento previo al Presidente de la Comunidad Autónoma y, en caso de no ser atendido, aprobación por mayoría absoluta del Senado" },
+{ "id": "C", "text": "Informe vinculante del Consejo General del Poder Judicial y aprobación por mayoría absoluta del Congreso" },
+{ "id": "D", "text": "Referéndum autonómico de ratificación de las medidas" }
+],
+"correct": ["B"],
+"explanation": "El artículo 155 CE exige un requerimiento previo al Presidente de la Comunidad Autónoma y, si no es atendido, la aprobación por mayoría absoluta del Senado para que el Gobierno pueda adoptar las medidas necesarias. El diseño busca reforzar garantías procedimentales y control parlamentario ante una intervención extraordinaria en el ámbito autonómico.",
+"tags": ["constitucion-espanola", "estado-autonomico", "articulo-155"],
+"multi": false
+},
+{
+"id": "demo-q85",
+"stem": "La creación de la Sociedad de Naciones tras la Primera Guerra Mundial se formalizó en el marco del:",
+"options": [
+{ "id": "A", "text": "Congreso de Viena" },
+{ "id": "B", "text": "Tratado de Versalles" },
+{ "id": "C", "text": "Acta Única Europea" },
+{ "id": "D", "text": "Tratado de Tordesillas" }
+],
+"correct": ["B"],
+"explanation": "La Sociedad de Naciones se creó en el contexto del arreglo de paz posterior a la Primera Guerra Mundial, integrado en los tratados de 1919, siendo el Tratado de Versalles el instrumento más representativo asociado a su establecimiento. Se concibió como un intento de institucionalizar la seguridad colectiva y la cooperación internacional.",
+"tags": ["historia-contemporanea", "organizaciones-internacionales", "sociedad-de-naciones"],
+"multi": false
+},
+{
+"id": "demo-q86",
+"stem": "La Doctrina Truman se vincula históricamente con:",
+"options": [
+{ "id": "A", "text": "El aislamiento de Estados Unidos respecto de Europa tras 1815" },
+{ "id": "B", "text": "La formulación de una política de apoyo a Estados frente a presiones percibidas como expansión comunista, en el inicio de la Guerra Fría" },
+{ "id": "C", "text": "La creación del mercado interior de la Unión Europea" },
+{ "id": "D", "text": "La política de neutralidad armada de los países nórdicos en el siglo XVII" }
+],
+"correct": ["B"],
+"explanation": "La Doctrina Truman se asocia al arranque de la Guerra Fría y a una orientación estratégica estadounidense de apoyo político y económico a Estados considerados vulnerables frente a presiones vinculadas a la expansión comunista. Constituye un hito en la configuración de la lógica bipolar y la contención.",
+"tags": ["guerra-fria", "relaciones-internacionales", "historia-contemporanea"],
+"multi": false
+},
+{
+"id": "demo-q87",
+"stem": "En el proceso de integración europea, la Declaración Schuman (1950) se considera relevante principalmente por:",
+"options": [
+{ "id": "A", "text": "Proponer una autoridad común en sectores estratégicos como carbón y acero, abriendo el camino a la CECA" },
+{ "id": "B", "text": "Establecer la moneda única y el Banco Central Europeo" },
+{ "id": "C", "text": "Crear el Consejo de Europa y el Convenio Europeo de Derechos Humanos" },
+{ "id": "D", "text": "Aprobar el Tratado de Lisboa" }
+],
+"correct": ["A"],
+"explanation": "La Declaración Schuman propuso poner la producción de carbón y acero bajo una autoridad común como mecanismo de interdependencia y prevención de conflictos, lo que condujo a la creación de la CECA. Se trata de un hito fundacional de la integración europea por su enfoque funcional y supranacional en sectores estratégicos.",
+"tags": ["historia-europa", "union-europea", "integracion-europea"],
+"multi": false
+},
+{
+"id": "demo-q88",
+"stem": "En la historia contemporánea de España, la Constitución de 1978 se caracteriza, entre otros rasgos, por:",
+"options": [
+{ "id": "A", "text": "Establecer un Estado confesional con religión oficial" },
+{ "id": "B", "text": "Configurar un Estado social y democrático de Derecho y reconocer un modelo de autonomía territorial" },
+{ "id": "C", "text": "Implantar una monarquía absoluta sin control parlamentario" },
+{ "id": "D", "text": "Suprimir el control de constitucionalidad y el Tribunal Constitucional" }
+],
+"correct": ["B"],
+"explanation": "La Constitución de 1978 define a España como un Estado social y democrático de Derecho y articula un modelo territorial basado en la autonomía de nacionalidades y regiones, con distribución competencial y garantías constitucionales. Además, configura una monarquía parlamentaria y establece un sistema de control de constitucionalidad.",
+"tags": ["historia-de-espana", "constitucion-espanola", "transicion"],
+"multi": false
+},
+{
+"id": "demo-q89",
+"stem": "Una inflación causada principalmente por aumentos generalizados de costes de producción (por ejemplo, encarecimiento de insumos) se clasifica típicamente como:",
+"options": [
+{ "id": "A", "text": "Inflación de demanda" },
+{ "id": "B", "text": "Inflación de costes" },
+{ "id": "C", "text": "Deflación monetaria" },
+{ "id": "D", "text": "Inflación cero estructural" }
+],
+"correct": ["B"],
+"explanation": "La inflación de costes surge cuando aumentan los costes de producción y las empresas trasladan parte de ese aumento a precios finales, elevando el nivel general de precios. Se distingue de la inflación de demanda, asociada a un exceso de demanda agregada sobre la capacidad productiva.",
+"tags": ["economia", "macroeconomia", "inflacion"],
+"multi": false
+},
+{
+"id": "demo-q90",
+"stem": "En economía internacional, una depreciación de la moneda nacional, ceteris paribus, tiende a:",
+"options": [
+{ "id": "A", "text": "Encarecer las exportaciones y abaratar las importaciones" },
+{ "id": "B", "text": "Abaratar las exportaciones y encarecer las importaciones" },
+{ "id": "C", "text": "No afectar a precios relativos en absoluto" },
+{ "id": "D", "text": "Eliminar automáticamente el déficit público" }
+],
+"correct": ["B"],
+"explanation": "Una depreciación reduce el precio en moneda extranjera de los bienes domésticos, favoreciendo la competitividad de las exportaciones, y aumenta el precio en moneda nacional de los bienes importados. El efecto neto sobre la balanza comercial depende de elasticidades, estructura de comercio y dinámicas de ajuste, pero el mecanismo de precios relativos opera en ese sentido.",
+"tags": ["economia", "comercio-internacional", "tipo-de-cambio"],
+"multi": false
+}
+
 ]

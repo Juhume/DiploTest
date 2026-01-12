@@ -180,7 +180,7 @@ export function ProgressChart({ data }: ProgressChartProps) {
         </div>
         
         {/* Métricas con última nota y evolución */}
-        <div className="flex items-center gap-3 mt-4">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-4">
           {chartData.length > 1 && (
             <>
               <div className="bg-muted/50 p-3 rounded-lg text-center flex-1">
@@ -200,7 +200,7 @@ export function ProgressChart({ data }: ProgressChartProps) {
         </div>
         
         {/* Estadísticas rápidas */}
-        <div className="grid grid-cols-3 gap-3 mt-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-3">
           <div className="bg-muted/30 p-3 rounded-lg text-center">
             <div className="text-xs text-muted-foreground mb-1">Promedio</div>
             <div className="text-xl font-bold text-primary">{currentAvg.toFixed(2)}</div>
@@ -221,24 +221,24 @@ export function ProgressChart({ data }: ProgressChartProps) {
           <AreaChart data={chartData} margin={{ top: 10, right: 20, left: 0, bottom: 20 }}>
             <defs>
               <linearGradient id="colorScore" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.5}/>
-                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0.1}/>
+                <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.5}/>
+                <stop offset="95%" stopColor="var(--primary)" stopOpacity={0.1}/>
               </linearGradient>
             </defs>
             
             <CartesianGrid 
               strokeDasharray="3 3" 
-              stroke="hsl(var(--border))" 
+              stroke="var(--border)"
               opacity={0.5}
               vertical={false}
             />
             
             <XAxis 
               dataKey="label"
-              stroke="hsl(var(--muted-foreground))"
+              stroke="var(--muted-foreground)"
               fontSize={11}
               tickLine={false}
-              axisLine={{ stroke: 'hsl(var(--border))' }}
+              axisLine={{ stroke: "var(--border)" }}
               angle={chartData.length > 10 ? -45 : 0}
               textAnchor={chartData.length > 10 ? "end" : "middle"}
               height={chartData.length > 10 ? 60 : 30}
@@ -246,10 +246,10 @@ export function ProgressChart({ data }: ProgressChartProps) {
             
             <YAxis 
               domain={[0, 10]}
-              stroke="hsl(var(--muted-foreground))"
+              stroke="var(--muted-foreground)"
               fontSize={12}
               tickLine={false}
-              axisLine={{ stroke: 'hsl(var(--border))' }}
+              axisLine={{ stroke: "var(--border)" }}
               ticks={[0, 2, 4, 5.8, 6, 8, 10]}
               tickFormatter={(value) => value === 5.8 ? '5.8' : value.toString()}
             />
@@ -257,13 +257,13 @@ export function ProgressChart({ data }: ProgressChartProps) {
             {/* Línea de aprobado */}
             <ReferenceLine 
               y={passScore} 
-              stroke="hsl(var(--destructive))" 
+              stroke="var(--destructive)"
               strokeDasharray="5 5"
               strokeWidth={2}
               label={{ 
                 value: '← Mínimo para aprobar: 5.8', 
                 position: 'insideTopLeft',
-                fill: 'hsl(var(--destructive))',
+                fill: "var(--destructive)",
                 fontSize: 12,
                 fontWeight: 600,
                 offset: 10
@@ -274,13 +274,13 @@ export function ProgressChart({ data }: ProgressChartProps) {
             {chartData.length > 1 && (
               <ReferenceLine 
                 y={currentAvg} 
-                stroke="hsl(var(--chart-2))" 
+                stroke="var(--chart-2)"
                 strokeDasharray="3 3"
                 strokeWidth={2}
                 label={{ 
                   value: `Tu promedio: ${currentAvg.toFixed(2)}`, 
                   position: 'insideBottomLeft',
-                  fill: 'hsl(var(--chart-2))',
+                  fill: "var(--chart-2)",
                   fontSize: 12,
                   fontWeight: 600,
                   offset: 10
@@ -293,28 +293,28 @@ export function ProgressChart({ data }: ProgressChartProps) {
             <Area
               type="monotone"
               dataKey="nota"
-              stroke="hsl(var(--primary))"
+              stroke="var(--primary)"
               strokeWidth={4}
               fill="url(#colorScore)"
               connectNulls
               dot={{ 
-                fill: 'hsl(var(--primary))', 
+                fill: "var(--primary)",
                 strokeWidth: 3, 
-                stroke: 'hsl(var(--background))',
+                stroke: "var(--background)",
                 r: 6
               }}
               activeDot={{ 
                 r: 9, 
                 strokeWidth: 3,
-                stroke: 'hsl(var(--background))',
-                fill: 'hsl(var(--primary))'
+                stroke: "var(--background)",
+                fill: "var(--primary)"
               }}
             />
           </AreaChart>
         </ResponsiveContainer>
 
         {/* Métricas resumidas */}
-        <div className="grid grid-cols-3 gap-3 mt-6 pt-6 border-t">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6 pt-6 border-t">
           <div className="text-center">
             <div className="text-2xl font-bold text-primary mb-1">{currentAvg.toFixed(2)}</div>
             <div className="text-xs text-muted-foreground">Promedio</div>

@@ -79,41 +79,41 @@ export function ProgressChart({ data, showScore = true, showPercentage = true }:
           <LineChart data={chartData} margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <defs>
               <linearGradient id="colorNota" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.3}/>
-                <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0}/>
+                <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3}/>
+                <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
               </linearGradient>
               <linearGradient id="colorPorcentaje" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="hsl(var(--chart-2))" stopOpacity={0.3}/>
-                <stop offset="95%" stopColor="hsl(var(--chart-2))" stopOpacity={0}/>
+                <stop offset="5%" stopColor="var(--chart-2)" stopOpacity={0.3}/>
+                <stop offset="95%" stopColor="var(--chart-2)" stopOpacity={0}/>
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted/30" />
             <XAxis 
               dataKey="fecha" 
               className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-              tickLine={{ stroke: 'hsl(var(--muted-foreground))' }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+              tickLine={{ stroke: "var(--muted-foreground)" }}
             />
             <YAxis 
               yAxisId="left"
               domain={[0, 10]}
               className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-              tickLine={{ stroke: 'hsl(var(--muted-foreground))' }}
-              label={{ value: 'Nota (0-10)', angle: -90, position: 'insideLeft', style: { fill: 'hsl(var(--muted-foreground))', fontSize: 12 } }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+              tickLine={{ stroke: "var(--muted-foreground)" }}
+              label={{ value: "Nota (0-10)", angle: -90, position: "insideLeft", style: { fill: "var(--muted-foreground)", fontSize: 12 } }}
             />
             <YAxis 
               yAxisId="right"
               orientation="right"
               domain={[0, 100]}
               className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-              tickLine={{ stroke: 'hsl(var(--muted-foreground))' }}
-              label={{ value: '% Aciertos', angle: 90, position: 'insideRight', style: { fill: 'hsl(var(--muted-foreground))', fontSize: 12 } }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+              tickLine={{ stroke: "var(--muted-foreground)" }}
+              label={{ value: "% Aciertos", angle: 90, position: "insideRight", style: { fill: "var(--muted-foreground)", fontSize: 12 } }}
             />
             <Tooltip 
               content={<CustomTooltip />}
-              cursor={{ stroke: 'hsl(var(--muted-foreground))', strokeWidth: 1, strokeDasharray: '5 5' }}
+              cursor={{ stroke: "var(--muted-foreground)", strokeWidth: 1, strokeDasharray: "5 5" }}
             />
             <Legend 
               wrapperStyle={{ paddingTop: '20px' }}
@@ -125,9 +125,9 @@ export function ProgressChart({ data, showScore = true, showPercentage = true }:
                 yAxisId="left"
                 type="monotone" 
                 dataKey="nota" 
-                stroke="hsl(var(--primary))" 
+                stroke="var(--primary)"
                 strokeWidth={3}
-                dot={{ fill: 'hsl(var(--primary))', r: 5, strokeWidth: 2, stroke: '#fff' }}
+                dot={{ fill: "var(--primary)", r: 5, strokeWidth: 2, stroke: "#fff" }}
                 activeDot={{ r: 8, strokeWidth: 2 }}
                 name="Nota"
                 fill="url(#colorNota)"
@@ -138,9 +138,9 @@ export function ProgressChart({ data, showScore = true, showPercentage = true }:
                 yAxisId="right"
                 type="monotone" 
                 dataKey="porcentaje" 
-                stroke="hsl(var(--chart-2))" 
+                stroke="var(--chart-2)"
                 strokeWidth={3}
-                dot={{ fill: 'hsl(var(--chart-2))', r: 5, strokeWidth: 2, stroke: '#fff' }}
+                dot={{ fill: "var(--chart-2)", r: 5, strokeWidth: 2, stroke: "#fff" }}
                 activeDot={{ r: 8, strokeWidth: 2 }}
                 name="% Aciertos"
                 fill="url(#colorPorcentaje)"
@@ -175,7 +175,7 @@ function CustomTooltip({ active, payload }: any) {
         </div>
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: 'hsl(var(--chart-2))' }} />
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: "var(--chart-2)" }} />
             <span className="text-muted-foreground font-medium">Aciertos:</span>
           </div>
           <span className="font-bold text-foreground">{data.porcentaje.toFixed(1)}%</span>

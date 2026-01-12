@@ -45,9 +45,9 @@ export function TopicPerformance({ data, limit = 10 }: TopicPerformanceProps) {
 
   // Función para determinar color según rendimiento
   const getColor = (value: number) => {
-    if (value >= 80) return 'hsl(var(--chart-1))' // Verde
-    if (value >= 60) return 'hsl(var(--chart-3))' // Amarillo
-    return 'hsl(var(--destructive))' // Rojo
+    if (value >= 80) return "var(--chart-1)" // Verde
+    if (value >= 60) return "var(--chart-3)" // Amarillo
+    return "var(--destructive)" // Rojo
   }
 
   // Identificar tema más débil
@@ -91,16 +91,16 @@ export function TopicPerformance({ data, limit = 10 }: TopicPerformanceProps) {
           >
             <defs>
               <linearGradient id="colorExcelente" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="hsl(var(--chart-1))" stopOpacity={1}/>
-                <stop offset="100%" stopColor="hsl(var(--chart-1))" stopOpacity={0.7}/>
+                <stop offset="0%" stopColor="var(--chart-1)" stopOpacity={1}/>
+                <stop offset="100%" stopColor="var(--chart-1)" stopOpacity={0.7}/>
               </linearGradient>
               <linearGradient id="colorBueno" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="hsl(var(--chart-3))" stopOpacity={1}/>
-                <stop offset="100%" stopColor="hsl(var(--chart-3))" stopOpacity={0.7}/>
+                <stop offset="0%" stopColor="var(--chart-3)" stopOpacity={1}/>
+                <stop offset="100%" stopColor="var(--chart-3)" stopOpacity={0.7}/>
               </linearGradient>
               <linearGradient id="colorMejorable" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="hsl(var(--destructive))" stopOpacity={1}/>
-                <stop offset="100%" stopColor="hsl(var(--destructive))" stopOpacity={0.7}/>
+                <stop offset="0%" stopColor="var(--destructive)" stopOpacity={1}/>
+                <stop offset="100%" stopColor="var(--destructive)" stopOpacity={0.7}/>
               </linearGradient>
             </defs>
             <CartesianGrid strokeDasharray="3 3" className="stroke-muted/30" />
@@ -111,19 +111,19 @@ export function TopicPerformance({ data, limit = 10 }: TopicPerformanceProps) {
               height={110}
               interval={0}
               className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 11 }}
-              tickLine={{ stroke: 'hsl(var(--muted-foreground))' }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 11 }}
+              tickLine={{ stroke: "var(--muted-foreground)" }}
             />
             <YAxis 
               domain={[0, 100]}
               className="text-xs"
-              tick={{ fill: 'hsl(var(--muted-foreground))', fontSize: 12 }}
-              tickLine={{ stroke: 'hsl(var(--muted-foreground))' }}
-              label={{ value: '% Aciertos', angle: -90, position: 'insideLeft', style: { fill: 'hsl(var(--muted-foreground))', fontSize: 12 } }}
+              tick={{ fill: "var(--muted-foreground)", fontSize: 12 }}
+              tickLine={{ stroke: "var(--muted-foreground)" }}
+              label={{ value: "% Aciertos", angle: -90, position: "insideLeft", style: { fill: "var(--muted-foreground)", fontSize: 12 } }}
             />
             <Tooltip 
               content={<CustomTooltip />}
-              cursor={{ fill: 'hsl(var(--muted))', opacity: 0.1 }}
+              cursor={{ fill: "var(--muted)", opacity: 0.1 }}
             />
             <Bar 
               dataKey="tasa" 
@@ -144,15 +144,15 @@ export function TopicPerformance({ data, limit = 10 }: TopicPerformanceProps) {
         {/* Leyenda de colores */}
         <div className="flex flex-wrap items-center justify-center gap-6 mt-6 text-sm bg-muted/30 p-3 rounded-lg">
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded shadow-sm" style={{ background: 'linear-gradient(to bottom, hsl(var(--chart-1)), hsl(var(--chart-1) / 0.7))' }}></div>
+            <div className="w-4 h-4 rounded shadow-sm" style={{ background: "var(--chart-1)" }}></div>
             <span className="text-muted-foreground font-medium">Excelente (≥80%)</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded shadow-sm" style={{ background: 'linear-gradient(to bottom, hsl(var(--chart-3)), hsl(var(--chart-3) / 0.7))' }}></div>
+            <div className="w-4 h-4 rounded shadow-sm" style={{ background: "var(--chart-3)" }}></div>
             <span className="text-muted-foreground font-medium">Bueno (60-79%)</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-4 h-4 rounded shadow-sm" style={{ background: 'linear-gradient(to bottom, hsl(var(--destructive)), hsl(var(--destructive) / 0.7))' }}></div>
+            <div className="w-4 h-4 rounded shadow-sm" style={{ background: "var(--destructive)" }}></div>
             <span className="text-muted-foreground font-medium">Mejorable (&lt;60%)</span>
           </div>
         </div>

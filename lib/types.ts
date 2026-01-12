@@ -51,6 +51,7 @@ export interface QuestionGrading {
 export interface SelectionMeta {
   n?: number // For random mode
   tag?: string // For tag mode
+  examYear?: number // For real exam mode year filter
 }
 
 // Test state types
@@ -184,4 +185,17 @@ export interface StreakInfo {
   longest: number
   lastStudyDate: string
   isActive: boolean
+}
+
+// Feedback types
+export type FeedbackType = 'feature' | 'bug' | 'improvement' | 'other'
+
+export interface Feedback {
+  id: string
+  user_id: string
+  feedback_type: FeedbackType
+  message: string
+  rating?: number
+  page_context?: string
+  created_at: string
 }

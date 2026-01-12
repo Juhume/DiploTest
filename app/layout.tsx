@@ -4,6 +4,9 @@ import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { ErrorLogger } from "@/components/error-logger"
+import { ThemeProvider } from "@/components/theme-provider"
+import { Toaster } from "@/components/ui/sonner"
+import { DonationToast } from "@/components/donation-toast"
 import "./globals.css"
 
 const _geist = Geist({ subsets: ["latin"] })
@@ -42,12 +45,21 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="es">
+    <html lang="es" suppressHydrationWarning>
       <body className={`font-sans antialiased`}>
-        {children}
-        <Analytics />
-        <SpeedInsights />
-        <ErrorLogger />
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+          <Toaster richColors position="top-center" />
+          <DonationToast />
+          <Analytics />
+          <SpeedInsights />
+          <ErrorLogger />
+        </ThemeProvider>
       </body>
     </html>
   )

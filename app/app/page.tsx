@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
 import { TestSetup } from "@/components/test-setup"
 import { AppHeader } from "@/components/app-header"
+import { WelcomeGuideCard } from "@/components/welcome-guide-card"
 
 export default async function AppPage() {
   const supabase = await createClient()
@@ -21,6 +22,7 @@ export default async function AppPage() {
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">Panel de Control</h1>
           <p className="text-lg text-muted-foreground">Configura tu sesión de estudio y comienza a practicar.</p>
         </div>
+        <WelcomeGuideCard />
         <TestSetup />
       </div>
     </main>

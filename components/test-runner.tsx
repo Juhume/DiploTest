@@ -1,16 +1,19 @@
 "use client"
 
-import { useState, useEffect, useCallback } from "react"
+import { useState, useEffect, useCallback, useRef } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { QuestionCard } from "@/components/question-card"
 import { NavigationPanel } from "@/components/navigation-panel"
 import { MobileNavigation } from "@/components/mobile-navigation"
+import { TestTimer } from "@/components/test-timer"
 import type { Question, QuestionMode, SelectionMode } from "@/lib/types"
 import { gradeAttempt } from "@/lib/grading"
 import { useTestAnalytics } from "@/hooks/use-analytics"
-import { AlertCircle, ChevronLeft, ChevronRight, Flag, Loader2 } from "lucide-react"
+import { useTestTimer } from "@/hooks/use-test-timer"
+import { AlertCircle, ChevronLeft, ChevronRight, Flag, Loader2, Calendar, LogOut } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -23,10 +26,29 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 
+// Timer duration for real/academy mode: 135 minutes = 8100 seconds
+const TEST_DURATION_SECONDS = 8100
+
+/**
+ * Extract exam year from question ID or exam_year field
+ */
+function getQuestionYear(question: Question): number | null {
+  // First check if question has exam_year field
+  if (question.exam_year) {
+    return question.exam_year
+  }
+  // Try to extract from ID pattern "examen_real_YYYY_qN"
+  const match = question.id.match(/examen_real_(\d{4})/)
+  if (match) {
+    return parseInt(match[1], 10)
+  }
+  return null
+}
+
 export function TestRunner() {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const { trackTestStart, trackTestComplete, trackTestAbandoned } = useTestAnalytics()
+  const { trackTestStart, trackTestComplete } = useTestAnalytics()
   const [questions, setQuestions] = useState<Question[]>([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [answers, setAnswers] = useState<Record<string, string[]>>({})
@@ -35,11 +57,121 @@ export function TestRunner() {
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [showNavPanel, setShowNavPanel] = useState(false)
+  const [timeExpiredMessage, setTimeExpiredMessage] = useState<string | null>(null)
 
   const questionMode = (searchParams.get("questionMode") as QuestionMode) || "demo"
   const selectionMode = (searchParams.get("selectionMode") as SelectionMode) || "all"
   const count = Number(searchParams.get("count")) || 10
   const tag = searchParams.get("tag") || ""
+  const examYear = searchParams.get("examYear") || ""
+
+  // Generate a unique attempt key for timer persistence (stable across renders)
+  const [attemptKey] = useState(() => {
+    if (typeof window === "undefined") return `${questionMode}_${Date.now()}`
+    // Check if there's an existing attempt key in storage for this session
+    const existingKey = sessionStorage.getItem("current_test_attempt_key")
+    if (existingKey) return existingKey
+    // Generate new key
+    const newKey = `${questionMode}_${Date.now()}_${Math.random().toString(36).slice(2, 9)}`
+    sessionStorage.setItem("current_test_attempt_key", newKey)
+    return newKey
+  })
+
+  // Timer enabled only for real and academy modes
+  const timerEnabled = questionMode === "real" || questionMode === "academy"
+
+  // Ref to track if we've already triggered auto-finish (prevents double submission)
+  const autoFinishTriggeredRef = useRef(false)
+  // Ref to store answers for auto-finish (to avoid stale closure)
+  const answersRef = useRef(answers)
+  answersRef.current = answers
+  // Ref to store questions for auto-finish
+  const questionsRef = useRef(questions)
+  questionsRef.current = questions
+
+  // Handle timer expiration - auto finish test
+  const handleTimerExpire = useCallback(async () => {
+    if (autoFinishTriggeredRef.current) return
+    autoFinishTriggeredRef.current = true
+
+    setTimeExpiredMessage("Tiempo agotado (135:00). El test se ha enviado automáticamente.")
+
+    // Use refs to get current values
+    const currentAnswers = answersRef.current
+    const currentQuestions = questionsRef.current
+
+    if (currentQuestions.length === 0) return
+
+    setSaving(true)
+    const durationSeconds = TEST_DURATION_SECONDS // Full time used
+    const result = gradeAttempt(currentQuestions, currentAnswers, questionMode)
+
+    const selectionMeta: { n?: number; tag?: string; examYear?: number } = {}
+    if (selectionMode === "random") {
+      selectionMeta.n = count
+    } else if (selectionMode === "tag" && tag) {
+      selectionMeta.tag = tag
+    }
+    if (examYear) {
+      selectionMeta.examYear = parseInt(examYear, 10)
+    }
+
+    try {
+      const attemptData = {
+        question_mode: questionMode,
+        selection_mode: selectionMode,
+        selection_meta: selectionMeta,
+        total_questions: currentQuestions.length,
+        correct_count: result.correctCount,
+        wrong_count: result.wrongCount,
+        blank_count: result.blankCount,
+        percentage: result.percentage,
+        duration_seconds: durationSeconds,
+        answers: currentAnswers,
+        grading: result.grading,
+      }
+
+      const res = await fetch("/api/attempts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(attemptData),
+      })
+
+      if (!res.ok) {
+        throw new Error("Failed to save attempt")
+      }
+
+      const savedAttempt = await res.json()
+
+      trackTestComplete(questionMode, result.score, durationSeconds, result.passed)
+
+      // Clear session storage for attempt key
+      sessionStorage.removeItem("current_test_attempt_key")
+
+      // Redirect with time expired flag
+      router.push(`/results/${savedAttempt.id}?timeExpired=true`)
+    } catch (err) {
+      console.error("Error saving attempt on timer expire:", err)
+      setError("No se pudo guardar el intento. Por favor, inténtalo de nuevo.")
+      autoFinishTriggeredRef.current = false
+    } finally {
+      setSaving(false)
+    }
+  }, [questionMode, selectionMode, count, tag, examYear, trackTestComplete, router])
+
+  // Initialize timer hook
+  const {
+    formattedTime,
+    isWarning,
+    isCritical,
+    isExpired,
+    clearTimer,
+  } = useTestTimer({
+    attemptKey,
+    totalSeconds: TEST_DURATION_SECONDS,
+    onExpire: handleTimerExpire,
+    enabled: timerEnabled,
+  })
 
   useEffect(() => {
     async function fetchAndFilterQuestions() {
@@ -54,6 +186,11 @@ export function TestRunner() {
           params.set("tag", tag)
         }
 
+        // Pass exam year filter for real mode
+        if (questionMode === "real" && examYear) {
+          params.set("examYear", examYear)
+        }
+
         const res = await fetch(`/api/questions?${params.toString()}`)
         if (!res.ok) throw new Error("Failed to fetch questions")
         const data: Question[] = await res.json()
@@ -64,7 +201,7 @@ export function TestRunner() {
         }
 
         setQuestions(data)
-        
+
         // Track test start
         trackTestStart(questionMode, data.length)
       } catch (err) {
@@ -76,16 +213,18 @@ export function TestRunner() {
     }
 
     fetchAndFilterQuestions()
-  }, [questionMode, selectionMode, count, tag, trackTestStart])
+  }, [questionMode, selectionMode, count, tag, examYear, trackTestStart])
 
   // Keyboard shortcuts
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
-      // Ignore if typing in an input or if in an alert dialog
+      // Ignore if typing in an input, in alert dialog, or test is expired/saving
       if (
         e.target instanceof HTMLInputElement ||
         e.target instanceof HTMLTextAreaElement ||
-        document.querySelector('[role="alertdialog"]')
+        document.querySelector('[role="alertdialog"]') ||
+        isExpired ||
+        saving
       )
         return
 
@@ -105,21 +244,34 @@ export function TestRunner() {
         }
       }
 
-      // Option selection shortcuts (1-4 or A-D) - only for single choice
-      if (!currentQuestion.multi) {
-        const optionKeys: Record<string, string> = {
-          "1": "A",
-          "2": "B",
-          "3": "C",
-          "4": "D",
-          a: "A",
-          b: "B",
-          c: "C",
-          d: "D",
-        }
-        const optionId = optionKeys[e.key.toLowerCase()]
-        if (optionId && currentQuestion.options.find((o) => o.id === optionId)) {
-          e.preventDefault()
+      // Option selection shortcuts (1-4 or A-D)
+      const optionKeys: Record<string, string> = {
+        "1": "A",
+        "2": "B",
+        "3": "C",
+        "4": "D",
+        a: "A",
+        b: "B",
+        c: "C",
+        d: "D",
+      }
+      const optionId = optionKeys[e.key.toLowerCase()]
+      if (optionId && currentQuestion.options.find((o) => o.id === optionId)) {
+        e.preventDefault()
+        if (currentQuestion.multi) {
+          // Multi-select: toggle the option
+          setAnswers((prev) => {
+            const current = prev[currentQuestion.id] || []
+            const isSelected = current.includes(optionId)
+            return {
+              ...prev,
+              [currentQuestion.id]: isSelected
+                ? current.filter((id) => id !== optionId)
+                : [...current, optionId],
+            }
+          })
+        } else {
+          // Single-select: replace the answer
           setAnswers((prev) => ({
             ...prev,
             [currentQuestion.id]: [optionId],
@@ -130,26 +282,34 @@ export function TestRunner() {
 
     window.addEventListener("keydown", handleKeyDown)
     return () => window.removeEventListener("keydown", handleKeyDown)
-  }, [questions, currentIndex])
+  }, [questions, currentIndex, isExpired, saving])
 
   const handleAnswerChange = useCallback((questionId: string, selectedOptions: string[]) => {
+    // Don't allow changes if timer expired
+    if (isExpired) return
     setAnswers((prev) => ({
       ...prev,
       [questionId]: selectedOptions,
     }))
-  }, [])
+  }, [isExpired])
 
   const handleFinishTest = async () => {
+    // Prevent finishing if already saving or expired
+    if (saving || autoFinishTriggeredRef.current) return
+
     setSaving(true)
     const durationSeconds = Math.floor((Date.now() - startTime) / 1000)
     const result = gradeAttempt(questions, answers, questionMode)
 
     // Prepare selection meta based on mode
-    const selectionMeta: { n?: number; tag?: string } = {}
+    const selectionMeta: { n?: number; tag?: string; examYear?: number } = {}
     if (selectionMode === "random") {
       selectionMeta.n = count
     } else if (selectionMode === "tag" && tag) {
       selectionMeta.tag = tag
+    }
+    if (examYear) {
+      selectionMeta.examYear = parseInt(examYear, 10)
     }
 
     // Save attempt to database
@@ -180,6 +340,11 @@ export function TestRunner() {
 
       const savedAttempt = await res.json()
 
+      // Clear timer from storage on manual finish
+      clearTimer()
+      // Clear session storage for attempt key
+      sessionStorage.removeItem("current_test_attempt_key")
+
       // Track test completion
       trackTestComplete(
         questionMode,
@@ -197,6 +362,13 @@ export function TestRunner() {
       setSaving(false)
     }
   }
+
+  const handleExitTest = useCallback(() => {
+    if (saving || autoFinishTriggeredRef.current || isExpired) return
+    clearTimer()
+    sessionStorage.removeItem("current_test_attempt_key")
+    router.push("/app")
+  }, [clearTimer, isExpired, router, saving])
 
   if (loading) {
     return (
@@ -226,9 +398,80 @@ export function TestRunner() {
 
   const currentQuestion = questions[currentIndex]
   const answeredCount = Object.keys(answers).filter((qId) => answers[qId]?.length > 0).length
+  const currentQuestionYear = questionMode === "real" ? getQuestionYear(currentQuestion) : null
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Time expired overlay message */}
+      {timeExpiredMessage && (
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <Card className="max-w-md">
+            <CardContent className="pt-6 text-center space-y-4">
+              <AlertCircle className="h-12 w-12 text-amber-500 mx-auto" />
+              <h2 className="text-xl font-semibold">Tiempo agotado</h2>
+              <p className="text-muted-foreground">{timeExpiredMessage}</p>
+              <div className="flex items-center justify-center">
+                <Loader2 className="h-5 w-5 animate-spin mr-2" />
+                <span>Guardando resultados...</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Mobile Header with Timer */}
+      <div className="lg:hidden sticky top-0 z-40 bg-background border-b px-4 py-2">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">
+              {currentIndex + 1}/{questions.length}
+            </span>
+            {currentQuestionYear && (
+              <Badge variant="outline" className="text-xs">
+                <Calendar className="h-3 w-3 mr-1" />
+                {currentQuestionYear}
+              </Badge>
+            )}
+          </div>
+          <div className="flex items-center gap-2">
+            {timerEnabled && (
+              <TestTimer
+                formattedTime={formattedTime}
+                isWarning={isWarning}
+                isCritical={isCritical}
+                isExpired={isExpired}
+              />
+            )}
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button variant="ghost" size="sm" className="text-destructive">
+                  <LogOut className="h-4 w-4" />
+                  <span className="sr-only">Salir del test</span>
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>¿Salir del test?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Tu progreso actual no se guardará y perderás las respuestas registradas.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Continuar</AlertDialogCancel>
+                  <AlertDialogAction
+                    onClick={handleExitTest}
+                    disabled={saving || isExpired}
+                    className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                  >
+                    Salir
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </div>
+        </div>
+      </div>
+
       {/* Mobile Navigation */}
       <div className="lg:hidden">
         <MobileNavigation
@@ -252,6 +495,57 @@ export function TestRunner() {
         {/* Left column: Question */}
         <div className="flex-1 p-8 overflow-y-auto">
           <div className="max-w-3xl mx-auto">
+            {/* Desktop Header with Timer and Year Badge */}
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <span className="text-sm text-muted-foreground">
+                  Pregunta {currentIndex + 1} de {questions.length}
+                </span>
+                {currentQuestionYear && (
+                  <Badge variant="secondary" className="font-normal">
+                    <Calendar className="h-3 w-3 mr-1" />
+                    Examen {currentQuestionYear}
+                  </Badge>
+                )}
+              </div>
+              <div className="flex items-center gap-3">
+                {timerEnabled && (
+                  <TestTimer
+                    formattedTime={formattedTime}
+                    isWarning={isWarning}
+                    isCritical={isCritical}
+                    isExpired={isExpired}
+                  />
+                )}
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="ghost" size="sm" className="text-destructive">
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Salir
+                    </Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>¿Salir del test?</AlertDialogTitle>
+                      <AlertDialogDescription>
+                        Tu progreso actual no se guardará y perderás las respuestas registradas.
+                      </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Continuar</AlertDialogCancel>
+                      <AlertDialogAction
+                        onClick={handleExitTest}
+                        disabled={saving || isExpired}
+                        className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
+                      >
+                        Salir
+                      </AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
+            </div>
+
             <QuestionCard
               question={currentQuestion}
               selectedOptions={answers[currentQuestion.id] || []}
@@ -263,20 +557,20 @@ export function TestRunner() {
               <Button
                 variant="outline"
                 onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
-                disabled={currentIndex === 0}
+                disabled={currentIndex === 0 || isExpired}
               >
                 <ChevronLeft className="h-4 w-4 mr-2" />
                 Anterior
               </Button>
               {currentIndex < questions.length - 1 ? (
-                <Button onClick={() => setCurrentIndex((i) => i + 1)}>
+                <Button onClick={() => setCurrentIndex((i) => i + 1)} disabled={isExpired}>
                   Siguiente
                   <ChevronRight className="h-4 w-4 ml-2" />
                 </Button>
               ) : (
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
-                    <Button variant="default">
+                    <Button variant="default" disabled={isExpired || saving}>
                       <Flag className="h-4 w-4 mr-2" />
                       Finalizar Test
                     </Button>
@@ -314,7 +608,7 @@ export function TestRunner() {
                 <strong>Atajos de teclado:</strong>
               </p>
               <p>• Enter: Siguiente | Shift+Enter: Anterior</p>
-              {!currentQuestion.multi && <p>• 1-4 o A-D: Seleccionar opción</p>}
+              <p>• 1-4 o A-D: {currentQuestion.multi ? "Marcar/desmarcar opción" : "Seleccionar opción"}</p>
             </div>
           </div>
         </div>
@@ -345,13 +639,13 @@ export function TestRunner() {
             variant="outline"
             size="sm"
             onClick={() => setCurrentIndex((i) => Math.max(0, i - 1))}
-            disabled={currentIndex === 0}
+            disabled={currentIndex === 0 || isExpired}
           >
             <ChevronLeft className="h-4 w-4 mr-1" />
             Anterior
           </Button>
           {currentIndex < questions.length - 1 ? (
-            <Button size="sm" onClick={() => setCurrentIndex((i) => i + 1)}>
+            <Button size="sm" onClick={() => setCurrentIndex((i) => i + 1)} disabled={isExpired}>
               Siguiente
               <ChevronRight className="h-4 w-4 ml-1" />
             </Button>

@@ -7,10 +7,17 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import type { Question, QuestionMode, SelectionMode } from "@/lib/types"
-import { Play, BookOpen, Trophy, AlertCircle, RefreshCw, CheckCircle2, GraduationCap } from "lucide-react"
+import { Play, BookOpen, Trophy, RefreshCw, CheckCircle2, GraduationCap, Clock, Calendar, Info, CheckSquare } from "lucide-react"
+
+// Question count options for academy/real mode
+const QUESTION_COUNT_OPTIONS = [10, 25, 50, 75, 100]
+
+// Demo mode question count options
+const DEMO_QUESTION_OPTIONS = [10, 15, 25, 50]
+
+// Type for year selection mode
+type YearSelectionMode = "all" | "specific"
 
 export function TestSetup() {
   const router = useRouter()
@@ -19,11 +26,18 @@ export function TestSetup() {
   const [loading, setLoading] = useState(true)
   const [selectionMode, setSelectionMode] = useState<SelectionMode>("all")
   const [questionCount, setQuestionCount] = useState(10)
+  const [academyQuestionCount, setAcademyQuestionCount] = useState(100)
+  const [demoQuestionCount, setDemoQuestionCount] = useState(15)
   const [selectedTag, setSelectedTag] = useState<string>("")
   const [availableTags, setAvailableTags] = useState<string[]>([])
   const [failedQuestions, setFailedQuestions] = useState<Question[]>([])
   const [failedStats, setFailedStats] = useState<{ total: number; corrected: number }>({ total: 0, corrected: 0 })
   const [loadingFailed, setLoadingFailed] = useState(true)
+
+  // Year selection state for real exam mode
+  const [yearSelectionMode, setYearSelectionMode] = useState<YearSelectionMode>("all")
+  const [selectedYear, setSelectedYear] = useState<string>("")
+  const [availableYears, setAvailableYears] = useState<number[]>([])
 
   useEffect(() => {
     async function fetchQuestions() {
@@ -31,15 +45,16 @@ export function TestSetup() {
       try {
         const res = await fetch(`/api/questions?mode=${questionMode}`)
         const data = await res.json()
-        
+
         // Validate that data is an array
         if (!Array.isArray(data)) {
           console.error("API returned non-array data:", data)
           setQuestions([])
           setAvailableTags([])
+          setAvailableYears([])
           return
         }
-        
+
         setQuestions(data)
 
         // Extract unique tags (only for DEMO mode)
@@ -53,14 +68,36 @@ export function TestSetup() {
             })
           })
           setAvailableTags(Array.from(tags).sort())
+          setAvailableYears([])
+        } else if (questionMode === "real") {
+          // Extract available years for real exam mode
+          const years = new Set<number>()
+          data.forEach((q: Question) => {
+            // Try to get year from exam_year field or extract from ID
+            if (q.exam_year) {
+              years.add(q.exam_year)
+            } else {
+              const yearMatch = q.id.match(/examen_real_(\d{4})/)
+              if (yearMatch) {
+                years.add(parseInt(yearMatch[1], 10))
+              }
+            }
+          })
+          setAvailableYears(Array.from(years).sort((a, b) => b - a)) // Most recent first
+          setAvailableTags([])
         } else {
           setAvailableTags([])
+          setAvailableYears([])
         }
         setSelectedTag("")
+        // Reset year selection when mode changes
+        setYearSelectionMode("all")
+        setSelectedYear("")
       } catch (error) {
         console.error("Failed to fetch questions:", error)
         setQuestions([])
         setAvailableTags([])
+        setAvailableYears([])
       } finally {
         setLoading(false)
       }
@@ -92,20 +129,23 @@ export function TestSetup() {
     const params = new URLSearchParams()
     params.set("questionMode", questionMode)
 
-    // In REAL and ACADEMY modes, always use 100 questions (exam simulation)
-    if (questionMode === "real" || questionMode === "academy") {
+    if (questionMode === "real") {
+      // Real mode: always 100 questions
       params.set("selectionMode", "all")
       params.set("count", "100")
-    } else {
-      params.set("selectionMode", selectionMode)
 
-      if (selectionMode === "random") {
-        params.set("count", String(Math.min(questionCount, questions.length)))
-      } else if (selectionMode === "tag" && selectedTag) {
-        params.set("tag", selectedTag)
-      } else if (selectionMode === "review") {
-        params.set("count", String(failedQuestions.length))
+      // Add year filter for real mode if specific year selected
+      if (yearSelectionMode === "specific" && selectedYear) {
+        params.set("examYear", selectedYear)
       }
+    } else if (questionMode === "academy") {
+      // Academy mode: user selects question count (multiples of 5)
+      params.set("selectionMode", "random")
+      params.set("count", String(academyQuestionCount))
+    } else {
+      // Demo mode - simple random selection
+      params.set("selectionMode", "random")
+      params.set("count", String(demoQuestionCount))
     }
 
     router.push(`/test?${params.toString()}`)
@@ -120,12 +160,9 @@ export function TestSetup() {
   }
 
   const getQuestionCountForMode = () => {
-    if (questionMode === "real" || questionMode === "academy") return 100 // Fixed for exam simulation modes
-    if (selectionMode === "all") return questions.length
-    if (selectionMode === "random") return Math.min(questionCount, questions.length)
-    if (selectionMode === "tag" && selectedTag) {
-      return questions.filter((q) => q.tags?.includes(selectedTag)).length
-    }
+    if (questionMode === "real") return 100 // Fixed for real exam simulation
+    if (questionMode === "academy") return academyQuestionCount
+    if (questionMode === "demo") return demoQuestionCount
     return 0
   }
 
@@ -215,7 +252,7 @@ export function TestSetup() {
                   <span className="font-semibold text-lg">Modo Demo</span>
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Preguntas de práctica para familiarizarte con el formato del examen.
+                  Preguntas de práctica con explicaciones detalladas para aprender el formato.
                 </p>
               </Label>
             </div>
@@ -273,34 +310,52 @@ export function TestSetup() {
             {/* Selection Mode */}
             {questionMode === "demo" ? (
               <div className="space-y-4">
-                <Label className="text-lg font-semibold">Opciones de Selección</Label>
-                <RadioGroup
-                  value={selectionMode}
-                  onValueChange={(v) => setSelectionMode(v as SelectionMode)}
-                  className="space-y-3"
-                >
-                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-                    <RadioGroupItem value="all" id="mode-all" />
-                    <Label htmlFor="mode-all" className="cursor-pointer flex-1 font-medium">
-                      Pool completo <span className="text-muted-foreground">({questions.length} preguntas)</span>
-                    </Label>
+                <Label className="text-lg font-semibold">Informacion del Modo Demo</Label>
+                <div className="rounded-xl border-2 border-blue-500/20 bg-blue-50 dark:bg-blue-950/20 p-5">
+                  <div className="flex items-start gap-3">
+                    <BookOpen className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+                    <div className="space-y-2">
+                      <p className="font-semibold text-blue-700 dark:text-blue-400">
+                        Preguntas de Practica
+                      </p>
+                      <ul className="text-sm text-muted-foreground space-y-1">
+                        <li>• {questions.length} preguntas de muestra disponibles</li>
+                        <li>• Explicaciones detalladas en cada respuesta</li>
+                        <li className="flex items-center gap-1">
+                          <CheckSquare className="h-3 w-3 text-blue-500" />
+                          Incluye preguntas de respuesta multiple (varias correctas)
+                        </li>
+                        <li className="flex items-center gap-1">
+                          <Info className="h-3 w-3 text-amber-500" />
+                          Este modo no computa en tus estadisticas
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-                    <RadioGroupItem value="random" id="mode-random" />
-                    <Label htmlFor="mode-random" className="cursor-pointer flex-1 font-medium">
-                      Aleatorio <span className="text-muted-foreground">(Selecciona cantidad)</span>
-                    </Label>
+                </div>
+
+                <div className="space-y-3">
+                  <Label className="text-base font-medium">Numero de preguntas</Label>
+                  <div className="flex flex-wrap gap-2">
+                    {DEMO_QUESTION_OPTIONS.map((count) => (
+                      <button
+                        key={count}
+                        type="button"
+                        onClick={() => setDemoQuestionCount(count)}
+                        className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                          demoQuestionCount === count
+                            ? "bg-blue-600 text-white shadow-md"
+                            : "bg-muted hover:bg-muted/80 text-foreground"
+                        }`}
+                      >
+                        {count}
+                      </button>
+                    ))}
                   </div>
-                  <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors">
-                    <RadioGroupItem value="tag" id="mode-tag" />
-                    <Label htmlFor="mode-tag" className="cursor-pointer flex-1 font-medium">
-                      Por tema <span className="text-muted-foreground">(Filtra por categoría)</span>
-                    </Label>
-                  </div>
-                </RadioGroup>
+                </div>
               </div>
             ) : questionMode === "real" ? (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <Label className="text-lg font-semibold">Información del Examen</Label>
                 <div className="rounded-xl border-2 border-green-500/20 bg-green-50 dark:bg-green-950/20 p-5">
                   <div className="flex items-start gap-3">
@@ -310,17 +365,76 @@ export function TestSetup() {
                         Preguntas 100% Reales de Examen
                       </p>
                       <ul className="text-sm text-muted-foreground space-y-1">
-                        <li>• 100 preguntas de examenes oficiales pasados</li>
-                        <li>• Convocatorias 2021, 2022, 2023 y 2024</li>
-                        <li>• 0,10 puntos por acierto (sin penalizacion)</li>
+                        <li>• 100 preguntas de exámenes oficiales pasados</li>
+                        <li>• Convocatorias {availableYears.length > 0 ? availableYears.slice().reverse().join(", ") : "2021, 2022, 2023, 2024"}</li>
+                        <li>• 0,10 puntos por acierto (sin penalización)</li>
                         <li>• Nota de corte: 5,8 sobre 10</li>
+                        <li className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          Tiempo límite: 2h 15min (135 minutos)
+                        </li>
                       </ul>
                     </div>
                   </div>
                 </div>
+
+                {/* Year Selection */}
+                <div className="space-y-3">
+                  <Label className="text-base font-semibold flex items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    Selección de Convocatoria
+                  </Label>
+                  <RadioGroup
+                    value={yearSelectionMode}
+                    onValueChange={(v) => {
+                      setYearSelectionMode(v as YearSelectionMode)
+                      if (v === "all") setSelectedYear("")
+                    }}
+                    className="space-y-2"
+                  >
+                    <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors border">
+                      <RadioGroupItem value="all" id="year-all" />
+                      <Label htmlFor="year-all" className="cursor-pointer flex-1 font-medium">
+                        Aleatorio (todos los años)
+                        <span className="block text-sm text-muted-foreground font-normal">
+                          Mezcla preguntas de todas las convocatorias
+                        </span>
+                      </Label>
+                    </div>
+                    <div className="flex items-center space-x-3 p-3 rounded-lg hover:bg-accent/50 transition-colors border">
+                      <RadioGroupItem value="specific" id="year-specific" />
+                      <Label htmlFor="year-specific" className="cursor-pointer flex-1 font-medium">
+                        Año específico
+                        <span className="block text-sm text-muted-foreground font-normal">
+                          Solo preguntas de una convocatoria concreta
+                        </span>
+                      </Label>
+                    </div>
+                  </RadioGroup>
+
+                  {yearSelectionMode === "specific" && (
+                    <div className="p-4 bg-muted/50 rounded-lg">
+                      <Label htmlFor="year-select" className="text-sm font-medium mb-2 block">
+                        Seleccionar año de convocatoria
+                      </Label>
+                      <Select value={selectedYear} onValueChange={setSelectedYear}>
+                        <SelectTrigger id="year-select" className="w-full">
+                          <SelectValue placeholder="Elige un año" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {availableYears.map((year) => (
+                            <SelectItem key={year} value={String(year)}>
+                              Convocatoria {year}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  )}
+                </div>
               </div>
             ) : (
-              <div className="space-y-3">
+              <div className="space-y-4">
                 <Label className="text-lg font-semibold">Información del Examen</Label>
                 <div className="rounded-xl border-2 border-purple-500/20 bg-purple-50 dark:bg-purple-950/20 p-5">
                   <div className="flex items-start gap-3">
@@ -330,50 +444,38 @@ export function TestSetup() {
                         Preguntas de Academia
                       </p>
                       <ul className="text-sm text-muted-foreground space-y-1">
-                        <li>• 100 preguntas elaboradas por academias</li>
+                        <li>• Preguntas elaboradas por academias preparatorias</li>
                         <li>• Formato y dificultad similar al examen real</li>
                         <li>• 0,10 puntos por acierto (sin penalizacion)</li>
                         <li>• Nota de corte: 5,8 sobre 10</li>
+                        <li className="flex items-center gap-1">
+                          <Clock className="h-3 w-3" />
+                          Tiempo limite: 2h 15min (135 minutos)
+                        </li>
                       </ul>
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
 
-            {questionMode === "demo" && selectionMode === "random" && (
-              <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
-                <Label htmlFor="question-count" className="text-base font-medium">Número de preguntas</Label>
-                <div className="flex items-center gap-4">
-                  <Input
-                    id="question-count"
-                    type="number"
-                    min={1}
-                    max={questions.length}
-                    value={questionCount}
-                    onChange={(e) => setQuestionCount(Number(e.target.value))}
-                    className="max-w-32"
-                  />
-                  <span className="text-sm text-muted-foreground">Máximo: {questions.length}</span>
-                </div>
-              </div>
-            )}
-
-            {questionMode === "demo" && selectionMode === "tag" && (
-              <div className="space-y-3 p-4 bg-muted/50 rounded-lg">
-                <Label htmlFor="tag-select" className="text-base font-medium">Seleccionar tema</Label>
-                <Select value={selectedTag} onValueChange={setSelectedTag}>
-                  <SelectTrigger id="tag-select">
-                    <SelectValue placeholder="Elige un tema" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {availableTags.filter(tag => tag && typeof tag === 'string').map((tag) => (
-                      <SelectItem key={tag} value={tag}>
-                        {tag}
-                      </SelectItem>
+                <div className="space-y-3">
+                  <Label className="text-base font-medium">Numero de preguntas</Label>
+                  <div className="flex flex-wrap gap-2">
+                    {QUESTION_COUNT_OPTIONS.map((count) => (
+                      <button
+                        key={count}
+                        type="button"
+                        onClick={() => setAcademyQuestionCount(count)}
+                        className={`px-4 py-2 rounded-lg font-medium text-sm transition-all ${
+                          academyQuestionCount === count
+                            ? "bg-purple-600 text-white shadow-md"
+                            : "bg-muted hover:bg-muted/80 text-foreground"
+                        }`}
+                      >
+                        {count}
+                      </button>
                     ))}
-                  </SelectContent>
-                </Select>
+                  </div>
+                </div>
               </div>
             )}
 

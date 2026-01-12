@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server'
+import { createServiceRoleClient } from '@/lib/supabase/service-role'
 import { NextResponse } from 'next/server'
 
 export async function POST(request: Request) {
@@ -37,20 +38,8 @@ export async function POST(request: Request) {
     }
 
     const supabase = await createClient()
-
-    // Verificar si el username ya existe
-    const { data: existingUsers } = await supabase
-      .from('profiles')
-      .select('username')
-      .eq('username', username.toLowerCase())
-      .single()
-
-    if (existingUsers) {
-      return NextResponse.json(
-        { error: 'Este nombre de usuario ya está en uso' },
-        { status: 400 }
-      )
-    }
+    const serviceRole = createServiceRoleClient()
+    const normalizedUsername = username.toLowerCase()
 
     // Intentar crear usuario con metadata
     const { data, error } = await supabase.auth.signUp({
@@ -58,10 +47,9 @@ export async function POST(request: Request) {
       password,
       options: {
         data: {
-          username: username.toLowerCase(),
-          display_name: username
-        }
-      }
+          display_name: username,
+        },
+      },
     })
 
     if (error) {
@@ -87,10 +75,45 @@ export async function POST(request: Request) {
       )
     }
 
-    return NextResponse.json({ 
+    if (!data.user) {
+      return NextResponse.json(
+        { error: 'Error desconocido al crear la cuenta' },
+        { status: 500 }
+      )
+    }
+
+    const { error: profileError } = await serviceRole.rpc('create_profile', {
+      p_user_id: data.user.id,
+      p_username: normalizedUsername,
+    })
+
+    if (profileError) {
+      if (profileError.code === '23505' || profileError.message?.includes('USERNAME_TAKEN')) {
+        await serviceRole.auth.admin.deleteUser(data.user.id)
+        return NextResponse.json(
+          { error: 'Este nombre de usuario ya está en uso', code: 'USERNAME_TAKEN' },
+          { status: 409 }
+        )
+      }
+      if (profileError.code === '22023' || profileError.message?.includes('USERNAME_INVALID')) {
+        await serviceRole.auth.admin.deleteUser(data.user.id)
+        return NextResponse.json(
+          { error: 'El nombre de usuario no es valido', code: 'USERNAME_INVALID' },
+          { status: 400 }
+        )
+      }
+
+      await serviceRole.auth.admin.deleteUser(data.user.id)
+      return NextResponse.json(
+        { error: 'No se pudo crear el perfil', details: profileError.message },
+        { status: 500 }
+      )
+    }
+
+    return NextResponse.json({
       success: true,
       user: data.user,
-      needsConfirmation: !data.user?.confirmed_at
+      needsConfirmation: !data.user?.confirmed_at,
     })
 
   } catch (error: any) {

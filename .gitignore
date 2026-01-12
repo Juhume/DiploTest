@@ -32,3 +32,6 @@ next-env.d.ts
 
 # test data (local only)
 /testrespuestas/
+
+# SQL scripts (local only)
+*.sql

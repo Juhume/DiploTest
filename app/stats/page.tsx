@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react"
 import { StatsOverview } from "@/components/stats/stats-overview"
 import { ProgressChart } from "@/components/stats/progress-chart"
 import { TopicPerformance } from "@/components/stats/topic-performance"
@@ -12,15 +12,52 @@ import { BarChart3, AlertCircle } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { AppHeader } from "@/components/app-header"
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
+import type { User as SupabaseUser } from "@supabase/supabase-js"
 
 export default function StatsPage() {
+  const router = useRouter()
+  const [user, setUser] = useState<SupabaseUser | null>(null)
+  const [authLoading, setAuthLoading] = useState(true)
   const [stats, setStats] = useState<UserStats | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
+    let isActive = true
+    async function fetchUser() {
+      try {
+        const supabase = createClient()
+        const { data, error: authError } = await supabase.auth.getUser()
+        if (!isActive) return
+        if (authError || !data.user) {
+          router.push("/auth/login")
+          setAuthLoading(false)
+          return
+        }
+        setUser(data.user)
+      } catch {
+        if (!isActive) return
+        router.push("/auth/login")
+      } finally {
+        if (isActive) setAuthLoading(false)
+      }
+    }
+
+    fetchUser()
+    return () => {
+      isActive = false
+    }
+  }, [router])
+
+  useEffect(() => {
+    if (authLoading || !user) return
     async function fetchStats() {
       try {
+        setLoading(true)
+        setError(null)
         const response = await fetch('/api/stats')
         
         if (!response.ok) {
@@ -41,10 +78,12 @@ export default function StatsPage() {
     }
 
     fetchStats()
-  }, [])
+  }, [authLoading, user])
 
-  if (loading) {
-    return (
+  let content: React.ReactNode = null
+
+  if (authLoading || loading) {
+    content = (
       <div className="container mx-auto py-8 px-4 max-w-7xl">
         <div className="flex items-center gap-3 mb-8">
           <BarChart3 className="h-8 w-8 text-primary" />
@@ -55,7 +94,6 @@ export default function StatsPage() {
         </div>
 
         <div className="space-y-6">
-          {/* Skeleton de cards */}
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
               <Card key={i}>
@@ -68,7 +106,6 @@ export default function StatsPage() {
             ))}
           </div>
 
-          {/* Skeleton de gráficos */}
           <Card>
             <CardContent className="pt-6">
               <Skeleton className="h-[350px] w-full" />
@@ -77,10 +114,8 @@ export default function StatsPage() {
         </div>
       </div>
     )
-  }
-
-  if (error) {
-    return (
+  } else if (error) {
+    content = (
       <div className="container mx-auto py-8 px-4 max-w-7xl">
         <Alert variant="destructive">
           <AlertCircle className="h-4 w-4" />
@@ -89,10 +124,8 @@ export default function StatsPage() {
         </Alert>
       </div>
     )
-  }
-
-  if (!stats) {
-    return (
+  } else if (!stats) {
+    content = (
       <div className="container mx-auto py-8 px-4 max-w-7xl">
         <Alert>
           <AlertCircle className="h-4 w-4" />
@@ -101,11 +134,8 @@ export default function StatsPage() {
         </Alert>
       </div>
     )
-  }
-
-  // Usuario sin intentos
-  if (stats.totalAttempts === 0) {
-    return (
+  } else if (stats.totalAttempts === 0) {
+    content = (
       <div className="container mx-auto py-8 px-4 max-w-7xl">
         <div className="flex items-center gap-3 mb-8">
           <BarChart3 className="h-8 w-8 text-primary" />
@@ -133,12 +163,11 @@ export default function StatsPage() {
         </Card>
       </div>
     )
-  }
-
-  return (
-    <div className="container mx-auto py-8 px-4 max-w-7xl">
+  } else {
+    content = (
+      <div className="container mx-auto py-8 px-4 max-w-7xl">
       {/* Header */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
         <div className="flex items-center gap-3">
           <BarChart3 className="h-8 w-8 text-primary" />
           <div>
@@ -147,7 +176,7 @@ export default function StatsPage() {
           </div>
         </div>
         <Link href="/history">
-          <Button variant="outline">
+          <Button variant="outline" className="w-full sm:w-auto">
             Ver Historial Completo
           </Button>
         </Link>
@@ -228,5 +257,17 @@ export default function StatsPage() {
         )}
       </div>
     </div>
+    )
+  }
+
+  if (!user && !authLoading) {
+    return null
+  }
+
+  return (
+    <main className="min-h-screen bg-background">
+      {user && <AppHeader user={user} />}
+      {content}
+    </main>
   )
 }

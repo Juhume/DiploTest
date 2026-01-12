@@ -85,10 +85,17 @@ export function QuestionCard({
     <Card>
       <CardHeader className="pb-3">
         <div className="flex items-start justify-between gap-4">
-          <p className="text-base leading-relaxed text-foreground text-pretty">{question.stem}</p>
+          <div className="flex-1">
+            <p className="text-base leading-relaxed text-foreground text-pretty">{question.stem}</p>
+            {isMulti && !showCorrect && (
+              <p className="text-sm text-blue-600 dark:text-blue-400 mt-2 font-medium">
+                Selecciona todas las respuestas correctas
+              </p>
+            )}
+          </div>
           <div className="flex gap-2 shrink-0 items-center">
             {isMulti && (
-              <Badge variant="secondary">
+              <Badge variant="secondary" className="bg-blue-100 text-blue-700 dark:bg-blue-900/50 dark:text-blue-300">
                 Múltiple
               </Badge>
             )}
@@ -118,28 +125,36 @@ export function QuestionCard({
       <CardContent>
         {isMulti ? (
           <div className="space-y-3">
-            {question.options.map((option) => (
-              <div
-                key={option.id}
-                className={`flex items-start space-x-3 p-3 rounded-lg border transition-colors ${getOptionStyle(option.id)} ${!showCorrect ? "hover:bg-muted/50" : ""}`}
-              >
-                <Checkbox
-                  id={`${question.id}-${option.id}`}
-                  checked={selectedOptions.includes(option.id)}
-                  onCheckedChange={(checked) => handleMultiChange(option.id, checked as boolean)}
-                  disabled={showCorrect}
-                  className="mt-0.5"
-                />
-                <Label
-                  htmlFor={`${question.id}-${option.id}`}
-                  className="flex-1 cursor-pointer leading-relaxed text-pretty"
+            {question.options.map((option) => {
+              const isChecked = selectedOptions.includes(option.id)
+              return (
+                <div
+                  key={option.id}
+                  onClick={() => {
+                    if (!showCorrect) {
+                      handleMultiChange(option.id, !isChecked)
+                    }
+                  }}
+                  className={`flex items-start space-x-3 p-3 rounded-lg border transition-colors cursor-pointer ${getOptionStyle(option.id)} ${!showCorrect ? "hover:bg-muted/50" : ""}`}
                 >
-                  <span className="font-medium mr-2">{option.id}.</span>
-                  {option.text}
-                </Label>
-                {getOptionIcon(option.id)}
-              </div>
-            ))}
+                  <Checkbox
+                    id={`${question.id}-${option.id}`}
+                    checked={isChecked}
+                    onCheckedChange={(checked) => handleMultiChange(option.id, checked as boolean)}
+                    disabled={showCorrect}
+                    className="mt-0.5 pointer-events-none"
+                  />
+                  <Label
+                    htmlFor={`${question.id}-${option.id}`}
+                    className="flex-1 cursor-pointer leading-relaxed text-pretty pointer-events-none"
+                  >
+                    <span className="font-medium mr-2">{option.id}.</span>
+                    {option.text}
+                  </Label>
+                  {getOptionIcon(option.id)}
+                </div>
+              )
+            })}
           </div>
         ) : (
           <RadioGroup value={selectedOptions[0] || ""} onValueChange={handleSingleChange} disabled={showCorrect}>

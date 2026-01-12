@@ -25,12 +25,13 @@
 - [Seguridad](#-seguridad)
 - [Rendimiento](#-rendimiento)
 - [Roadmap](#️-roadmap)
+- [Changelog](#-changelog)
 
 ---
 
 ## 🎯 Sobre el Proyecto
 
-**DiploTest** es una aplicación web full-stack diseñada para ayudar a opositores en su preparación para las pruebas del Cuerpo Diplomático. La plataforma ofrece una experiencia de práctica realista con dos modos de estudio (Demo y Real), sistema de evaluación automática, historial completo de intentos y estadísticas de rendimiento.
+**DiploTest** es una aplicación web full-stack diseñada para ayudar a opositores en su preparación para las pruebas del Cuerpo Diplomático. La plataforma ofrece una experiencia de práctica realista con tres modos de estudio (Demo, Real y Academia), evaluación automática, historial completo de intentos, flashcards y estadísticas de rendimiento.
 
 ### 🌟 ¿Por qué DiploTest?
 
@@ -46,15 +47,18 @@
 ## ✨ Características Principales
 
 ### 🔐 Sistema de Autenticación Completo
-- Registro e inicio de sesión con email/contraseña
+- Registro con email y nombre de usuario
+- Inicio de sesión con email o nombre de usuario
 - Recuperación de contraseña
 - Persistencia de sesión con cookies HTTP-only seguras
 - Protección de rutas con middleware
 - Rate limiting para prevenir ataques de fuerza bruta
+- Validación de nombre de usuario en backend con unicidad sin distinción de mayúsculas
 
 ### 📚 Banco de Preguntas Inteligente
 - **Modo DEMO**: Preguntas de práctica para familiarizarse con el sistema
 - **Modo REAL**: Preguntas basadas en exámenes oficiales
+- **Modo ACADEMIA**: Banco ampliado con preguntas tipo examen
 - Soporte para preguntas de opción única y opción múltiple
 - Sistema de etiquetas para organizar por temáticas
 - Selección aleatoria o por categorías específicas
@@ -65,8 +69,19 @@
 - Progreso visual con indicadores de estado
 - Atajos de teclado para mayor agilidad (1-4/A-D, Enter, Shift+Enter)
 - Timer de duración del intento
+- Botón de salida para abandonar el test cuando lo necesites
 - Vista previa antes de finalizar
 - Evaluación automática con resultados detallados
+
+### 🔖 Flashcards y marcadores
+- Guardado de preguntas para repaso posterior
+- Gestión desde la sección de Flashcards
+- Eliminación rápida de tarjetas ya dominadas
+
+### 💬 Feedback y soporte
+- Envío de feedback desde la app
+- Recordatorios no intrusivos para sugerencias
+- Soporte a donaciones con Ko-fi
 
 ### 📊 Historial y Estadísticas
 - Registro completo de todos los intentos realizados
@@ -82,6 +97,8 @@
 - **Temas**: Soporte para modo claro y oscuro
 - **Accesibilidad**: Componentes accesibles con Radix UI
 - **Animaciones**: Transiciones suaves y feedback visual
+- **Guía de uso**: Página dedicada con atajos y funciones clave
+- **Cuenta**: Inicio de sesión con email o nombre de usuario y perfil (edición temporalmente deshabilitada)
 - **Feedback en tiempo real**: Estados de carga, errores y éxitos
 
 ---
@@ -118,6 +135,7 @@
 - CORS personalizado - Control de orígenes permitidos
 - CSP Headers - Content Security Policy para prevenir XSS
 - HSTS - HTTP Strict Transport Security
+- Operaciones de perfil con service role en servidor para evitar enumeración de usuarios
 
 ---
 
@@ -135,11 +153,18 @@ diplotest/
 │   ├── app/                 # Dashboard principal (protegido)
 │   ├── test/                # Interfaz de realización de tests
 │   ├── history/             # Historial de intentos
+│   ├── flashcards/          # Flashcards guardadas
+│   ├── stats/               # Estadísticas de rendimiento
+│   ├── guide/               # Guía de uso
+│   ├── profile/             # Perfil de usuario
 │   ├── results/[id]/        # Vista detallada de resultados
 │   ├── api/                 # API Routes serverless
 │   │   ├── auth/            # Endpoints de autenticación
 │   │   ├── questions/       # Gestión de preguntas
 │   │   ├── attempts/        # Gestión de intentos
+│   │   ├── bookmarks/       # Flashcards/guardados
+│   │   ├── feedback/        # Feedback de usuario
+│   │   ├── profile/         # Perfil/nombre de usuario
 │   │   └── stats/           # Estadísticas
 │   ├── layout.tsx           # Layout raíz con metadata
 │   └── globals.css          # Estilos globales
@@ -151,6 +176,7 @@ diplotest/
 │   └── ...                  # Otros componentes
 ├── lib/                     # Utilidades y helpers
 │   ├── supabase/            # Cliente y configuración de Supabase
+│   │   ├── service-role.ts  # Cliente service role (server-only)
 │   ├── logger.ts            # Sistema de logging seguro
 │   ├── rate-limiter.ts      # Limitador de peticiones
 │   ├── validation.ts        # Validaciones personalizadas
@@ -158,98 +184,17 @@ diplotest/
 │   └── utils.ts             # Utilidades generales
 ├── data/                    # Archivos de datos
 │   ├── questions.demo.json  # Banco de preguntas demo
-│   └── questions.real.json  # Banco de preguntas reales
+│   ├── questions.academy.json # Banco de preguntas de academias
+│   └── examenes_reales.json   # Banco de preguntas reales
 ├── public/                  # Recursos estáticos
-├── scripts/                 # Scripts SQL y utilidades
-└── proxy.ts                 # Middleware de autenticación
+├── scripts/                 # Scripts SQL locales (no versionados)
 ```
-
-### Base de Datos
-
-#### Tabla: `attempts`
-```sql
-CREATE TABLE attempts (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES auth.users NOT NULL,
-  mode TEXT NOT NULL CHECK (mode IN ('demo', 'real')),
-  selection_type TEXT NOT NULL,
-  selected_tag TEXT,
-  questions JSONB NOT NULL,
-  user_answers JSONB NOT NULL,
-  grading JSONB NOT NULL,
-  duration_seconds INTEGER,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-```
-
-**Row Level Security (RLS)**:
-- Los usuarios solo pueden ver y crear sus propios intentos
-- No se permite editar ni eliminar intentos (registro inmutable)
-
----
-
-## � Instalación
-
-### Prerrequisitos
-
-- **Node.js** 18.17 o superior
-- **pnpm** 8.0 o superior (recomendado) o npm
-- Cuenta en **[Supabase](https://supabase.com/)** (gratuita)
-
-### Pasos de Instalación
-
-1. **Clonar el repositorio**
-   ```bash
-   git clone https://github.com/Juhume/DiploTest.git
-   cd diplotest
-   ```
-
-2. **Instalar dependencias**
-   ```bash
-   pnpm install
-   ```
-
-3. **Configurar variables de entorno**
-   
-   Crear un archivo `.env.local` en la raíz del proyecto:
-   ```env
-   # Supabase
-   NEXT_PUBLIC_SUPABASE_URL=tu_supabase_url
-   NEXT_PUBLIC_SUPABASE_ANON_KEY=tu_supabase_anon_key
-   
-   # Opcional: Base URL
-   NEXT_PUBLIC_BASE_URL=http://localhost:3000
-   ```
-
-4. **Configurar Supabase**
-   
-   Ejecutar los scripts SQL en tu proyecto Supabase (en orden):
-   ```
-   scripts/001_create_attempts_table.sql
-   scripts/002_update_attempts_with_user_and_mode.sql
-   scripts/003_complete_schema.sql
-   scripts/004_fix_schema.sql
-   ```
-
-5. **Ejecutar en desarrollo**
-   ```bash
-   pnpm dev
-   ```
-
-   La aplicación estará disponible en `http://localhost:3000`
-
-6. **Build para producción**
-   ```bash
-   pnpm build
-   pnpm start
-   ```
-
 ---
 
 ## 🎮 Uso de la Aplicación
 
 ### 1. Configurar Test (`/app`)
-1. Selecciona **Modo**: Demo o Real
+1. Selecciona **Modo**: Demo, Real o Academia
 2. Elige **Selección**:
    - **Pool completo**: Todas las preguntas disponibles
    - **Aleatorio**: N preguntas al azar
@@ -259,6 +204,7 @@ CREATE TABLE attempts (
 ### 2. Realizar Test (`/test`)
 - **Móvil**: Una columna con navegación inferior fija
 - **Desktop**: Dos columnas (pregunta izq. + panel navegación der.)
+- Botón para salir del test cuando lo necesites
 
 **Atajos de Teclado** (desktop):
 - `1-4` o `A-D`: Seleccionar opción
@@ -274,6 +220,24 @@ CREATE TABLE attempts (
 - Lista completa de todos tus intentos
 - Filtros por modo y fecha
 - Acceso a resultados de intentos anteriores
+
+### 5. Flashcards (`/flashcards`)
+- Guarda preguntas para repasar más tarde
+- Elimina tarjetas cuando ya las domines
+
+### 6. Estadísticas (`/stats`)
+- Panel con progreso y rendimiento por tema
+- Evolución histórica y métricas clave
+
+### 7. Guía (`/guide`)
+- Resumen de funciones y atajos disponibles
+
+### 8. Perfil (`/profile`)
+- Acceso desde el menú superior
+- Edición temporalmente deshabilitada con aviso
+
+### 9. Feedback
+- Envío de comentarios desde el menú superior
 
 ---
 
@@ -300,31 +264,89 @@ CREATE TABLE attempts (
 
 ---
 
-## �️ Roadmap
+## 🧾 Changelog
 
-### ✅ Fase 1 - MVP (Completado)
-- [x] Sistema de autenticación
-- [x] Banco de preguntas (Demo y Real)
-- [x] Realización de tests
-- [x] Evaluación y resultados
-- [x] Historial de intentos
-- [x] Diseño responsive
+## [1.2.0] - 2026-01-12
 
-### 🔄 Fase 2 - Mejoras (En Progreso)
-- [ ] Comparador de intentos (evolución del rendimiento)
-- [ ] Gráficos de estadísticas con Chart.js
-- [ ] Sistema de logros y badges
-- [ ] Modo práctica por categorías débiles
+### ✨ Added
+- Login con email o nombre de usuario.
+- Perfil con aviso informativo y soporte a donaciones (Ko-fi).
+- Guía de uso y navegación mejorada en estadísticas.
+- Feedback desde la aplicación.
 
-### 🔮 Fase 3 - Avanzado (Planificado)
-- [ ] Modo examen cronometrado
-- [ ] Tests colaborativos (compartir con otros usuarios)
-- [ ] Sistema de comentarios en preguntas
-- [ ] Preguntas con imágenes/diagramas
-- [ ] API pública para integraciones
-- [ ] Aplicación móvil nativa (React Native)
-- [ ] Modo offline con Service Workers
-- [ ] Gamificación completa (ranking, competiciones)
+### 🎨 Improved
+- UI móvil y modo oscuro en gráficas.
+- Experiencia de salida del test con confirmación.
+
+---
+
+
+## [1.1.0] – 2026-01-12
+
+### ✨ Added
+- Flashcards para repaso activo de preguntas.
+- Sistema de marcadores (bookmarks) para preguntas importantes.
+- Análisis de debilidades basado en resultados históricos del usuario.
+- Estadísticas avanzadas de rendimiento.
+- Sistema completo de recuperación de contraseña.
+
+### 🎨 Improved
+- Rediseño total del gráfico de progreso:
+  - Agregación diaria y semanal.
+  - Visualizaciones más claras y accionables.
+  - Tooltips explicativos orientados al estudio.
+- Mejora visual de los gráficos de estadísticas:
+  - Gradientes.
+  - Elementos más grandes y legibles.
+  - Tooltips más informativos.
+- Simplificación de la navegación eliminando el botón redundante **“Inicio”** en la página de resultados.
+
+### 🐛 Fixed
+- Error de renderizado del favicon.
+- Error de sesión en el flujo de recuperación de contraseña.
+- Las preguntas sin responder ahora se muestran correctamente en los resultados.
+- Problemas de CORS en los flujos de autenticación y signup.
+
+---
+
+## [1.0.0] – 2025-12-30
+
+### ✨ Added
+- Plataforma completa de tests tipo oposición.
+- Sistema de autenticación de usuarios.
+- Monitorización del progreso del usuario.
+- Resultados detallados por test.
+
+### 🧱 Technical
+- Refactor de autenticación usando Server Actions y API Routes según el caso.
+- Uso de autenticación client-side de Supabase para flujos sensibles.
+- Configuración completa de despliegue en Vercel.
+- Eliminadas referencias innecesarias de entorno en `vercel.json`.
+
+### 📝 Documentation
+- README completo y estructurado.
+- Guía de despliegue del proyecto.
+- Renombrado oficial del proyecto a **DiploTest**.
+
+---
+
+## [0.2.0] – 2025-12-10
+
+### ✨ Added
+- Estadísticas básicas de resultados.
+- Primeros gráficos de progreso.
+
+### 🎨 Improved
+- Mejoras visuales iniciales en gráficos y layout general.
+
+---
+
+## [0.1.0] – 2025-11-30
+
+### 🎉 Initial Release
+- Aplicación base de tests de oposición.
+- Sistema inicial de preguntas tipo test.
+- Visualización básica de resultados.
 
 ---
 
