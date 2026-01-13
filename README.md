@@ -125,6 +125,8 @@
 
 ### Herramientas de Desarrollo
 - **[ESLint](https://eslint.org/)** - Linter para mantener código consistente
+- **[Vitest](https://vitest.dev/)** - Framework de testing rápido y moderno
+- **[Testing Library](https://testing-library.com/)** - Utilidades de testing para React
 - **[Vercel Analytics](https://vercel.com/analytics)** - Analíticas de uso y rendimiento
 - **[Speed Insights](https://vercel.com/docs/speed-insights)** - Métricas de rendimiento web
 
@@ -145,6 +147,11 @@
 
 ```
 diplotest/
+├── __tests__/                # Tests unitarios e integración
+│   └── unit/                 # Tests unitarios
+│       ├── grading.test.ts   # Tests de corrección
+│       ├── auth-validation.test.ts  # Tests de validación auth
+│       └── stats.test.ts     # Tests de estadísticas
 ├── app/                      # Next.js App Router
 │   ├── auth/                # Rutas de autenticación
 │   │   ├── login/           # Página de inicio de sesión
@@ -181,6 +188,7 @@ diplotest/
 │   ├── rate-limiter.ts      # Limitador de peticiones
 │   ├── validation.ts        # Validaciones personalizadas
 │   ├── grading.ts           # Lógica de evaluación
+│   ├── stats.ts             # Cálculos de estadísticas
 │   └── utils.ts             # Utilidades generales
 ├── data/                    # Archivos de datos
 │   ├── questions.demo.json  # Banco de preguntas demo
@@ -265,6 +273,26 @@ diplotest/
 ---
 
 ## 🧾 Changelog
+
+## [1.3.0] - 2026-01-13
+
+### ✨ Added
+- Suite de tests unitarios con Vitest (111 tests).
+- Tests para lógica de corrección (`lib/grading.ts`).
+- Tests para validación de autenticación.
+- Tests para cálculos de estadísticas.
+- Archivo `lib/stats.ts` con funciones de estadísticas extraídas y testeables.
+- Scripts de testing: `pnpm test`, `pnpm test:run`, `pnpm test:coverage`.
+
+### 🐛 Fixed
+- Bug en modo "academy" que usaba reglas de puntuación de "demo" en lugar de "real".
+- Correcciones ortográficas en textos de la aplicación (tildes y eñes faltantes).
+
+### 🧱 Technical
+- Configuración completa de Vitest con soporte para React y TypeScript.
+- Cobertura de tests en áreas críticas: grading, auth, stats.
+
+---
 
 ## [1.2.0] - 2026-01-12
 

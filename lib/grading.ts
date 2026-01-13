@@ -89,8 +89,8 @@ export function gradeAttempt(
   let passingScore: number
   let passed: boolean
 
-  if (mode === "real") {
-    // Real mode scoring: 0.10 points per correct answer
+  if (mode === "real" || mode === "academy") {
+    // Real/Academy mode scoring: 0.10 points per correct answer
     score = correctCount * config.pointsPerCorrect
     passingScore = config.passingScore
     passed = score >= passingScore
