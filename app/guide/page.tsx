@@ -133,7 +133,7 @@ export default async function GuidePage() {
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground space-y-2">
                 <p>90 preguntas de muestra con explicaciones detalladas.</p>
-                <p>Incluye preguntas de respuesta multiple. No computa en estadisticas.</p>
+                <p>Incluye preguntas de respuesta múltiple. No computa en estadísticas.</p>
               </CardContent>
             </Card>
             <Card>
@@ -156,7 +156,7 @@ export default async function GuidePage() {
                 </CardTitle>
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground space-y-2">
-                <p>Mas de 1400 preguntas de academias preparatorias.</p>
+                <p>Más de 1400 preguntas de academias preparatorias.</p>
                 <p>Elige cantidad de preguntas y practica con tiempo y puntuación realista.</p>
               </CardContent>
             </Card>
@@ -177,10 +177,10 @@ export default async function GuidePage() {
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground">
                 <ul className="list-disc space-y-1 pl-5">
-                  <li>Elige entre 10, 15, 25 o 50 preguntas de practica.</li>
-                  <li>Incluye preguntas de respuesta multiple (varias correctas).</li>
+                  <li>Elige entre 10, 15, 25 o 50 preguntas de práctica.</li>
+                  <li>Incluye preguntas de respuesta múltiple (varias correctas).</li>
                   <li>Todas las preguntas tienen explicaciones detalladas.</li>
-                  <li>No afecta a tus estadisticas - ideal para aprender.</li>
+                  <li>No afecta a tus estadísticas - ideal para aprender.</li>
                 </ul>
               </CardContent>
             </Card>
@@ -192,7 +192,7 @@ export default async function GuidePage() {
                 <ul className="list-disc space-y-1 pl-5">
                   <li>En modo Real: 100 preguntas oficiales de convocatorias pasadas.</li>
                   <li>En modo Academia: elige entre 10, 25, 50, 75 o 100 preguntas.</li>
-                  <li>Tiempo limite de 2h 15min con cronometro activo.</li>
+                  <li>Tiempo límite de 2h 15min con cronómetro activo.</li>
                   <li>Puntuación oficial: 0,10 por acierto, sin penalización.</li>
                 </ul>
               </CardContent>
@@ -441,11 +441,11 @@ export default async function GuidePage() {
                 <div className="flex-1 text-center md:text-left">
                   <p className="flex items-center justify-center md:justify-start gap-2 text-lg font-semibold text-pink-700 dark:text-pink-400 mb-2">
                     <Heart className="h-5 w-5 fill-current" />
-                    Ayudanos a seguir mejorando
+                    Ayúdanos a seguir mejorando
                   </p>
                   <p className="text-sm text-muted-foreground">
-                    Somos un proyecto pequeno que necesita de donaciones para seguir implementando
-                    nuevas funcionalidades. Tu apoyo nos permite dedicar mas tiempo a mejorar la plataforma.
+                    Somos un proyecto pequeño que necesita de donaciones para seguir implementando
+                    nuevas funcionalidades. Tu apoyo nos permite dedicar más tiempo a mejorar la plataforma.
                   </p>
                 </div>
                 <div className="flex-shrink-0">

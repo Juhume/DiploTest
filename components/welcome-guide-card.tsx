@@ -32,7 +32,7 @@ export function WelcomeGuideCard() {
           <div className="space-y-1">
             <p className="font-semibold text-lg">Primera vez en DiploTest?</p>
             <p className="text-sm text-muted-foreground">
-              Descubre modos de práctica, flashcards, repaso de errores y estadisticas.
+              Descubre modos de práctica, flashcards, repaso de errores y estadísticas.
             </p>
           </div>
           <Button

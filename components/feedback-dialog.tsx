@@ -70,13 +70,13 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
       }
 
       toast.success("Gracias por tu feedback", {
-        description: "Tu opinion nos ayuda a mejorar la aplicacion.",
+        description: "Tu opinión nos ayuda a mejorar la aplicación.",
       })
       resetForm()
       setOpen(false)
     } catch {
       toast.error("Error al enviar", {
-        description: "No se pudo enviar el feedback. Intentalo de nuevo.",
+        description: "No se pudo enviar el feedback. Inténtalo de nuevo.",
       })
     } finally {
       setIsSubmitting(false)
@@ -93,7 +93,7 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
             Enviar Feedback
           </DialogTitle>
           <DialogDescription>
-            Tu opinion nos ayuda a mejorar DiploTest
+            Tu opinión nos ayuda a mejorar DiploTest
           </DialogDescription>
         </DialogHeader>
 
@@ -126,7 +126,7 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
             <Label htmlFor="message">Mensaje</Label>
             <Textarea
               id="message"
-              placeholder="Cuentanos tu experiencia, que echas en falta, que mejorarias..."
+              placeholder="Cuéntanos tu experiencia, qué echas en falta, qué mejorarías..."
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               rows={4}
@@ -138,7 +138,7 @@ export function FeedbackDialog({ children }: FeedbackDialogProps) {
           </div>
 
           <div className="space-y-2">
-            <Label>Valoracion (opcional)</Label>
+            <Label>Valoración (opcional)</Label>
             <div className="flex items-center gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
                 <button

@@ -31,7 +31,7 @@ export default async function ProfilePage() {
         <div className="mb-8">
           <h1 className="text-3xl md:text-4xl font-bold tracking-tight mb-3">Perfil</h1>
           <p className="text-lg text-muted-foreground">
-            Actualiza tu nombre de usuario, correo y contrasena de forma segura.
+            Actualiza tu nombre de usuario, correo y contraseña de forma segura.
           </p>
         </div>
         <div className="relative">
@@ -42,8 +42,8 @@ export default async function ProfilePage() {
             <div className="max-w-lg rounded-2xl border bg-background/95 p-6 text-center shadow-lg backdrop-blur">
               <h2 className="text-xl font-semibold mb-3">Modificaciones de perfil temporalmente inactivas</h2>
               <p className="text-sm text-muted-foreground mb-4">
-                Actualmente la funcion de modificacion del perfil no está disponible, somos un proyecto pequeño que
-                necesita de donaciones para seguir implementando ideas que tenemos pendientes
+                Actualmente la función de modificación del perfil no está disponible, somos un proyecto pequeño que
+                necesita de donaciones para seguir implementando ideas que tenemos pendientes.
               </p>
               <KofiButton />
             </div>

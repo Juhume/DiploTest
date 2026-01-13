@@ -162,7 +162,7 @@ export default function HomePage() {
                 <div className="p-2 bg-green-100 dark:bg-green-900/30 rounded-lg w-fit">
                   <BarChart3 className="h-5 w-5 text-green-600 dark:text-green-400" />
                 </div>
-                <CardTitle className="text-lg">Estadisticas</CardTitle>
+                <CardTitle className="text-lg">Estadísticas</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-muted-foreground leading-relaxed">
