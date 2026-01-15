@@ -99,15 +99,18 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
   const passingScore = isRealMode ? 5.8 : 6.0
   const passed = isRealMode ? (score >= 5.8) : (attempt.percentage >= 60)
 
+  // Build index map for O(1) lookups instead of O(n) find()
+  const questionsById = new Map(questions.map((q) => [q.id, q]))
+
   const getQuestionStatus = (questionId: string): "correct" | "wrong" | "blank" => {
     const userAnswer = answers[questionId]
-    
+
     // Si no hay respuesta en el objeto answers o es un array vacío, es blanco
     if (!userAnswer || userAnswer.length === 0) {
       return "blank"
     }
 
-    const question = questions.find((q) => q.id === questionId)
+    const question = questionsById.get(questionId)
     if (!question) return "blank"
 
     const correct = question.correct
