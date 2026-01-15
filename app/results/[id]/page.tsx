@@ -51,14 +51,16 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
 
   // Get the questions that were in this attempt from grading (includes blank answers)
   const attemptQuestionIds = Object.keys(attemptData.grading || {})
-  
+
   // If grading exists, use it; otherwise fall back to answers
-  const questionIds = attemptQuestionIds.length > 0 
-    ? attemptQuestionIds 
+  const questionIdsArray = attemptQuestionIds.length > 0
+    ? attemptQuestionIds
     : Object.keys(attemptData.answers || {})
-  
-  const questions = questionIds.length > 0 
-    ? allQuestions.filter((q) => questionIds.includes(q.id)) 
+
+  // Use Set for O(1) lookups instead of O(n) array.includes()
+  const questionIdsSet = new Set(questionIdsArray)
+  const questions = questionIdsSet.size > 0
+    ? allQuestions.filter((q) => questionIdsSet.has(q.id))
     : allQuestions
 
   return (
