@@ -1,10 +1,19 @@
 "use client"
 
 import React, { useEffect, useState } from "react"
+import dynamic from "next/dynamic"
 import { StatsOverview } from "@/components/stats/stats-overview"
-import { ProgressChart } from "@/components/stats/progress-chart"
-import { TopicPerformance } from "@/components/stats/topic-performance"
 import { WeaknessAnalysis } from "@/components/stats/weakness-analysis"
+
+// Dynamic imports for heavy chart components (recharts ~300KB)
+const ProgressChart = dynamic(
+  () => import("@/components/stats/progress-chart").then(m => m.ProgressChart),
+  { ssr: false }
+)
+const TopicPerformance = dynamic(
+  () => import("@/components/stats/topic-performance").then(m => m.TopicPerformance),
+  { ssr: false }
+)
 import { Card, CardContent } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { UserStats } from "@/lib/types"

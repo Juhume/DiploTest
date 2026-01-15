@@ -7,20 +7,20 @@ import type { Attempt } from "@/lib/types"
 export default async function HistoryPage() {
   const supabase = await createClient()
 
-  // Check authentication
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // Start both queries in parallel (RLS uses cookies for auth)
+  const userPromise = supabase.auth.getUser()
+  const attemptsPromise = supabase
+    .from("attempts")
+    .select("*")
+    .order("created_at", { ascending: false })
+
+  const { data: { user } } = await userPromise
 
   if (!user) {
     redirect("/auth/login")
   }
 
-  // Fetch attempts - RLS ensures user only sees their own
-  const { data: attempts, error } = await supabase
-    .from("attempts")
-    .select("*")
-    .order("created_at", { ascending: false })
+  const { data: attempts, error } = await attemptsPromise
 
   if (error) {
     console.error("Error fetching attempts:", error)

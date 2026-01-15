@@ -6,6 +6,10 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  // Optimize barrel imports for faster builds and cold starts
+  experimental: {
+    optimizePackageImports: ['lucide-react', 'date-fns', 'recharts'],
+  },
   async headers() {
     return [
       {

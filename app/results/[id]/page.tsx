@@ -15,17 +15,17 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
   const { id } = await params
   const supabase = await createClient()
 
-  // Check authentication
-  const {
-    data: { user },
-  } = await supabase.auth.getUser()
+  // Start both queries in parallel (RLS uses cookies for auth)
+  const userPromise = supabase.auth.getUser()
+  const attemptPromise = supabase.from("attempts").select("*").eq("id", id).single()
+
+  const { data: { user } } = await userPromise
 
   if (!user) {
     redirect("/auth/login")
   }
 
-  // Fetch attempt - RLS ensures user can only see their own
-  const { data: attempt, error } = await supabase.from("attempts").select("*").eq("id", id).single()
+  const { data: attempt, error } = await attemptPromise
 
   if (error || !attempt) {
     notFound()
