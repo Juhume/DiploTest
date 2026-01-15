@@ -2,8 +2,9 @@
 
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Progress } from "@/components/ui/progress"
 import type { Question } from "@/lib/types"
-import { Flag } from "lucide-react"
+import { Flag, CheckCircle2, Sparkles } from "lucide-react"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -32,14 +33,39 @@ export function NavigationPanel({
   onFinish,
 }: NavigationPanelProps) {
   const answeredCount = Object.keys(answers).filter((k) => answers[k].length > 0).length
+  const progressPercent = (answeredCount / questions.length) * 100
+  const isHalfway = progressPercent >= 50 && progressPercent < 100
+  const isAlmostDone = progressPercent >= 75 && progressPercent < 100
+  const isComplete = progressPercent === 100
+
+  const getProgressMessage = () => {
+    if (isComplete) return { icon: <CheckCircle2 className="h-4 w-4 text-green-500" />, text: "¡Todas respondidas!", color: "text-green-600" }
+    if (isAlmostDone) return { icon: <Sparkles className="h-4 w-4 text-amber-500" />, text: "¡Ya casi terminas!", color: "text-amber-600" }
+    if (isHalfway) return { icon: <Sparkles className="h-4 w-4 text-blue-500" />, text: "¡Vas por la mitad!", color: "text-blue-600" }
+    return null
+  }
+
+  const progressMessage = getProgressMessage()
 
   return (
     <Card className="sticky top-20">
       <CardHeader className="pb-3">
         <CardTitle className="text-lg">Navegación</CardTitle>
-        <p className="text-sm text-muted-foreground">
-          {answeredCount} de {questions.length} respondidas
-        </p>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between text-sm">
+            <span className="text-muted-foreground">
+              {answeredCount} de {questions.length} respondidas
+            </span>
+            <span className="font-medium">{Math.round(progressPercent)}%</span>
+          </div>
+          <Progress value={progressPercent} className="h-2" />
+          {progressMessage && (
+            <div className={`flex items-center gap-1.5 text-xs font-medium ${progressMessage.color}`}>
+              {progressMessage.icon}
+              {progressMessage.text}
+            </div>
+          )}
+        </div>
       </CardHeader>
       <CardContent className="space-y-4">
         <div className="grid grid-cols-5 gap-2">

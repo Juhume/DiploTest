@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
@@ -8,8 +8,9 @@ import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { QuestionCard } from "@/components/question-card"
 import type { Question, Attempt } from "@/lib/types"
-import { CheckCircle, XCircle, MinusCircle, Clock, History, RotateCcw, Bookmark } from "lucide-react"
+import { CheckCircle, XCircle, MinusCircle, Clock, History, RotateCcw, Bookmark, Trophy, Sparkles } from "lucide-react"
 import { toast } from "sonner"
+import confetti from "canvas-confetti"
 
 interface ResultsViewProps {
   attempt: Attempt
@@ -98,6 +99,40 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
   const score = isRealMode ? (attempt.correct_count * 0.10) : (attempt.percentage / 10)
   const passingScore = isRealMode ? 5.8 : 6.0
   const passed = isRealMode ? (score >= 5.8) : (attempt.percentage >= 60)
+  const confettiTriggered = useRef(false)
+
+  // Celebration confetti effect when passed
+  useEffect(() => {
+    if (passed && !confettiTriggered.current) {
+      confettiTriggered.current = true
+
+      // First burst
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#22c55e', '#16a34a', '#15803d', '#fbbf24', '#f59e0b']
+      })
+
+      // Second burst after a small delay
+      setTimeout(() => {
+        confetti({
+          particleCount: 50,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 },
+          colors: ['#22c55e', '#16a34a', '#fbbf24']
+        })
+        confetti({
+          particleCount: 50,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 },
+          colors: ['#22c55e', '#16a34a', '#fbbf24']
+        })
+      }, 250)
+    }
+  }, [passed])
 
   // Build index map for O(1) lookups instead of O(n) find()
   const questionsById = new Map(questions.map((q) => [q.id, q]))
@@ -136,6 +171,60 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
           <h1 className="text-2xl font-bold text-foreground mb-1">Resultados del Test</h1>
           <p className="text-sm text-muted-foreground">{formatDate(attempt.created_at)}</p>
         </header>
+
+        {/* Motivational Message */}
+        {passed && (
+          <Card className="mb-6 border-green-500/50 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/30 dark:to-emerald-950/30">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+                <div className="flex-shrink-0">
+                  <div className="h-12 w-12 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center">
+                    <Trophy className="h-6 w-6 text-green-600" />
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-green-700 dark:text-green-400 flex items-center gap-2">
+                    <Sparkles className="h-5 w-5" />
+                    {attempt.percentage >= 90 ? "Resultado excepcional" :
+                     attempt.percentage >= 80 ? "Muy buen trabajo" :
+                     attempt.percentage >= 70 ? "Buen resultado" : "Has aprobado"}
+                  </h2>
+                  <p className="text-sm text-green-600/80 dark:text-green-500/80">
+                    {attempt.percentage >= 90 ? "Dominas este tema. Sigue así y el éxito está asegurado." :
+                     attempt.percentage >= 80 ? "Estás muy cerca de la excelencia. Un poco más de práctica y lo lograrás." :
+                     attempt.percentage >= 70 ? "Vas por buen camino. Continúa reforzando los conceptos." :
+                     "Cada test aprobado te acerca más a tu objetivo. ¡Sigue adelante!"}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
+        {!passed && (
+          <Card className="mb-6 border-amber-500/50 bg-gradient-to-r from-amber-50 to-orange-50 dark:from-amber-950/30 dark:to-orange-950/30">
+            <CardContent className="pt-6">
+              <div className="flex items-center gap-4">
+                <div className="flex-shrink-0">
+                  <div className="h-12 w-12 rounded-full bg-amber-100 dark:bg-amber-900 flex items-center justify-center">
+                    <Sparkles className="h-6 w-6 text-amber-600" />
+                  </div>
+                </div>
+                <div>
+                  <h2 className="text-lg font-semibold text-amber-700 dark:text-amber-400">
+                    {attempt.percentage >= 50 ? "Casi lo consigues" :
+                     attempt.percentage >= 30 ? "Sigue practicando" : "No te rindas"}
+                  </h2>
+                  <p className="text-sm text-amber-600/80 dark:text-amber-500/80">
+                    {attempt.percentage >= 50 ? "Estás muy cerca. Repasa las preguntas falladas y vuelve a intentarlo." :
+                     attempt.percentage >= 30 ? "Cada intento es una oportunidad de aprender. Revisa las explicaciones." :
+                     "Los grandes logros requieren perseverancia. Analiza tus errores y vuelve más fuerte."}
+                  </p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
         {/* Score Summary */}
         <Card className="mb-6">

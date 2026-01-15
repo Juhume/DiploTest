@@ -55,15 +55,15 @@ export function QuestionCard({
 
     // Si la pregunta está en blanco, solo resaltar las correctas
     if (isBlank) {
-      if (isCorrect) return "border-green-500 bg-green-50 dark:bg-green-950 border-2"
-      return "opacity-60"
+      if (isCorrect) return "border-green-500 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 border-2 shadow-sm shadow-green-200 dark:shadow-green-900"
+      return "opacity-50"
     }
 
     // Si hay respuesta, mostrar correctas e incorrectas
-    if (isCorrect && isSelected) return "border-green-500 bg-green-50 dark:bg-green-950 border-2"
-    if (isCorrect && !isSelected) return "border-green-500 bg-green-50 dark:bg-green-950 border-2"
-    if (!isCorrect && isSelected) return "border-red-500 bg-red-50 dark:bg-red-950 border-2"
-    return "opacity-60"
+    if (isCorrect && isSelected) return "border-green-500 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 border-2 shadow-sm shadow-green-200 dark:shadow-green-900 animate-in fade-in duration-300"
+    if (isCorrect && !isSelected) return "border-green-500 bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950/50 dark:to-emerald-950/50 border-2 shadow-sm shadow-green-200 dark:shadow-green-900"
+    if (!isCorrect && isSelected) return "border-red-500 bg-gradient-to-r from-red-50 to-rose-50 dark:from-red-950/50 dark:to-rose-950/50 border-2 shadow-sm shadow-red-200 dark:shadow-red-900"
+    return "opacity-50"
   }
 
   const getOptionIcon = (optionId: string) => {
@@ -73,10 +73,20 @@ export function QuestionCard({
     const isCorrect = correctOptions?.includes(optionId)
 
     if (isCorrect) {
-      return <CheckCircle2 className="h-5 w-5 text-green-600 shrink-0" />
+      return (
+        <div className="flex items-center gap-1 shrink-0">
+          <CheckCircle2 className="h-5 w-5 text-green-600" />
+          {isSelected && <span className="text-xs font-medium text-green-600">Correcto</span>}
+        </div>
+      )
     }
     if (!isCorrect && isSelected) {
-      return <XCircle className="h-5 w-5 text-red-600 shrink-0" />
+      return (
+        <div className="flex items-center gap-1 shrink-0">
+          <XCircle className="h-5 w-5 text-red-600" />
+          <span className="text-xs font-medium text-red-600">Incorrecto</span>
+        </div>
+      )
     }
     return null
   }
@@ -135,7 +145,7 @@ export function QuestionCard({
                       handleMultiChange(option.id, !isChecked)
                     }
                   }}
-                  className={`flex items-start space-x-3 p-3 rounded-lg border transition-colors cursor-pointer ${getOptionStyle(option.id)} ${!showCorrect ? "hover:bg-muted/50" : ""}`}
+                  className={`flex items-start space-x-3 p-3 rounded-lg border transition-all duration-200 cursor-pointer ${getOptionStyle(option.id)} ${!showCorrect ? "hover:bg-muted/50 hover:scale-[1.01] hover:shadow-sm active:scale-[0.99]" : ""} ${isChecked && !showCorrect ? "ring-2 ring-primary ring-offset-1" : ""}`}
                 >
                   <Checkbox
                     id={`${question.id}-${option.id}`}
@@ -159,10 +169,12 @@ export function QuestionCard({
         ) : (
           <RadioGroup value={selectedOptions[0] || ""} onValueChange={handleSingleChange} disabled={showCorrect}>
             <div className="space-y-3">
-              {question.options.map((option) => (
+              {question.options.map((option) => {
+                const isSelected = selectedOptions[0] === option.id
+                return (
                 <div
                   key={option.id}
-                  className={`flex items-start space-x-3 p-3 rounded-lg border transition-colors ${getOptionStyle(option.id)} ${!showCorrect ? "hover:bg-muted/50" : ""}`}
+                  className={`flex items-start space-x-3 p-3 rounded-lg border transition-all duration-200 ${getOptionStyle(option.id)} ${!showCorrect ? "hover:bg-muted/50 hover:scale-[1.01] hover:shadow-sm active:scale-[0.99] cursor-pointer" : ""} ${isSelected && !showCorrect ? "ring-2 ring-primary ring-offset-1" : ""}`}
                 >
                   <RadioGroupItem
                     value={option.id}
@@ -179,7 +191,7 @@ export function QuestionCard({
                   </Label>
                   {getOptionIcon(option.id)}
                 </div>
-              ))}
+              )})}
             </div>
           </RadioGroup>
         )}
