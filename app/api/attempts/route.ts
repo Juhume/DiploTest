@@ -3,12 +3,13 @@ import { createClient } from "@/lib/supabase/server"
 import { z } from "zod"
 
 const attemptSchema = z.object({
-  question_mode: z.enum(["demo", "real"]),
+  question_mode: z.enum(["demo", "real", "academy"]),
   selection_mode: z.enum(["all", "random", "tag", "review"]),
   selection_meta: z
     .object({
       n: z.number().int().positive().optional(),
       tag: z.string().optional(),
+      examYear: z.number().int().min(2000).max(2100).optional(),
     })
     .optional()
     .default({}),
@@ -53,7 +54,7 @@ export async function GET(request: NextRequest) {
     let query = supabase.from("attempts").select("*").eq("user_id", user.id).order("created_at", { ascending: false })
 
     // Filter by question mode if specified
-    if (mode && (mode === "demo" || mode === "real")) {
+    if (mode && (mode === "demo" || mode === "real" || mode === "academy")) {
       query = query.eq("question_mode", mode)
     }
 

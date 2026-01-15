@@ -35,3 +35,6 @@ next-env.d.ts
 
 # SQL scripts (local only)
 *.sql
+
+# Agent skills (local only)
+.claude/skills/
