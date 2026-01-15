@@ -9,12 +9,32 @@ import { Label } from "@/components/ui/label"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
-import { GraduationCap } from "lucide-react"
+import { GraduationCap, Eye, EyeOff } from "lucide-react"
+
+function getPasswordStrength(password: string): { score: number; label: string; color: string } {
+  let score = 0
+  if (password.length >= 8) score++
+  if (password.length >= 12) score++
+  if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++
+  if (/\d/.test(password)) score++
+  if (/[^a-zA-Z0-9]/.test(password)) score++
+
+  if (score <= 1) return { score, label: "Muy débil", color: "bg-red-500" }
+  if (score === 2) return { score, label: "Débil", color: "bg-orange-500" }
+  if (score === 3) return { score, label: "Media", color: "bg-yellow-500" }
+  if (score === 4) return { score, label: "Fuerte", color: "bg-lime-500" }
+  return { score, label: "Muy fuerte", color: "bg-green-500" }
+}
 
 export default function SignUpPage() {
   const [error, setError] = useState<string | null>(null)
   const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [showRepeatPassword, setShowRepeatPassword] = useState(false)
+  const [password, setPassword] = useState("")
   const router = useRouter()
+
+  const passwordStrength = getPasswordStrength(password)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -107,25 +127,66 @@ export default function SignUpPage() {
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="password">Contraseña</Label>
-                    <Input
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="new-password"
-                      required
-                      disabled={isLoading}
-                    />
+                    <div className="relative">
+                      <Input
+                        id="password"
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        autoComplete="new-password"
+                        required
+                        disabled={isLoading}
+                        className="pr-10"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                        tabIndex={-1}
+                        aria-label={showPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
+                    {password && (
+                      <div className="space-y-1">
+                        <div className="flex gap-1">
+                          {[1, 2, 3, 4, 5].map((i) => (
+                            <div
+                              key={i}
+                              className={`h-1 flex-1 rounded-full transition-colors ${
+                                i <= passwordStrength.score ? passwordStrength.color : "bg-muted"
+                              }`}
+                            />
+                          ))}
+                        </div>
+                        <p className="text-xs text-muted-foreground">{passwordStrength.label}</p>
+                      </div>
+                    )}
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="repeat-password">Repetir Contraseña</Label>
-                    <Input
-                      id="repeat-password"
-                      name="repeatPassword"
-                      type="password"
-                      autoComplete="new-password"
-                      required
-                      disabled={isLoading}
-                    />
+                    <div className="relative">
+                      <Input
+                        id="repeat-password"
+                        name="repeatPassword"
+                        type={showRepeatPassword ? "text" : "password"}
+                        autoComplete="new-password"
+                        required
+                        disabled={isLoading}
+                        className="pr-10"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowRepeatPassword(!showRepeatPassword)}
+                        className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                        tabIndex={-1}
+                        aria-label={showRepeatPassword ? "Ocultar contraseña" : "Mostrar contraseña"}
+                      >
+                        {showRepeatPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
                   </div>
                   {error && <p className="text-sm text-destructive">{error}</p>}
                   <Button type="submit" className="w-full" disabled={isLoading}>

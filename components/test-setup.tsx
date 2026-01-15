@@ -9,6 +9,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import type { Question, QuestionMode, SelectionMode } from "@/lib/types"
 import { Play, BookOpen, Trophy, RefreshCw, CheckCircle2, GraduationCap, Clock, Calendar, Info, CheckSquare } from "lucide-react"
+import { Skeleton } from "@/components/ui/skeleton"
 
 // Question count options for academy/real mode
 const QUESTION_COUNT_OPTIONS = [10, 25, 50, 75, 100]
@@ -302,8 +303,16 @@ export function TestSetup() {
         </div>
 
         {loading ? (
-          <div className="flex items-center justify-center py-12">
-            <p className="text-muted-foreground">Cargando preguntas...</p>
+          <div className="space-y-4">
+            <Skeleton className="h-6 w-48" />
+            <div className="rounded-xl border p-5 space-y-3">
+              <Skeleton className="h-5 w-32" />
+              <div className="space-y-2">
+                <Skeleton className="h-4 w-64" />
+                <Skeleton className="h-4 w-56" />
+                <Skeleton className="h-4 w-48" />
+              </div>
+            </div>
           </div>
         ) : (
           <>

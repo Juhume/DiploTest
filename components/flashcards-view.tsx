@@ -29,6 +29,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
+import { Skeleton } from "@/components/ui/skeleton"
+import { Progress } from "@/components/ui/progress"
 
 interface Bookmark {
   id: string
@@ -49,6 +51,27 @@ export function FlashcardsView() {
   useEffect(() => {
     fetchBookmarks()
   }, [])
+
+  // Keyboard navigation for study mode
+  useEffect(() => {
+    if (!studyMode || bookmarks.length === 0) return
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "ArrowLeft") {
+        setCurrentIndex((prev) => Math.max(0, prev - 1))
+        setShowAnswer(false)
+      } else if (e.key === "ArrowRight") {
+        setCurrentIndex((prev) => Math.min(bookmarks.length - 1, prev + 1))
+        setShowAnswer(false)
+      } else if (e.key === " " && !showAnswer) {
+        e.preventDefault()
+        setShowAnswer(true)
+      }
+    }
+
+    window.addEventListener("keydown", handleKeyDown)
+    return () => window.removeEventListener("keydown", handleKeyDown)
+  }, [studyMode, bookmarks.length, showAnswer])
 
   async function fetchBookmarks() {
     try {
@@ -101,11 +124,30 @@ export function FlashcardsView() {
 
   if (loading) {
     return (
-      <Card>
-        <CardContent className="py-12">
-          <p className="text-center text-muted-foreground">Cargando flashcards...</p>
-        </CardContent>
-      </Card>
+      <div className="space-y-6">
+        <Card>
+          <CardContent className="py-4">
+            <div className="flex items-center justify-between">
+              <Skeleton className="h-8 w-32" />
+              <Skeleton className="h-9 w-24" />
+            </div>
+          </CardContent>
+        </Card>
+        <Card>
+          <CardHeader>
+            <Skeleton className="h-6 w-48" />
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Skeleton className="h-24 w-full" />
+            <div className="space-y-2">
+              <Skeleton className="h-12 w-full" />
+              <Skeleton className="h-12 w-full" />
+              <Skeleton className="h-12 w-full" />
+              <Skeleton className="h-12 w-full" />
+            </div>
+          </CardContent>
+        </Card>
+      </div>
     )
   }
 
@@ -169,7 +211,13 @@ export function FlashcardsView() {
       {studyMode ? (
         /* Study Mode - One card at a time */
         <div className="space-y-4">
-          <Card className="min-h-[400px]">
+          {/* Progress bar */}
+          <Progress value={((currentIndex + 1) / bookmarks.length) * 100} className="h-2" />
+
+          <Card
+            key={currentIndex}
+            className="min-h-[400px] animate-in fade-in slide-in-from-right-4 duration-200"
+          >
             <CardHeader className="pb-2">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">
@@ -247,6 +295,11 @@ export function FlashcardsView() {
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
           </div>
+
+          {/* Keyboard hints */}
+          <p className="text-xs text-center text-muted-foreground">
+            Usa las flechas ← → para navegar y espacio para mostrar la respuesta
+          </p>
         </div>
       ) : (
         /* List Mode - All cards */
