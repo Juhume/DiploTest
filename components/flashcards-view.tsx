@@ -179,7 +179,7 @@ export function FlashcardsView() {
                   <Badge variant="outline">{currentBookmark.question_mode.toUpperCase()}</Badge>
                   <AlertDialog>
                     <AlertDialogTrigger asChild>
-                      <Button variant="ghost" size="icon" className="text-destructive">
+                      <Button variant="ghost" size="icon" className="text-destructive" aria-label="Eliminar flashcard">
                         <Trash2 className="h-4 w-4" />
                       </Button>
                     </AlertDialogTrigger>
@@ -262,7 +262,7 @@ export function FlashcardsView() {
                     <Badge variant="outline">{bookmark.question_mode.toUpperCase()}</Badge>
                     <AlertDialog>
                       <AlertDialogTrigger asChild>
-                        <Button variant="ghost" size="icon" className="text-destructive h-8 w-8">
+                        <Button variant="ghost" size="icon" className="text-destructive h-8 w-8" aria-label="Eliminar flashcard">
                           <BookmarkX className="h-4 w-4" />
                         </Button>
                       </AlertDialogTrigger>
