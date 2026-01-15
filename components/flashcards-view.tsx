@@ -252,7 +252,7 @@ export function FlashcardsView() {
         /* List Mode - All cards */
         <div className="space-y-4">
           {bookmarks.map((bookmark, index) => (
-            <Card key={bookmark.id} className="relative">
+            <Card key={bookmark.id} className="relative content-auto">
               <CardHeader className="pb-2">
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-sm text-muted-foreground">

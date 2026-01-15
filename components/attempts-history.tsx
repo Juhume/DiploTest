@@ -181,7 +181,7 @@ export function AttemptsHistory({ attempts }: AttemptsHistoryProps) {
           {/* Mobile view - cards */}
           <div className="lg:hidden space-y-4">
             {filteredAttempts.map((attempt) => (
-              <Card key={attempt.id}>
+              <Card key={attempt.id} className="content-auto">
                 <CardContent className="pt-4">
                   <div className="flex items-start justify-between mb-3">
                     <div>

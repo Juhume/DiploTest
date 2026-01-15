@@ -235,7 +235,7 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
                     const userAnswer = answers[question.id] || []
 
                     return (
-                      <div key={question.id} className="relative">
+                      <div key={question.id} className="relative content-auto">
                         <div className="absolute -left-2 top-4 z-10">
                           {status === "correct" && (
                             <CheckCircle className="h-5 w-5 text-green-600 bg-background rounded-full" />
