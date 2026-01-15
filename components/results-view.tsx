@@ -291,7 +291,11 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
                   ? "Pool completo"
                   : attempt.selection_mode === "random"
                     ? `Aleatorio (${attempt.selection_meta?.n || attempt.total_questions})`
-                    : `Tema: ${attempt.selection_meta?.tag}`}
+                    : attempt.selection_mode === "review"
+                      ? "Repaso de errores"
+                      : attempt.selection_mode === "tag"
+                        ? `Tema: ${attempt.selection_meta?.tag}`
+                        : attempt.selection_mode}
               </Badge>
             </div>
           </CardContent>
@@ -325,7 +329,7 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
 
                     return (
                       <div key={question.id} className="relative content-auto">
-                        <div className="absolute -left-2 top-4 z-10">
+                        <div className="absolute left-0 top-4 z-10">
                           {status === "correct" && (
                             <CheckCircle className="h-5 w-5 text-green-600 bg-background rounded-full" />
                           )}
@@ -336,7 +340,7 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
                             <MinusCircle className="h-5 w-5 text-muted-foreground bg-background rounded-full" />
                           )}
                         </div>
-                        <div className="pl-4">
+                        <div className="pl-8">
                           <p className="text-xs text-muted-foreground mb-2">
                             Pregunta {questions.findIndex((q) => q.id === question.id) + 1}
                           </p>

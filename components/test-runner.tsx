@@ -338,7 +338,9 @@ export function TestRunner() {
       })
 
       if (!res.ok) {
-        throw new Error("Failed to save attempt")
+        const errorData = await res.json().catch(() => ({}))
+        console.error("Server error details:", errorData, "Sent data:", attemptData)
+        throw new Error(errorData.details || errorData.error || "Failed to save attempt")
       }
 
       const savedAttempt = await res.json()

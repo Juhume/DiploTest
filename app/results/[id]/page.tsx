@@ -35,18 +35,27 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
   const attemptData = attempt as Attempt
 
   // Load questions based on mode
+  // For review mode, load all questions since they can come from any mode
   let allQuestions: Question[]
-  switch (attemptData.question_mode) {
-    case "real":
-      allQuestions = realExamQuestions as Question[]
-      break
-    case "academy":
-      allQuestions = academyQuestions as Question[]
-      break
-    case "demo":
-    default:
-      allQuestions = demoQuestions as Question[]
-      break
+  if (attemptData.selection_mode === "review") {
+    allQuestions = [
+      ...(demoQuestions as Question[]),
+      ...(academyQuestions as Question[]),
+      ...(realExamQuestions as Question[]),
+    ]
+  } else {
+    switch (attemptData.question_mode) {
+      case "real":
+        allQuestions = realExamQuestions as Question[]
+        break
+      case "academy":
+        allQuestions = academyQuestions as Question[]
+        break
+      case "demo":
+      default:
+        allQuestions = demoQuestions as Question[]
+        break
+    }
   }
 
   // Get the questions that were in this attempt from grading (includes blank answers)

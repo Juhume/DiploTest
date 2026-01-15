@@ -91,6 +91,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
+    console.log("Received attempt data:", JSON.stringify(body, null, 2))
     const validatedData = attemptSchema.parse(body)
 
     const { data, error } = await supabase
@@ -109,8 +110,10 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(data, { status: 201 })
   } catch (err) {
     if (err instanceof z.ZodError) {
+      console.error("Zod validation error:", JSON.stringify(err.errors, null, 2))
       return NextResponse.json({ error: "Validation error", details: err.errors }, { status: 400 })
     }
+    console.error("Internal server error:", err)
     return NextResponse.json({ error: "Internal server error", details: String(err) }, { status: 500 })
   }
 }
