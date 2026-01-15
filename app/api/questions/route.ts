@@ -163,9 +163,10 @@ export async function GET(request: NextRequest) {
       return NextResponse.json(questions)
     }
 
-    // For ACADEMY mode, shuffle and limit to 100 questions (like real exam simulation)
+    // For ACADEMY mode, shuffle and limit to user-specified count or 100 by default
     if (mode === "academy") {
-      questions = shuffleArray(questions).slice(0, 100)
+      const limitCount = limit && limit > 0 ? limit : 100
+      questions = shuffleArray(questions).slice(0, limitCount)
       return NextResponse.json(questions)
     }
 
