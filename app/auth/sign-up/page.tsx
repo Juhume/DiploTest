@@ -84,6 +84,7 @@ export default function SignUpPage() {
                       name="username"
                       type="text"
                       placeholder="usuario123"
+                      autoComplete="username"
                       required
                       disabled={isLoading}
                       minLength={3}
@@ -99,6 +100,7 @@ export default function SignUpPage() {
                       name="email"
                       type="email"
                       placeholder="tu@email.com"
+                      autoComplete="email"
                       required
                       disabled={isLoading}
                     />
@@ -109,6 +111,7 @@ export default function SignUpPage() {
                       id="password"
                       name="password"
                       type="password"
+                      autoComplete="new-password"
                       required
                       disabled={isLoading}
                     />
@@ -119,6 +122,7 @@ export default function SignUpPage() {
                       id="repeat-password"
                       name="repeatPassword"
                       type="password"
+                      autoComplete="new-password"
                       required
                       disabled={isLoading}
                     />

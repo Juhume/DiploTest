@@ -76,6 +76,7 @@ export default function LoginPage() {
                       name="email"
                       type="text"
                       placeholder="tu@email.com o usuario123"
+                      autoComplete="username"
                       required
                       disabled={isLoading}
                     />
@@ -94,6 +95,7 @@ export default function LoginPage() {
                       id="password"
                       name="password"
                       type="password"
+                      autoComplete="current-password"
                       required
                       disabled={isLoading}
                     />
