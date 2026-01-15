@@ -24,6 +24,9 @@ import {
   LogOut,
   Filter,
   Heart,
+  Flame,
+  Sparkles,
+  PartyPopper,
 } from "lucide-react"
 
 export default async function GuidePage() {
@@ -248,6 +251,7 @@ export default async function GuidePage() {
               </CardHeader>
               <CardContent className="text-sm text-muted-foreground space-y-2">
                 <p>Salta directamente a cualquier pregunta y visualiza cuáles están respondidas.</p>
+                <p>Incluye barra de progreso y mensajes de ánimo según avanzas.</p>
               </CardContent>
             </Card>
             <Card>
@@ -272,12 +276,39 @@ export default async function GuidePage() {
               Analiza tu rendimiento y aprende de cada respuesta.
             </p>
           </div>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <PartyPopper className="h-4 w-4 text-green-600" />
+                  Celebración al aprobar
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground space-y-2">
+                <p>Cuando apruebas, verás una animación de confetti para celebrar tu logro.</p>
+                <p>Mensajes motivacionales personalizados según tu puntuación.</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Sparkles className="h-4 w-4 text-amber-500" />
+                  Feedback motivacional
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground space-y-2">
+                <p>Si no apruebas, recibes mensajes de ánimo para seguir practicando.</p>
+                <p>Cada intento es una oportunidad de aprender y mejorar.</p>
+              </CardContent>
+            </Card>
+          </div>
           <Card>
             <CardContent className="py-6 text-sm text-muted-foreground">
               <ul className="list-disc space-y-1 pl-5">
                 <li>Resumen de aciertos, fallos, blancos y tiempo total.</li>
                 <li>Filtros para revisar solo correctas, incorrectas o en blanco.</li>
-                <li>Explicaciones detalladas y respuesta correcta resaltada.</li>
+                <li>Explicaciones detalladas y respuesta correcta resaltada con gradientes.</li>
+                <li>Etiquetas "Correcto" / "Incorrecto" junto a cada respuesta.</li>
                 <li>Botón para guardar preguntas en flashcards.</li>
               </ul>
             </CardContent>
@@ -297,10 +328,15 @@ export default async function GuidePage() {
                 <Bookmark className="h-4 w-4 text-primary" />
                 Guarda desde los resultados y accede en "Mis Flashcards".
               </p>
-              <ul className="list-disc space-y-1 pl-5">
+              <ul className="list-disc space-y-1 pl-5 mt-2">
                 <li>Modo estudio con una tarjeta a la vez y opción de mostrar la respuesta.</li>
                 <li>Modo lista para ver todas las tarjetas seguidas.</li>
                 <li>Mezcla y elimina tarjetas según tu prioridad.</li>
+                <li>Barra de progreso visual en modo estudio.</li>
+                <li>
+                  <span className="font-medium">Atajos de teclado:</span> flechas ← → para navegar, espacio para mostrar respuesta.
+                </li>
+                <li>Transiciones suaves al cambiar de tarjeta.</li>
               </ul>
             </CardContent>
           </Card>
@@ -333,15 +369,39 @@ export default async function GuidePage() {
               Seguimiento de progreso, rendimiento por tema y recomendaciones.
             </p>
           </div>
+          <div className="grid gap-4 lg:grid-cols-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <BarChart3 className="h-4 w-4 text-primary" />
+                  Métricas y predicciones
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground space-y-2">
+                <p>Nota media, mejor resultado y predicción basada en tendencia.</p>
+                <p>Evolución temporal con gráficos interactivos.</p>
+              </CardContent>
+            </Card>
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Flame className="h-4 w-4 text-orange-500" />
+                  Racha de estudio
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="text-sm text-muted-foreground space-y-2">
+                <p>Visualiza tu racha con barra de progreso de 7 días.</p>
+                <p>Animaciones especiales cuando mantienes rachas largas.</p>
+                <p>Indicador de récord personal y mensajes motivacionales.</p>
+              </CardContent>
+            </Card>
+          </div>
           <Card>
             <CardContent className="py-6 text-sm text-muted-foreground">
-              <p className="flex items-center gap-2">
-                <BarChart3 className="h-4 w-4 text-primary" />
-                Métricas globales, evolución temporal y puntos débiles.
-              </p>
               <ul className="list-disc space-y-1 pl-5">
-                <li>Predicción de nota y rachas de estudio.</li>
                 <li>Rendimiento por tema cuando hay suficientes intentos.</li>
+                <li>Análisis de puntos débiles con recomendaciones.</li>
+                <li>Resumen de tiempo total de estudio.</li>
               </ul>
             </CardContent>
           </Card>
