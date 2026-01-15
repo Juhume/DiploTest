@@ -179,7 +179,10 @@ export function TestRunner() {
         const params = new URLSearchParams()
         params.set("mode", questionMode)
 
-        if (selectionMode === "random") {
+        // Handle review mode - fetch failed questions
+        if (selectionMode === "review") {
+          params.set("selectionMode", "review")
+        } else if (selectionMode === "random") {
           params.set("random", "true")
           params.set("limit", String(count))
         } else if (selectionMode === "tag" && tag) {

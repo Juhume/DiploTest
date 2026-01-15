@@ -76,33 +76,34 @@ export async function GET(request: NextRequest) {
         return NextResponse.json([])
       }
 
-      // Collect failed question IDs
-      const failedQuestionsMap = new Map<string, { count: number; mode: string }>()
-      const correctedQuestions = new Set<string>()
+      // Track the most recent status for each question (first occurrence = most recent)
+      const questionLatestStatus = new Map<string, { status: string; mode: string }>()
 
+      // Process attempts from newest to oldest - only record first occurrence (most recent)
       attempts.forEach((attempt) => {
         const grading = attempt.grading as Record<string, { status: string }> | null
         if (!grading) return
 
         Object.entries(grading).forEach(([questionId, grade]) => {
-          if (grade.status === "wrong") {
-            if (!correctedQuestions.has(questionId)) {
-              const existing = failedQuestionsMap.get(questionId)
-              if (existing) {
-                existing.count++
-              } else {
-                failedQuestionsMap.set(questionId, { count: 1, mode: attempt.question_mode })
-              }
-            }
-          } else if (grade.status === "correct") {
-            correctedQuestions.add(questionId)
+          // Only record if we haven't seen this question yet (first = most recent)
+          if (!questionLatestStatus.has(questionId)) {
+            questionLatestStatus.set(questionId, {
+              status: grade.status,
+              mode: attempt.question_mode
+            })
           }
         })
       })
 
-      correctedQuestions.forEach((qId) => failedQuestionsMap.delete(qId))
+      // Collect only questions whose most recent status is "wrong"
+      const failedQuestionIds: string[] = []
+      questionLatestStatus.forEach((data, questionId) => {
+        if (data.status === "wrong") {
+          failedQuestionIds.push(questionId)
+        }
+      })
 
-      if (failedQuestionsMap.size === 0) {
+      if (failedQuestionIds.length === 0) {
         return NextResponse.json([])
       }
 
@@ -114,7 +115,7 @@ export async function GET(request: NextRequest) {
       ]
 
       const questionMap = new Map(allQuestions.map((q) => [q.id, q]))
-      const failedQuestionsList = Array.from(failedQuestionsMap.keys())
+      const failedQuestionsList = failedQuestionIds
         .map((id) => questionMap.get(id))
         .filter((q): q is Question => q !== undefined)
 

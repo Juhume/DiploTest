@@ -38,39 +38,41 @@ export async function GET() {
       })
     }
 
-    // Collect all failed question IDs with their failure count
-    const failedQuestionsMap = new Map<string, { count: number, lastFailed: number, mode: string }>()
-    const correctedQuestions = new Set<string>() // Questions answered correctly in later attempts
+    // Track the most recent status for each question (first occurrence = most recent)
+    const questionLatestStatus = new Map<string, { status: string, mode: string, attemptIndex: number }>()
 
-    // Process attempts from newest to oldest
+    // Process attempts from newest to oldest - only record first occurrence (most recent)
     attempts.forEach((attempt, attemptIndex: number) => {
       const grading = attempt.grading as Record<string, { status: string }> | null
       if (!grading) return
 
       Object.entries(grading).forEach(([questionId, grade]) => {
-        if (grade.status === "wrong") {
-          // Only add if not already corrected in a newer attempt
-          if (!correctedQuestions.has(questionId)) {
-            const existing = failedQuestionsMap.get(questionId)
-            if (existing) {
-              existing.count++
-            } else {
-              failedQuestionsMap.set(questionId, {
-                count: 1,
-                lastFailed: attemptIndex,
-                mode: attempt.question_mode
-              })
-            }
-          }
-        } else if (grade.status === "correct") {
-          // Mark as corrected (answered correctly in this or a newer attempt)
-          correctedQuestions.add(questionId)
+        // Only record if we haven't seen this question yet (first = most recent)
+        if (!questionLatestStatus.has(questionId)) {
+          questionLatestStatus.set(questionId, {
+            status: grade.status,
+            mode: attempt.question_mode,
+            attemptIndex
+          })
         }
       })
     })
 
-    // Remove questions that were corrected after being failed
-    correctedQuestions.forEach(qId => failedQuestionsMap.delete(qId))
+    // Separate into failed and corrected based on most recent status
+    const failedQuestionsMap = new Map<string, { count: number, lastFailed: number, mode: string }>()
+    const correctedQuestions = new Set<string>()
+
+    questionLatestStatus.forEach((data, questionId) => {
+      if (data.status === "wrong") {
+        failedQuestionsMap.set(questionId, {
+          count: 1,
+          lastFailed: data.attemptIndex,
+          mode: data.mode
+        })
+      } else if (data.status === "correct") {
+        correctedQuestions.add(questionId)
+      }
+    })
 
     if (failedQuestionsMap.size === 0) {
       return NextResponse.json({
