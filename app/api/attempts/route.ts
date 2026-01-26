@@ -91,7 +91,6 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    console.log("Received attempt data:", JSON.stringify(body, null, 2))
     const validatedData = attemptSchema.parse(body)
 
     const { data, error } = await supabase

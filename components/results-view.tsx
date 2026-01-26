@@ -95,10 +95,11 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
     }
   }
   
-  const isRealMode = attempt.question_mode === "real"
-  const score = isRealMode ? (attempt.correct_count * 0.10) : (attempt.percentage / 10)
-  const passingScore = isRealMode ? 5.8 : 6.0
-  const passed = isRealMode ? (score >= 5.8) : (attempt.percentage >= 60)
+  // Real y Academy usan el mismo sistema de puntuación (0.10 por acierto, umbral 5.8)
+  const isExamMode = attempt.question_mode === "real" || attempt.question_mode === "academy"
+  const score = isExamMode ? (attempt.correct_count * 0.10) : (attempt.percentage / 10)
+  const passingScore = isExamMode ? 5.8 : 6.0
+  const passed = isExamMode ? (score >= 5.8) : (attempt.percentage >= 60)
   const confettiTriggered = useRef(false)
 
   // Celebration confetti effect when passed
@@ -134,13 +135,19 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
     }
   }, [passed])
 
-  // Build index map for O(1) lookups instead of O(n) find()
+  // Build index maps for O(1) lookups instead of O(n) find()/findIndex()
   const questionsById = new Map(questions.map((q) => [q.id, q]))
+  const questionIndexById = new Map(questions.map((q, i) => [q.id, i]))
 
   const getQuestionStatus = (questionId: string): "correct" | "wrong" | "blank" => {
-    const userAnswer = answers[questionId]
+    // Usar el grading precalculado si existe (fuente de verdad)
+    const gradingEntry = attempt.grading?.[questionId]
+    if (gradingEntry) {
+      return gradingEntry.status
+    }
 
-    // Si no hay respuesta en el objeto answers o es un array vacío, es blanco
+    // Fallback: recalcular si no hay grading (intentos antiguos)
+    const userAnswer = answers[questionId]
     if (!userAnswer || userAnswer.length === 0) {
       return "blank"
     }
@@ -230,7 +237,7 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
         <Card className="mb-6">
           <CardContent className="pt-6">
             <div className="text-center mb-6">
-              {isRealMode ? (
+              {isExamMode ? (
                 <>
                   <div className={`text-5xl font-bold ${passed ? "text-green-600" : "text-red-600"}`}>
                     {score.toFixed(2)}
@@ -342,7 +349,7 @@ export function ResultsView({ attempt, questions, answers }: ResultsViewProps) {
                         </div>
                         <div className="pl-8">
                           <p className="text-xs text-muted-foreground mb-2">
-                            Pregunta {questions.findIndex((q) => q.id === question.id) + 1}
+                            Pregunta {(questionIndexById.get(question.id) ?? 0) + 1}
                           </p>
                           <QuestionCard
                             question={question}

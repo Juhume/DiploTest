@@ -31,25 +31,37 @@ function formatDate(dateString: string): string {
   }).format(date)
 }
 
-function formatDateInput(dateString: string): string {
-  const date = new Date(dateString)
-  return date.toISOString().split("T")[0]
-}
-
-function getScoreColor(percentage: number): string {
-  if (percentage >= 70) return "text-green-600"
-  if (percentage >= 50) return "text-amber-600"
+function getScoreColor(attempt: Attempt): string {
+  const isExamMode = attempt.question_mode === "real" || attempt.question_mode === "academy"
+  if (isExamMode) {
+    const score = attempt.correct_count * 0.10
+    // En modo examen: verde si aprueba (>= 5.8), rojo si no
+    return score >= 5.8 ? "text-green-600" : "text-red-600"
+  }
+  // En modo demo: verde >= 70%, ámbar >= 50%, rojo < 50%
+  if (attempt.percentage >= 70) return "text-green-600"
+  if (attempt.percentage >= 50) return "text-amber-600"
   return "text-red-600"
 }
 
 function getModeLabel(mode: string): string {
   if (mode === "demo") return "Demo"
   if (mode === "real") return "Real"
+  if (mode === "academy") return "Academy"
   return mode
 }
 
+function getScoreDisplay(attempt: Attempt): { value: string; isExamMode: boolean } {
+  const isExamMode = attempt.question_mode === "real" || attempt.question_mode === "academy"
+  if (isExamMode) {
+    const score = attempt.correct_count * 0.10
+    return { value: score.toFixed(2), isExamMode: true }
+  }
+  return { value: `${attempt.percentage.toFixed(1)}%`, isExamMode: false }
+}
+
 export function AttemptsHistory({ attempts }: AttemptsHistoryProps) {
-  const [modeFilter, setModeFilter] = useState<"all" | "demo" | "real">("all")
+  const [modeFilter, setModeFilter] = useState<"all" | "demo" | "real" | "academy">("all")
   const [dateFromFilter, setDateFromFilter] = useState("")
   const [dateToFilter, setDateToFilter] = useState("")
 
@@ -109,7 +121,7 @@ export function AttemptsHistory({ attempts }: AttemptsHistoryProps) {
             {/* Mode Filter */}
             <div className="space-y-2">
               <Label htmlFor="mode-filter">Modo</Label>
-              <Select value={modeFilter} onValueChange={(v) => setModeFilter(v as "all" | "demo" | "real")}>
+              <Select value={modeFilter} onValueChange={(v) => setModeFilter(v as "all" | "demo" | "real" | "academy")}>
                 <SelectTrigger id="mode-filter">
                   <SelectValue />
                 </SelectTrigger>
@@ -117,6 +129,7 @@ export function AttemptsHistory({ attempts }: AttemptsHistoryProps) {
                   <SelectItem value="all">Todos</SelectItem>
                   <SelectItem value="demo">Demo</SelectItem>
                   <SelectItem value="real">Real</SelectItem>
+                  <SelectItem value="academy">Academy</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -191,8 +204,8 @@ export function AttemptsHistory({ attempts }: AttemptsHistoryProps) {
                         <Badge variant="secondary">{attempt.selection_mode}</Badge>
                       </div>
                     </div>
-                    <div className={`text-2xl font-bold ${getScoreColor(attempt.percentage)}`}>
-                      {attempt.percentage.toFixed(1)}%
+                    <div className={`text-2xl font-bold ${getScoreColor(attempt)}`}>
+                      {getScoreDisplay(attempt).value}
                     </div>
                   </div>
 
@@ -271,8 +284,8 @@ export function AttemptsHistory({ attempts }: AttemptsHistoryProps) {
                       <TableCell className="text-center text-red-600">{attempt.wrong_count}</TableCell>
                       <TableCell className="text-center">{attempt.blank_count}</TableCell>
                       <TableCell className="text-center">{formatDuration(attempt.duration_seconds)}</TableCell>
-                      <TableCell className={`text-right font-bold ${getScoreColor(attempt.percentage)}`}>
-                        {attempt.percentage.toFixed(1)}%
+                      <TableCell className={`text-right font-bold ${getScoreColor(attempt)}`}>
+                        {getScoreDisplay(attempt).value}
                       </TableCell>
                       <TableCell>
                         <Button variant="ghost" size="sm" asChild>

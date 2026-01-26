@@ -12,7 +12,8 @@ import type { Question, QuestionMode, SelectionMode } from "@/lib/types"
 import { gradeAttempt } from "@/lib/grading"
 import { useTestAnalytics } from "@/hooks/use-analytics"
 import { useTestTimer } from "@/hooks/use-test-timer"
-import { AlertCircle, ChevronLeft, ChevronRight, Flag, Loader2, Calendar, LogOut } from "lucide-react"
+import { AlertCircle, ChevronLeft, ChevronRight, ChevronDown, ChevronUp, Flag, Loader2, Calendar, LogOut, Copy, RefreshCw, Check } from "lucide-react"
+import { toast } from "sonner"
 import { Badge } from "@/components/ui/badge"
 import {
   AlertDialog,
@@ -56,6 +57,9 @@ export function TestRunner() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [errorTrace, setErrorTrace] = useState<string | null>(null)
+  const [showErrorTrace, setShowErrorTrace] = useState(false)
+  const [copied, setCopied] = useState(false)
   const [showNavPanel, setShowNavPanel] = useState(false)
   const [timeExpiredMessage, setTimeExpiredMessage] = useState<string | null>(null)
 
@@ -94,15 +98,28 @@ export function TestRunner() {
     if (autoFinishTriggeredRef.current) return
     autoFinishTriggeredRef.current = true
 
-    setTimeExpiredMessage("Tiempo agotado (135:00). El test se ha enviado automáticamente.")
-
     // Use refs to get current values
     const currentAnswers = answersRef.current
     const currentQuestions = questionsRef.current
 
-    if (currentQuestions.length === 0) return
+    // Si las preguntas no se han cargado (ej: usuario vuelve a un test expirado),
+    // limpiar todo y redirigir al inicio
+    if (currentQuestions.length === 0) {
+      clearTimer?.()
+      sessionStorage.removeItem("current_test_attempt_key")
+      setError("El tiempo del test ha expirado. Por favor, inicia un nuevo test.")
+      return
+    }
+
+    setTimeExpiredMessage("Tiempo agotado (135:00). El test se ha enviado automáticamente.")
 
     setSaving(true)
+    setError(null)
+    setErrorTrace(null)
+
+    // Track if we already set a detailed error trace
+    let traceAlreadySet = false
+
     const durationSeconds = TEST_DURATION_SECONDS // Full time used
     const result = gradeAttempt(currentQuestions, currentAnswers, questionMode)
 
@@ -138,26 +155,57 @@ export function TestRunner() {
       })
 
       if (!res.ok) {
-        throw new Error("Failed to save attempt")
+        const errorData = await res.json().catch(() => ({}))
+        const errorMessage = errorData.details || errorData.error || "Failed to save attempt"
+        const trace = JSON.stringify({
+          status: res.status,
+          statusText: res.statusText,
+          serverError: errorData,
+          attemptData: {
+            ...attemptData,
+            answers: `[${Object.keys(attemptData.answers).length} respuestas]`,
+            grading: `[${Object.keys(attemptData.grading).length} preguntas evaluadas]`,
+          },
+          timestamp: new Date().toISOString(),
+          context: "timer_expire",
+        }, null, 2)
+        setErrorTrace(trace)
+        traceAlreadySet = true
+        throw new Error(errorMessage)
       }
 
       const savedAttempt = await res.json()
 
       trackTestComplete(questionMode, result.score, durationSeconds, result.passed)
 
+      // Clear timer from localStorage
+      clearTimer?.()
       // Clear session storage for attempt key
       sessionStorage.removeItem("current_test_attempt_key")
+
+      // Clear time expired message before redirect
+      setTimeExpiredMessage(null)
 
       // Redirect with time expired flag
       router.push(`/results/${savedAttempt.id}?timeExpired=true`)
     } catch (err) {
       console.error("Error saving attempt on timer expire:", err)
+      setTimeExpiredMessage(null) // Clear to show error overlay
       setError("No se pudo guardar el intento. Por favor, inténtalo de nuevo.")
+      // Only set trace if we haven't already set a more detailed one
+      if (!traceAlreadySet && err instanceof Error) {
+        setErrorTrace(JSON.stringify({
+          message: err.message,
+          stack: err.stack,
+          timestamp: new Date().toISOString(),
+          context: "timer_expire",
+        }, null, 2))
+      }
       autoFinishTriggeredRef.current = false
     } finally {
       setSaving(false)
     }
-  }, [questionMode, selectionMode, count, tag, examYear, trackTestComplete, router])
+  }, [questionMode, selectionMode, count, tag, examYear, trackTestComplete, router, clearTimer])
 
   // Initialize timer hook
   const {
@@ -297,10 +345,14 @@ export function TestRunner() {
   }, [isExpired])
 
   const handleFinishTest = async () => {
-    // Prevent finishing if already saving or expired
+    // Prevent finishing if already saving or expired (using ref for sync check)
     if (saving || autoFinishTriggeredRef.current) return
+    autoFinishTriggeredRef.current = true
 
     setSaving(true)
+    setError(null)
+    setErrorTrace(null)
+
     const durationSeconds = Math.floor((Date.now() - startTime) / 1000)
     const result = gradeAttempt(questions, answers, questionMode)
 
@@ -314,6 +366,9 @@ export function TestRunner() {
     if (examYear) {
       selectionMeta.examYear = parseInt(examYear, 10)
     }
+
+    // Track if we already set a detailed error trace (to avoid overwriting with less useful info)
+    let traceAlreadySet = false
 
     // Save attempt to database
     try {
@@ -339,14 +394,28 @@ export function TestRunner() {
 
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({}))
-        console.error("Server error details:", errorData, "Sent data:", attemptData)
-        throw new Error(errorData.details || errorData.error || "Failed to save attempt")
+        const errorMessage = errorData.details || errorData.error || "Failed to save attempt"
+        const trace = JSON.stringify({
+          status: res.status,
+          statusText: res.statusText,
+          serverError: errorData,
+          attemptData: {
+            ...attemptData,
+            answers: `[${Object.keys(attemptData.answers).length} respuestas]`,
+            grading: `[${Object.keys(attemptData.grading).length} preguntas evaluadas]`,
+          },
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+        }, null, 2)
+        setErrorTrace(trace)
+        traceAlreadySet = true
+        throw new Error(errorMessage)
       }
 
       const savedAttempt = await res.json()
 
       // Clear timer from storage on manual finish
-      clearTimer()
+      clearTimer?.()
       // Clear session storage for attempt key
       sessionStorage.removeItem("current_test_attempt_key")
 
@@ -363,6 +432,17 @@ export function TestRunner() {
     } catch (err) {
       console.error("Error saving attempt:", err)
       setError("No se pudo guardar el intento. Por favor, inténtalo de nuevo.")
+      // Only set trace if we haven't already set a more detailed one
+      if (!traceAlreadySet && err instanceof Error) {
+        setErrorTrace(JSON.stringify({
+          message: err.message,
+          stack: err.stack,
+          timestamp: new Date().toISOString(),
+          userAgent: navigator.userAgent,
+        }, null, 2))
+      }
+      // Reset ref to allow retry
+      autoFinishTriggeredRef.current = false
     } finally {
       setSaving(false)
     }
@@ -370,7 +450,7 @@ export function TestRunner() {
 
   const handleExitTest = useCallback(() => {
     if (saving || autoFinishTriggeredRef.current || isExpired) return
-    clearTimer()
+    clearTimer?.()
     sessionStorage.removeItem("current_test_attempt_key")
     router.push("/app")
   }, [clearTimer, isExpired, router, saving])
@@ -418,6 +498,85 @@ export function TestRunner() {
               <div className="flex items-center justify-center">
                 <Loader2 className="h-5 w-5 animate-spin mr-2" />
                 <span>Guardando resultados...</span>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      {/* Error overlay with trace toggle - responsive */}
+      {error && !saving && (
+        <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-2 sm:p-4">
+          <Card className="w-full max-w-[calc(100vw-1rem)] sm:max-w-lg max-h-[calc(100vh-1rem)] overflow-y-auto">
+            <CardContent className="pt-4 sm:pt-6 space-y-3 sm:space-y-4">
+              <div className="text-center">
+                <AlertCircle className="h-10 w-10 sm:h-12 sm:w-12 text-destructive mx-auto" />
+                <h2 className="text-lg sm:text-xl font-semibold mt-3 sm:mt-4">Error al guardar</h2>
+                <p className="text-sm sm:text-base text-muted-foreground mt-2">{error}</p>
+              </div>
+
+              {errorTrace && (
+                <div className="space-y-2">
+                  <button
+                    type="button"
+                    onClick={() => setShowErrorTrace(!showErrorTrace)}
+                    className="flex items-center gap-2 text-xs sm:text-sm text-muted-foreground hover:text-foreground transition-colors w-full justify-center py-1"
+                  >
+                    {showErrorTrace ? (
+                      <ChevronUp className="h-4 w-4 flex-shrink-0" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 flex-shrink-0" />
+                    )}
+                    <span className="truncate">
+                      {showErrorTrace ? "Ocultar detalles técnicos" : "Ver detalles técnicos"}
+                    </span>
+                  </button>
+
+                  {showErrorTrace && (
+                    <div className="relative">
+                      <pre className="text-[10px] sm:text-xs bg-muted p-2 sm:p-3 rounded-md overflow-x-auto overflow-y-auto max-h-32 sm:max-h-48 text-left whitespace-pre-wrap break-all sm:break-normal sm:whitespace-pre">
+                        {errorTrace}
+                      </pre>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="absolute top-1 right-1 sm:top-2 sm:right-2 h-7 w-7 sm:h-8 sm:w-8 p-0"
+                        onClick={() => {
+                          navigator.clipboard.writeText(errorTrace)
+                          setCopied(true)
+                          toast.success("Copiado al portapapeles")
+                          setTimeout(() => setCopied(false), 2000)
+                        }}
+                      >
+                        {copied ? (
+                          <Check className="h-3 w-3 text-green-600" />
+                        ) : (
+                          <Copy className="h-3 w-3" />
+                        )}
+                      </Button>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 justify-center pt-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="sm:size-default"
+                  onClick={() => {
+                    setError(null)
+                    setErrorTrace(null)
+                    setShowErrorTrace(false)
+                    setCopied(false)
+                  }}
+                >
+                  Cerrar
+                </Button>
+                <Button size="sm" className="sm:size-default" onClick={handleFinishTest} disabled={saving}>
+                  <RefreshCw className="h-4 w-4 mr-2" />
+                  Reintentar
+                </Button>
               </div>
             </CardContent>
           </Card>

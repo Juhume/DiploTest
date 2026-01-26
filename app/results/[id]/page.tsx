@@ -68,9 +68,9 @@ export default async function ResultsPage({ params }: ResultsPageProps) {
 
   // Use Set for O(1) lookups instead of O(n) array.includes()
   const questionIdsSet = new Set(questionIdsArray)
-  const questions = questionIdsSet.size > 0
-    ? allQuestions.filter((q) => questionIdsSet.has(q.id))
-    : allQuestions
+  // Solo filtrar preguntas que realmente estuvieron en el intento
+  // Si no hay IDs, no mostrar ninguna pregunta (evita mostrar preguntas que el usuario nunca vio)
+  const questions = allQuestions.filter((q) => questionIdsSet.has(q.id))
 
   return (
     <main className="min-h-screen bg-background">
