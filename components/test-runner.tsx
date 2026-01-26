@@ -92,6 +92,8 @@ export function TestRunner() {
   // Ref to store questions for auto-finish
   const questionsRef = useRef(questions)
   questionsRef.current = questions
+  // Ref to store clearTimer function (to avoid temporal dead zone with useCallback)
+  const clearTimerRef = useRef<(() => void) | null>(null)
 
   // Handle timer expiration - auto finish test
   const handleTimerExpire = useCallback(async () => {
@@ -105,7 +107,7 @@ export function TestRunner() {
     // Si las preguntas no se han cargado (ej: usuario vuelve a un test expirado),
     // limpiar todo y redirigir al inicio
     if (currentQuestions.length === 0) {
-      clearTimer?.()
+      clearTimerRef.current?.()
       sessionStorage.removeItem("current_test_attempt_key")
       setError("El tiempo del test ha expirado. Por favor, inicia un nuevo test.")
       return
@@ -179,7 +181,7 @@ export function TestRunner() {
       trackTestComplete(questionMode, result.score, durationSeconds, result.passed)
 
       // Clear timer from localStorage
-      clearTimer?.()
+      clearTimerRef.current?.()
       // Clear session storage for attempt key
       sessionStorage.removeItem("current_test_attempt_key")
 
@@ -205,7 +207,7 @@ export function TestRunner() {
     } finally {
       setSaving(false)
     }
-  }, [questionMode, selectionMode, count, tag, examYear, trackTestComplete, router, clearTimer])
+  }, [questionMode, selectionMode, count, tag, examYear, trackTestComplete, router])
 
   // Initialize timer hook
   const {
@@ -220,6 +222,9 @@ export function TestRunner() {
     onExpire: handleTimerExpire,
     enabled: timerEnabled,
   })
+
+  // Keep ref in sync for use in handleTimerExpire
+  clearTimerRef.current = clearTimer
 
   useEffect(() => {
     async function fetchAndFilterQuestions() {
